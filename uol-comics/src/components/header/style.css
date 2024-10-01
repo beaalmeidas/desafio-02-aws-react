@@ -87,10 +87,10 @@ section.name-filter label, section.name-filter input{
     line-height: 28.8px;
     font-family: "Sofia Sans", system-ui;
 }
-.right-side-header .links a:nth-child(1) p{
+.right-side-header .links a p{
     color: var(--color-black_text);
 }
-.right-side-header .links a:nth-child(2) p{
+.right-side-header .links a p.selected{
     color: var(--color-brand);
 }
 

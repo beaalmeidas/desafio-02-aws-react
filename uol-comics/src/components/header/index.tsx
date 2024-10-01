@@ -59,7 +59,7 @@ const Header = (props: Props) => {
                 <div className="links">
                     {/* 'a' vai mudar pra 'Link' */}
                     <a href="#"><p className="font-regular">Quadrinhos</p></a>
-                    <a href="#"><p className="font-regular">Personagens</p></a>
+                    <a href="#"><p className="font-regular selected">Personagens</p></a>
                 </div>
                 <a href="#">
                     <div className="go-to-cart">
