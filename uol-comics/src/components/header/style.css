@@ -1,12 +1,13 @@
 header{
     background-color: var(--bg-primary);
-    width: 100%;
+    width: 1440px;
     height: 128px;
     padding: 0 32px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     box-shadow: 6px 10px 16px 4px rgba(0,0,0,.06);
+    box-sizing: border-box;
 }
 
 /*Title*/
@@ -48,7 +49,7 @@ section.name-filter input:focus{
 }
 section.name-filter label{
     cursor: text;
-    z-index: 2;
+    z-index: 1;
     margin: 8px 16px;
     display: flex;
     justify-content: center;
@@ -65,4 +66,34 @@ section.name-filter label, section.name-filter input{
 /*Right Side Header*/
 .right-side-header{
     width: 488px;
+    z-index: 2;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.right-side-header .links{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 268px;
+    gap: 16px;
+}
+.right-side-header .links a{
+    text-decoration: none;
+    cursor: pointer;
+}
+.right-side-header .links a p{
+    font-size: 24px;
+    line-height: 28.8px;
+    font-family: "Sofia Sans", system-ui;
+}
+.right-side-header .links a:nth-child(1) p{
+    color: var(--color-black_text);
+}
+.right-side-header .links a:nth-child(2) p{
+    color: var(--color-brand);
+}
+
+.cart-icon{
+
 }

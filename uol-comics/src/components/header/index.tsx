@@ -37,9 +37,12 @@ const Header = () => {
             <section className="right-side-header">
                 <div className="links">
                     {/* 'a' vai mudar pra 'Link' */}
-                    <a href="#"><p>Quadrinhos</p></a>
-                    <a href="#"><p>Personagens</p></a>
+                    <a href="#"><p className="font-regular">Quadrinhos</p></a>
+                    <a href="#"><p className="font-regular">Personagens</p></a>
                 </div>
+                <a href="#">
+                    <img className="cart-icon" src="./assets/svg/cart.svg" alt="Carrinho" />
+                </a>
             </section>
         </header>
     )
