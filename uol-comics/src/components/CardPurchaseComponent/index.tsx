@@ -25,6 +25,10 @@ const CardPurchaseComponent: React.FC = () =>
         try
         {
             const response = await axios.get(`https://viacep.com.br/ws/${cepString}/json/`)
+            if(response.status === 500)
+            {
+                toast.error('')
+            }
 
             if(response.status === 404)
             {
@@ -67,12 +71,6 @@ const CardPurchaseComponent: React.FC = () =>
 
     const handleSubmitCEP = (e) => {
 
-        let errorMessage: string = 'As seguintes '
-        if(cepS === ''){
-            errorMessage = ''
-        }
-
-
         e.preventDefault()
 
         if(unity == '')
@@ -110,7 +108,7 @@ const CardPurchaseComponent: React.FC = () =>
                         onChange={(e) => setUnity(e.target.value)}
                         placeholder='Número do endereço' />
                         <input 
-                        value={extras}
+                        value={isValidCep && data ? data.complemento : extras}
                         type="text"
                         onChange={(e) => setExtras(e.target.value)}
                         placeholder='Complemento' />
