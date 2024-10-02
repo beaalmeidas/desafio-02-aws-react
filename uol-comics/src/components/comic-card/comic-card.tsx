@@ -1,5 +1,5 @@
 import React from 'react';
-import './comicCard.css';
+import './comic-card-style.css';
 
 interface ComicCardProps {
     cover_image: string;
