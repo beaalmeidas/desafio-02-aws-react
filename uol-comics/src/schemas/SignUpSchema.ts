@@ -1,5 +1,5 @@
 import * as z from 'zod';
-const signUpFormSchema = z.object({
+export const signUpFormSchema = z.object({
     username: z.string()
     .min(3,{message: "Username is required"})
     .regex(/^[a-zA-ZÀ-ÖØ-öø-ÿ\s]{3,30}$/, "Username must be 3-30 characters"),
