@@ -4,8 +4,6 @@ import ComicCard from "../components/comic-card/comic-card";
 const ComicsPage = () => {
     return (
         <div className="comics-page">
-            <h1>Nossos Quadrinhos</h1>
-            
             <div className="comic-cards-container">
             <ComicCard 
                 cover_image="https://example.com/imagem1.jpg"
