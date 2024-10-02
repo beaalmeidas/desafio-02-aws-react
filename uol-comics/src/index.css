@@ -1,6 +1,9 @@
 /*Fontes*/
 @import url('https://fonts.googleapis.com/css2?family=Sofia+Sans:ital,wght@0,1..1000;1,1..1000&display=swap');
 
+/* import 'react-toastify/dist/ReactToastify.css'; */
+
+
 * {
     font-family: 'Sofia Sans';
     margin: 0;
