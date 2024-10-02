@@ -3,3 +3,15 @@
     padding: 0;
 }
 
+.npc, .theOne {
+    cursor: pointer;
+}
+
+.npc {
+    background-color: rgb(138, 138, 138);
+}
+
+.theOne {
+    background-color: rgb(255, 199, 96);
+    border: 2px solid rgb(243, 97, 0);
+}
