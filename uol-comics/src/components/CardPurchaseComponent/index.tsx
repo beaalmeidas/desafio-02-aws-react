@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import React,{ useState } from 'react'
 import './style.css'
 import axios from 'axios'
 import { CepProps } from '../../types/cep'
@@ -6,7 +6,7 @@ import { innerBrazil } from '../../types/uf'
 import { FaExclamationCircle } from 'react-icons/fa';
 import { toast } from 'react-toastify'
 
-const CardPurchaseComponent = () => 
+const CardPurchaseComponent: React.FC = () => 
 {
     //const [ceps, setCeps] = useState<string[]>([])
     const [cepS, setCepS] = useState('')
@@ -25,10 +25,10 @@ const CardPurchaseComponent = () =>
         try
         {
             const response = await axios.get(`https://viacep.com.br/ws/${cepString}/json/`)
+
             if(response.status === 404)
             {
                 toast.error('O CEP não foi encontrado, verifique-o e tento novamente.')
-                //setError(true)
                 setIsValidCep(false)
                 return
             }
@@ -39,6 +39,8 @@ const CardPurchaseComponent = () =>
                 setIsValidCep(false)
                 return
             }
+            else { toast.error('') }
+
             console.log(response.data)
             setData(response.data)
 
@@ -64,7 +66,17 @@ const CardPurchaseComponent = () =>
     }
 
     const handleSubmitCEP = (e) => {
+
+        let errorMessage: string = 'As seguintes '
+        if(cepS === ''){
+            errorMessage = ''
+        }
+
+
         e.preventDefault()
+
+        if(unity == '')
+        toast.success('Suas informações foram aceitas com sucesso')
         getCeps(cepS)
     }
 
@@ -85,42 +97,35 @@ const CardPurchaseComponent = () =>
                         value={cepS}
                         onChange={(e) => setCepS(e.target.value)} 
                         type="text"
-                        required 
                         placeholder='CEP (apenas números)'/>
                         <button type='submit'>enviar</button>
                         <input
                         value={isValidCep && data ? data.logradouro : adress}
                         onChange={(e) => setAdress(e.target.value)}
                         type="text" 
-                        required
                         placeholder='Endereço' />
                         <input
                         value={isValidCep && data ? data.unidade : unity}
                         type="text" 
                         onChange={(e) => setUnity(e.target.value)}
-                        required
                         placeholder='Número do endereço' />
                         <input 
-                        value={isValidCep && data ? data.complemento : extras}
+                        value={extras}
                         type="text"
                         onChange={(e) => setExtras(e.target.value)}
-                        required
                         placeholder='Complemento' />
                         <input 
                         value={isValidCep && data ? data.bairro : hood}
                         type="text"
                         onChange={(e) => setHood(e.target.value)}
-                        required
                         placeholder='Bairro' />
                         <input 
                         value={isValidCep && data ? data.localidade : city}
                         type="text"
                         onChange={(e) => setCity(e.target.value)}
-                        required
                         placeholder='Cidade' />
                         <select
                         onChange={(e) => setState(e.target.value)}
-                        required
                         value={data?.uf && state}>
                         {
                             innerBrazil.map((uf) => 
