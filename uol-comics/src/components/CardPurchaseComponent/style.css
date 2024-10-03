@@ -16,3 +16,13 @@
     background-color: rgb(255, 199, 96);
     border: 2px solid rgb(243, 97, 0);
 }
+
+.warningForm {
+    display: flex;
+}
+
+.warFormIcon {
+    color: orange;
+    width: 50px;
+    padding: 0%;
+}

@@ -1,12 +1,18 @@
-import React,{ useState } from 'react'
+import React,{ useState, useRef } from 'react'
 import './style.css'
 import axios from 'axios'
 import { CepProps } from '../../types/cep'
 import { innerBrazil } from '../../types/uf'
-import { FaExclamationCircle } from 'react-icons/fa';
+import { FaExclamationCircle } from 'react-icons/fa'
 import { toast } from 'react-toastify'
 import { makeItRandom } from '../../types/random'
 import Header from "../header"
+import "react-toastify/dist/ReactToastify.minimal.css"
+import { useNavigate } from 'react-router-dom'
+
+export interface InfoToFinish extends CepProps {
+    getChoice : string
+}
 
 const CardPurchaseComponent: React.FC = () => 
 {
@@ -21,31 +27,31 @@ const CardPurchaseComponent: React.FC = () =>
     const [ufs, setUfs] = useState('')
     const [hood, setHood] = useState('')
     const [choice ,setChoice] = useState('')
-    const [dontChangeRandomNum, setDontChangeRandomNum] = useState(makeItRandom(3, 30))
+    
+    const dontChangeRandomNum = useRef(makeItRandom(3, 30)).current
+    const navigate = useNavigate();
 
     const getCeps = async (cepString: string) =>
     {
-        //Agonia desnecessária desse TypeScript
-        setDontChangeRandomNum(makeItRandom(3, 30))
         try
         {
             const response = await axios.get(`https://viacep.com.br/ws/${cepString}/json/`)
+            
             if(response.status === 500)
             {
                 toast.error('Alguém tropeçou em um dos cabos do nosso servidor, '
                     +'por favor tente realizar essa compra novamente mais tarde...')
             }
-
+            // if(cepString.length !== 8)
+            // {
+            //     toast.error('CEP inválido, por favor, digite apenas um '
+            //         + 'número de 8 dígitos. Sem o uso de caracteres especiais como -, @, #, !')
+            //     setIsValidCep(false)
+            //     return
+            // }
             if(response.status === 404)
             {
                 toast.error('O CEP não foi encontrado, verifique-o e tento novamente.')
-                setIsValidCep(false)
-                return
-            }
-            if(cepString.length != 8)
-            {
-                toast.error('CEP inválido, por favor, digite apenas um '
-                    + 'número de 8 dígitos. Sem o uso de caracteres especiais como -, @, #, !')
                 setIsValidCep(false)
                 return
             }
@@ -65,13 +71,20 @@ const CardPurchaseComponent: React.FC = () =>
                 localidade, logradouro,
                 uf, unidade 
             }
+            
+            setAdress(logradouro)
+            setUnity(unidade)
+            setExtraInfo(complemento)
+            setCity(localidade)
+            setUfs(uf)
+            setChoice(choice)
+            setHood(bairro)            
             setCepS(cepData.cep)
             setIsValidCep(true)
+            console.log(data)
         }
         catch (error)
-        {
-            toast.success('Não foi possível buscar as informações do seu CEP.\nMOTIVO:' + error)
-        }
+        { toast.error('Não foi possível buscar as informações do seu CEP.\nMOTIVO: ' + error)}
     }
 
     const handleSubmitCEP = (e: React.FormEvent) => {
@@ -81,43 +94,83 @@ const CardPurchaseComponent: React.FC = () =>
         let noInfoErrorMsg = `ATENÇÃO: os seguintes campos não foram preenchidos:`
         const emptyFields = 
         [
+            { value: cepS, label: 'CEP'},
             { value: adress, label: 'Endereço' },
             { value: unity, label: 'Número do endereço' },
             { value: hood, label: 'Bairro' },
             { value: city, label: 'Cidade' },
-            { value: ufs, label: 'Estado' },
         ].filter(field => field.value === '');
 
         if(emptyFields.length === 5)
         {
-            toast.error('Preencha os campos do formulário!')
-            return
+            return toast.warn(
+            <div className='warningForm'>
+                <FaExclamationCircle className='warFormIcon'/>
+                <p>Preencha os campos do formulário!</p>
+            </div>,
+            {
+                icon: false,
+            })
         }
         else if(emptyFields.length > 0)
         {
             emptyFields.forEach((field) => 
             {
-                    if(emptyFields.length === 1) 
-                    { 
-                        return toast.error(`ATENÇÃO:
-                        o seguinte campo não foi preenchido: ${field.label}`)
-                    }
-                    else
+                if(emptyFields.length === 1) 
+                { 
+                    toast.warn(
+                    <div className='warningForm'>
+                        <FaExclamationCircle className='warFormIcon'/>
+                        <p>{`ATENÇÃO: o seguinte campo não foi preenchido: ${field.label}`}</p>
+                    </div>,
                     {
-                        noInfoErrorMsg += `\n- ${field.label}`
-                        return toast.error(noInfoErrorMsg)
-                    }
+                        icon: false,
+                        pauseOnHover: true   
+                    })
+                    return
+                }
+                else if(emptyFields.length > 1 && emptyFields.length < 5) 
+                { 
+                    noInfoErrorMsg += `\n-${field.label};` 
+                }
             })
+
+            if(emptyFields.length > 1)
+            {
+                toast.warn(
+                    <div className='warningForm'>
+                        <FaExclamationCircle className='warFormIcon'/>
+                        <div>
+                            {noInfoErrorMsg.split('\n').map((line) => 
+                            (<p>{line}</p>))}
+                        </div>
+                    </div>,
+                    {
+                        icon: false,
+                        pauseOnHover: true
+                    } 
+                )
+            }
             return
         }
             
-        toast.success('Suas informações foram aceitas com sucesso!')
-        getCeps(cepS)
-    }
+        if(!isValidCep) { 
+            toast.error("CEP inválido, por favor, digite apenas um "
+                + "número de 8 dígitos. Sem o uso de caracteres especiais como '-' ou '.'")
+            return
+        }
 
-    // const finishThePurchase = () => {
-    //     navegate('../FinishedPurComponent/index.tsx')
-    // }
+        const infoToFinish: InfoToFinish = {
+            ...data!,
+            getChoice: choice
+        }
+
+
+        //toast.success('Suas informações foram aceitas com sucesso!')
+        //getCeps(cepS)
+        navigate('/finished-pur-page', { state: infoToFinish })
+
+    }
 
     return (
         <div className='main'>
@@ -138,35 +191,35 @@ const CardPurchaseComponent: React.FC = () =>
                         onChange={(e) => setCepS(e.target.value)} 
                         type="text"
                         placeholder='CEP (apenas números)'/>
-                        <button type='submit'>enviar</button>
+                        {/* <button type='submit'>enviar</button> */}
                         <input
-                        value={isValidCep && data ? data.logradouro : adress}
+                        value={adress}
                         onChange={(e) => setAdress(e.target.value)}
                         type="text" 
                         placeholder='Endereço' />
                         <input
-                        value={isValidCep && data ? data.unidade : unity}
+                        value={unity}
                         type="text" 
                         onChange={(e) => setUnity(e.target.value)}
                         placeholder='Número do endereço' />
                         <input 
-                        value={isValidCep && data ? data.complemento : extraInfo}
+                        value={extraInfo}
                         type="text"
                         onChange={(e) => setExtraInfo(e.target.value)}
                         placeholder='Complemento' />
                         <input 
-                        value={isValidCep && data ? data.bairro : hood}
+                        value={hood}
                         type="text"
                         onChange={(e) => setHood(e.target.value)}
                         placeholder='Bairro' />
                         <input 
-                        value={isValidCep && data ? data.localidade : city}
+                        value={city}
                         type="text"
                         onChange={(e) => setCity(e.target.value)}
                         placeholder='Cidade' />
                         <select
                         onChange={(e) => setUfs(e.target.value)}
-                        value={data?.uf && ufs}>
+                        value={ufs}>
                         {
                             innerBrazil.map((uf) => 
                             (
@@ -221,3 +274,4 @@ const CardPurchaseComponent: React.FC = () =>
 
 
 export default CardPurchaseComponent
+                
