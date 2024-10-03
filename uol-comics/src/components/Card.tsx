@@ -12,7 +12,7 @@ export const Card = ({ name, imageUrl }: CardProps) => {
         <img src={imageUrl} alt={name} className={styles.image} />
         <div className={styles.name}>{name}</div>
       </div>
-      <button>Carregar mais</button>
+      <button className="more-items">Carregar mais</button>
     </div>
   );
 };
