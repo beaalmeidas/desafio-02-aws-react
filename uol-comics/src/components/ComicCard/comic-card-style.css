@@ -2,8 +2,7 @@
 
 /* CARD COM AS INFORMAÇÕES DO QUADRINHO ----------------- */
 .comic-card {
-    width: 340px;
-    height: 557px;
+    width: 298px;
     padding: 8px;
     gap: 8px;
     transition: background-color 0.2s ease;
@@ -19,6 +18,7 @@
 /* CAPA DO QUADRINHO ------------------------------------ */
 .comic-cover-image {
     max-width: 324px;
+    height: 450px;
 }
 
 
