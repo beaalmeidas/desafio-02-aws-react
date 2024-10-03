@@ -68,6 +68,9 @@
     border-radius: 0 8px 0 8px;
     cursor: pointer;
 }
+.delete-icon img{
+    width: 24px;
+}
 .item-on-cart .price{
     position: relative;
     left: 85%;

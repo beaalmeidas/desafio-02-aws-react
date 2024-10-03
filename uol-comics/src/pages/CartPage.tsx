@@ -1,26 +1,17 @@
 import { useState } from 'react';
 import './generalStyle.css'
-import ComicCard from '../components/comic-card/comic-card';
-import CardPurchaseComponent from '../components/CardPurchaseComponent';
 import CartItem from '../components/CartItem';
 
 type BuyableItems = {
     id: number,
     name: string,
     price: number,
-    quantity: number
+    quantity: number,
+    img: string,
 }
 
 const CartPage = () => {
-    
-    const testArray = [
-        {id: 1, name: "Como treinar seu dragão", price: 20.9, quantity: 2},
-        {id: 2, name: "AAAAAAAAAAAa", price: 20.9, quantity: 5},
-        {id: 3, name: "ffffffffffffffo", price: 20.9, quantity: 2},
-        {id: 4, name: "Como treaaaaaainar seu dragão", price: 20.9, quantity: 1}
-    ]
-
-    const [cartItems, setCartItems] = useState<Array<BuyableItems>>(testArray)
+    const [cartItems, setCartItems] = useState<Array<BuyableItems>>([])
     
     return (
         <> 
@@ -28,7 +19,13 @@ const CartPage = () => {
             {cartItems.length > 0 && (
                 <section className="cart-items">
                     {cartItems.map(item=>(
-                        <CartItem/>
+                        <CartItem
+                        key={item.id}
+                        title={item.name}
+                        image={item.img}
+                        originalPrice={item.price}
+                        count={item.quantity}
+                        />
                     ))}
                 </section>
             )}

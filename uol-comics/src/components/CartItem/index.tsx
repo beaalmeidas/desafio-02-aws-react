@@ -1,25 +1,47 @@
+import { useEffect, useState } from 'react'
 import './style.css'
 
-const CartItem = () => {
+type Prop = {
+    image: string,
+    title: string,
+    originalPrice: number,
+    count: number
+}
+
+const CartItem = ({image, title, originalPrice, count}: Prop) => {
+    const [itemPrice,setItemPrice] = useState(originalPrice)
+    const [baseCount, setBaseCount] = useState(count)
+
+    useEffect(()=> {
+        setBaseCount(count)
+    },[])
+
+    useEffect(() => {
+        setItemPrice(baseCount * originalPrice)
+    },[originalPrice, baseCount])
 
     return (
         <div className='item-on-cart'>
-            
-
             <div className='item-information'>
-                <img src='./assets/images/uol-logo.png' alt="miniatura"/>
+                <img src={image} alt="miniatura"/>
                 <div className='text-information'>
-                    <h3 className='font-medium'>The amazing spiderman</h3>
+                    <h3 className='font-medium'>{title}</h3>
                     <div className='counter'>
-                        <button className='counter-button normal-button'>-</button>
-                        <p className='count font-semi-bold'>2</p>
-                        <button className='counter-button normal-button'>+</button>
+                        <button className='counter-button normal-button'
+                        onClick={() => {setBaseCount(baseCount - 1)}}>-</button>
+
+                        <p className='count font-semi-bold'>{baseCount}</p>
+
+                        <button className='counter-button normal-button'
+                        onClick={()=>{setBaseCount(baseCount + 1)}}>+</button>
                     </div>
                 </div>
             </div>
 
-            <button className='delete-icon'></button>
-            <h3 className='price font-extra-bold'>$34,90</h3> 
+            <button className='delete-icon'>
+                <img alt='delete' src='./assets/images/trash-icon.png'/>
+            </button>
+            <h3 className='price font-extra-bold'>{itemPrice.toFixed(2)}</h3> 
         </div>
     )
 }
