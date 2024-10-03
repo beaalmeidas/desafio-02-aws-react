@@ -30,6 +30,9 @@ const ComicList: React.FC = () => {
         const fetchComics = async () => {
             try {
                 const response = await fetch(`${baseUrl}?ts=${ts}&apikey=${publicKey}&hash=${hash}`);
+                if (response.status === 429) {
+                    throw new Error('Too many requests. Please wait and try again.');
+                }
                 if (!response.ok) {
                     throw new Error(`Network response was not ok, status: ${response.status}`);
                 }
