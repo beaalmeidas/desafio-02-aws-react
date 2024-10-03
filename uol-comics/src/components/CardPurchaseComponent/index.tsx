@@ -6,6 +6,7 @@ import { innerBrazil } from '../../types/uf'
 import { FaExclamationCircle } from 'react-icons/fa';
 import { toast } from 'react-toastify'
 import { makeItRandom } from '../../types/random'
+import Header from "../header"
 
 const CardPurchaseComponent: React.FC = () => 
 {
@@ -48,7 +49,6 @@ const CardPurchaseComponent: React.FC = () =>
                 setIsValidCep(false)
                 return
             }
-            else { toast.error('') }
 
             console.log(response.data)
             setData(response.data)
@@ -78,8 +78,40 @@ const CardPurchaseComponent: React.FC = () =>
 
         e.preventDefault()
 
-        if(unity == '')
-        toast.success('Suas informações foram aceitas com sucesso')
+        let noInfoErrorMsg = `ATENÇÃO: os seguintes campos não foram preenchidos:`
+        const emptyFields = 
+        [
+            { value: adress, label: 'Endereço' },
+            { value: unity, label: 'Número do endereço' },
+            { value: hood, label: 'Bairro' },
+            { value: city, label: 'Cidade' },
+            { value: ufs, label: 'Estado' },
+        ].filter(field => field.value === '');
+
+        if(emptyFields.length === 5)
+        {
+            toast.error('Preencha os campos do formulário!')
+            return
+        }
+        else if(emptyFields.length > 0)
+        {
+            emptyFields.forEach((field) => 
+            {
+                    if(emptyFields.length === 1) 
+                    { 
+                        return toast.error(`ATENÇÃO:
+                        o seguinte campo não foi preenchido: ${field.label}`)
+                    }
+                    else
+                    {
+                        noInfoErrorMsg += `\n- ${field.label}`
+                        return toast.error(noInfoErrorMsg)
+                    }
+            })
+            return
+        }
+            
+        toast.success('Suas informações foram aceitas com sucesso!')
         getCeps(cepS)
     }
 
@@ -89,6 +121,7 @@ const CardPurchaseComponent: React.FC = () =>
 
     return (
         <div className='main'>
+            <Header showFilter={true}/>
             <div><h1>Comprar</h1></div>
             <div className='formDiv'>
                 <div>

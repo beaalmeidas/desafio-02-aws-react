@@ -3,6 +3,8 @@ import { DefaultLayout } from "../layouts/DefaultLayout";
 import { HomePage } from "../pages/HomePage";
 import ComicsPage from "../pages/ComicsPage";
 import { CharacterPage } from "../pages/CharacterPage";
+import PurchasePage from "../pages/PurchasePage";
+import FinishedPurPage from "../pages/FinishedPurPage";
 
 export const AppRoutes = () => {
   return (
@@ -11,6 +13,8 @@ export const AppRoutes = () => {
         <Route path="/" element={<HomePage />} />
         <Route path="/comics-page" element={<ComicsPage />} />
         <Route path="/character-page" element={<CharacterPage />} />
+        <Route path="/purchase-page" element={<PurchasePage/>} />
+        <Route path="/finished-pur-page" element={<FinishedPurPage/>}/>
       </Route>
     </Routes>
   );
