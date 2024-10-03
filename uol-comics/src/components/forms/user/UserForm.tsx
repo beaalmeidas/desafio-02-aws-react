@@ -10,11 +10,11 @@ const UserForm = () => {
     const pageNavegation = useNavigate()
     const handleUserLogin = (data: LoginSchema) => {
         localStorage.setItem("UserLogInInfo", JSON.stringify(data))
-        pageNavegation("/HomePage")
+        pageNavegation("/")
     }
     const handleUserSignIn = (data: SignUpSchema) => {
         localStorage.setItem("userSignInInfo", JSON.stringify(data))
-        pageNavegation("/HomePage")
+        pageNavegation("/")
     }
     return (
     <div>
