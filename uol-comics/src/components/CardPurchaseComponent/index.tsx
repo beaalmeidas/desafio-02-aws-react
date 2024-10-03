@@ -3,8 +3,9 @@ import './style.css'
 import axios from 'axios'
 import { CepProps } from '../../types/cep'
 import { innerBrazil } from '../../types/uf'
-// import { FaExclamationCircle } from 'react-icons/fa';
-// import { toast } from 'react-toastify'
+import { FaExclamationCircle } from 'react-icons/fa';
+import { toast } from 'react-toastify'
+import { makeItRandom } from '../../types/random'
 
 const CardPurchaseComponent: React.FC = () => 
 {
@@ -14,20 +15,24 @@ const CardPurchaseComponent: React.FC = () =>
     const [isValidCep, setIsValidCep] = useState(false)
     const [adress, setAdress] = useState('')
     const [unity, setUnity] = useState('')
-    const [extras, setExtras] = useState('')
+    const [extraInfo, setExtraInfo] = useState('')
     const [city, setCity] = useState('')
-    const [state, setState] = useState('')
+    const [ufs, setUfs] = useState('')
     const [hood, setHood] = useState('')
     const [choice ,setChoice] = useState('')
+    const [dontChangeRandomNum, setDontChangeRandomNum] = useState(makeItRandom(3, 30))
 
     const getCeps = async (cepString: string) =>
     {
+        //Agonia desnecessária desse TypeScript
+        setDontChangeRandomNum(makeItRandom(3, 30))
         try
         {
             const response = await axios.get(`https://viacep.com.br/ws/${cepString}/json/`)
             if(response.status === 500)
             {
-                toast.error('')
+                toast.error('Alguém tropeçou em um dos cabos do nosso servidor, '
+                    +'por favor tente realizar essa compra novamente mais tarde...')
             }
 
             if(response.status === 404)
@@ -69,7 +74,7 @@ const CardPurchaseComponent: React.FC = () =>
         }
     }
 
-    const handleSubmitCEP = (e) => {
+    const handleSubmitCEP = (e: React.FormEvent) => {
 
         e.preventDefault()
 
@@ -77,6 +82,10 @@ const CardPurchaseComponent: React.FC = () =>
         toast.success('Suas informações foram aceitas com sucesso')
         getCeps(cepS)
     }
+
+    // const finishThePurchase = () => {
+    //     navegate('../FinishedPurComponent/index.tsx')
+    // }
 
     return (
         <div className='main'>
@@ -108,9 +117,9 @@ const CardPurchaseComponent: React.FC = () =>
                         onChange={(e) => setUnity(e.target.value)}
                         placeholder='Número do endereço' />
                         <input 
-                        value={isValidCep && data ? data.complemento : extras}
+                        value={isValidCep && data ? data.complemento : extraInfo}
                         type="text"
-                        onChange={(e) => setExtras(e.target.value)}
+                        onChange={(e) => setExtraInfo(e.target.value)}
                         placeholder='Complemento' />
                         <input 
                         value={isValidCep && data ? data.bairro : hood}
@@ -123,8 +132,8 @@ const CardPurchaseComponent: React.FC = () =>
                         onChange={(e) => setCity(e.target.value)}
                         placeholder='Cidade' />
                         <select
-                        onChange={(e) => setState(e.target.value)}
-                        value={data?.uf && state}>
+                        onChange={(e) => setUfs(e.target.value)}
+                        value={data?.uf && ufs}>
                         {
                             innerBrazil.map((uf) => 
                             (
@@ -140,35 +149,35 @@ const CardPurchaseComponent: React.FC = () =>
                             <p>O pagamento é feito na entrega. Escolha a forma que deseja pagar</p>
                         </div>
                         <div>
-                            <input type='button' value='CARTÃO DE CRÉDITO' 
-                            onClick={() => setChoice('CARTÃO DE CRÉDITO')}
-                            className={choice === 'CARTÃO DE CRÉDITO' ? 'theOne' : 'npc'}/>
+                            <input id='btn1' type='button' value='CARTÃO DE CRÉDITO' 
+                            onClick={() => setChoice('Cartão de Crédito')}
+                            className={choice === 'Cartão de Crédito' ? 'theOne' : 'npc'}/>
                             
-                            <input type='button' value='CARTÃO DE DÉBITO' 
-                            onClick={() => setChoice('CARTÃO DE DÉBITO')} 
-                            className={choice === 'CARTÃO DE DÉBITO' ? 'theOne' : 'npc'}/>
+                            <input id='btn2' type='button' value='CARTÃO DE DÉBITO' 
+                            onClick={() => setChoice('Cartão de Débito')} 
+                            className={choice === 'Cartão de Débito' ? 'theOne' : 'npc'}/>
                             
-                            <input type='button' value='DINHEIRO' 
-                            onClick={() => setChoice('DINHEIRO')}
-                            className={choice === 'DINHEIRO' ? 'theOne' : 'npc'}/>
+                            <input id='btn3' type='button' value='DINHEIRO' 
+                            onClick={() => setChoice('Dinheiro')}
+                            className={choice === 'Dinheiro' ? 'theOne' : 'npc'}/>
                         </div>
                     </div>
                     
                     <div className='finishPurchase'>
                         <div>
                             <p>Total de itens</p>
-                            <p>R$0,00</p>
+                            <p>R$00,00</p>
                         </div>
                         <div>
-                            <p>Total de itens</p>
-                            <p>R$0,00</p>
+                            <p>Entrega</p>
+                            <p>R${dontChangeRandomNum}</p>
                         </div>
                         <div>
                             <p>Total</p>
-                            <p>R$0,00</p>
+                            <p>R$00,00</p>
                         </div>
                         <div>
-                            <button type='submit'>Finalizar compra</button>
+                            <button type='submit' >Finalizar compra</button>
                         </div>
                     </div>
                 </form>
