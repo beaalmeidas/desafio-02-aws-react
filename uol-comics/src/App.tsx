@@ -1,14 +1,18 @@
-import CardPurchaseComponent from './components/CardPurchaseComponent'
+import { BrowserRouter } from "react-router-dom";
+import { AppRoutes } from "./routes/appRoutes";
+// import CardPurchaseComponent from './components/CardPurchaseComponent';
 // import { ToastContainer } from 'react-toastify';
 
 function App() {
   return (
     <div className="App">
-      <CardPurchaseComponent />
-
-      {/* <ToastContainer/> */}
+      <BrowserRouter>
+        <AppRoutes />
+        { /* <CardPurchaseComponent />}
+        {/* <ToastContainer /> */}
+      </BrowserRouter>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

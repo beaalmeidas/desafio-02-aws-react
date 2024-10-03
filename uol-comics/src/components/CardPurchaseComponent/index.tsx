@@ -3,8 +3,8 @@ import './style.css'
 import axios from 'axios'
 import { CepProps } from '../../types/cep'
 import { innerBrazil } from '../../types/uf'
-import { FaExclamationCircle } from 'react-icons/fa';
-import { toast } from 'react-toastify'
+// import { FaExclamationCircle } from 'react-icons/fa';
+// import { toast } from 'react-toastify'
 
 const CardPurchaseComponent: React.FC = () => 
 {
