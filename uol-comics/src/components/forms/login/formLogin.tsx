@@ -1,11 +1,11 @@
 import { useLogin} from "../../../hooks/useLogin"
 import { LoginSchema } from "../../../schemas/LoginSchema"
-
-const FormLogin = () => {
+interface LoginProps {
+    onSubmit: (data: LoginSchema) => void
+}
+const FormLogin = ({onSubmit}: LoginProps) => {
     const {register, handleSubmit, errors} = useLogin()
-    const onSubmit = (data: LoginSchema) =>{
-        localStorage.setItem('userData', JSON.stringify(data));
-    }
+
 return (
     <form onSubmit={handleSubmit(onSubmit)}>
     <div className="FormFiels">
