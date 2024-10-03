@@ -72,7 +72,7 @@ const ComicList: React.FC = () => {
                             author={comic.creators.items[0]?.name || 'Desconhecido'}
                             release_year={comic.dates[0]?.date ? new Date(comic.dates[0]?.date).getFullYear() : 0} 
                         />
-                ))}
+                    ))}
             </div>
         </div>
     );    
