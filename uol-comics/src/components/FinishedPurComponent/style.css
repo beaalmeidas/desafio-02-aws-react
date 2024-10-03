@@ -1,0 +1,48 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgb(233, 233, 233);
+}
+
+h1 {
+    font-size: 3rem;
+}
+
+p {
+    font-size: 1.5rem;
+}
+
+.mainPurInfo {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    height: 20rem;
+    justify-content: space-around;
+}
+
+.divInfo {
+    display: flex;
+    width: 60%;
+    
+}
+
+.goToStart {
+    background-color: orange;
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+}
+
+.goToStart:hover {
+    cursor: pointer;
+    background-color: rgb(243, 69, 0);
+}

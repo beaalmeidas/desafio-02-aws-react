@@ -1,12 +1,13 @@
-import CardPurchaseComponent from './components/CardPurchaseComponent'
-// import { ToastContainer } from 'react-toastify';
+// import CardPurchaseComponent from './components/CardPurchaseComponent'
+import { ToastContainer } from 'react-toastify';
+import FinishedPurComponent from './components/FinishedPurComponent';
 
 function App() {
   return (
     <div className="App">
-      <CardPurchaseComponent />
-
-      {/* <ToastContainer/> */}
+      {/* <CardPurchaseComponent /> */}
+      <FinishedPurComponent/>
+      <ToastContainer/>
     </div>
   )
 }
