@@ -4,6 +4,7 @@ import FormSignUp from "../signup/formSignUp"
 import { SignUpSchema } from "../../../schemas/SignUpSchema"
 import { LoginSchema } from "../../../schemas/LoginSchema"
 import { useNavigate } from "react-router-dom"
+import "./styles.css"
 
 const UserForm = () => {
     const [isUserLogged, setIsUserLogged] = useState(true)
@@ -17,16 +18,26 @@ const UserForm = () => {
         pageNavegation("/")
     }
     return (
-    <div>
-        <h1>{isUserLogged ? "Escolha seu herói" : "Crie seu herói"}</h1>
+    <div className="main-container">
+        <div className="main-image">
+            <img src="../../../../public/assets/images/spider-man.png" alt="spider-man" className="spider-man-image" />
+        </div>
+        <div>
+        <div className="page-logo">
+            <img src="../../../../public/assets/images/uol-comics-logo.png" alt="Uol comics logo" className="uol-comics-logo" />
+        </div>
+        <div className="card">
+        <h1 className="card-title">{isUserLogged ? "Escolha seu herói" : "Crie seu herói"}</h1>
         {isUserLogged ? (<FormLogin onSubmit={handleUserLogin}/>) : 
             (<FormSignUp onSubmit={handleUserSignIn} />)}
-        <p>{isUserLogged ? "Ainda não tem uma conta?" : "já tem uma conta?"}
-            <a href="#" onClick={() => setIsUserLogged(!isUserLogged)}>
+        <p className="card-text">{isUserLogged ? "Ainda não tem uma conta?" : "já tem uma conta?"}
+            <a className=" card-text card-link" href="#" onClick={() => setIsUserLogged(!isUserLogged)}>
                 {isUserLogged? "Clique aqui!": "Clique aqui!"}
             </a>
         </p>
-    </div>
+        </div>
+        </div>
+        </div>
     )
 }
 export default UserForm;
