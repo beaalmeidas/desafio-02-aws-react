@@ -1,10 +1,11 @@
 import { useForms } from "../../../hooks/useSignUp"
 import { SignUpSchema } from "../../../schemas/SignUpSchema"
-const FormSignUp = () => {
+interface SignUpProps{
+    onSubmit: (data: SignUpSchema) => void
+}
+const FormSignUp = ({onSubmit}: SignUpProps) => {
     const {register, handleSubmit, errors} = useForms()
-    const onSubmit = (data: SignUpSchema) =>{
-        localStorage.setItem('userData', JSON.stringify(data));
-    }
+    
 return (
     <form onSubmit={handleSubmit(onSubmit)}>
         <div className="FormFiels">
