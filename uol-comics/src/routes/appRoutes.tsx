@@ -1,8 +1,9 @@
 import { Route, Routes } from "react-router-dom";
 import { DefaultLayout } from "../layouts/DefaultLayout";
-import { HomePage } from "../pages/HomePage";
+
 import ComicsPage from "../pages/ComicsPage";
 import { CharacterPage } from "../pages/CharacterPage";
+import { HomePage } from "../pages/HomePage";
 import PurchasePage from "../pages/PurchasePage";
 import FinishedPurPage from "../pages/FinishedPurPage";
 

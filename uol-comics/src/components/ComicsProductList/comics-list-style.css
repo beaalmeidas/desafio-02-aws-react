@@ -1,0 +1,21 @@
+.comic-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 20px;
+    padding: 20px; 
+}
+
+
+.comic-grid-container {
+    max-height: 100vh;
+    overflow-y: auto;
+}
+
+
+.product-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 16px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
