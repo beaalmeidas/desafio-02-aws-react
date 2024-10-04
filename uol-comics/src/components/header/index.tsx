@@ -3,10 +3,11 @@ import './style.css'
 
 type Props = {
     showFilter: boolean
+    sendFilter: (filterValue: string) => void
 }
 
 const Header = (props: Props) => {
-    const {showFilter} = props
+    const {showFilter,sendFilter} = props
 
     // Modify States
     const [filterState, setFilterState] = useState(true)
@@ -17,15 +18,14 @@ const Header = (props: Props) => {
     },[props])
 
     // Defaul functions
-    const [inputLabelVisible,setInputLabelVisible] = useState(true);
     const [cartImage,setCartImage] = useState('./assets/svg/cart.svg');
     const [logoutImage,setLogoutImage] = useState('./assets/images/logout.png');
 
     const filterInputRef = useRef<HTMLInputElement>(null);
 
-    const setFocus = () => {
+    const handleFilter = () => {
         if (filterInputRef.current !== null){
-            filterInputRef.current.focus()
+            sendFilter(filterInputRef.current.value)
         }
     }
 
@@ -37,18 +37,13 @@ const Header = (props: Props) => {
             </section>
 
             <section className="name-filter">
-            {filterState && (
+            {filterState &&(
                 <>
-                    {inputLabelVisible && (
-                        <label onClick={setFocus}>
-                            <img src="./assets/images/symbols-search.png" alt="pesquisa"/>
-                            <p className="font-regular">Pesquisar por nome...</p>
-                        </label>
-                    )}
-
+                    <button className='search-button' onClick={handleFilter}>
+                        <img src='./assets/images/symbols-search.png' alt='pesquisar'/>
+                    </button>
                     <input name="filter"
-                    onFocus={() => {setInputLabelVisible(false)}}
-                    onBlur={() => {setInputLabelVisible(true)}}
+                    placeholder='Pesquisar por nome...'
                     ref={filterInputRef}
                     />
                 </>
