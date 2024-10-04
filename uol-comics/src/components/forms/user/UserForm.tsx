@@ -26,7 +26,7 @@ const UserForm = () => {
         <div className="page-logo">
             <img src="../../../../public/assets/images/uol-comics-logo.png" alt="Uol comics logo" className="uol-comics-logo" />
         </div>
-        <div className="card">
+        <div className={`card ${isUserLogged ? 'login-card' : 'signup-card'}`}>
         <h1 className="card-title">{isUserLogged ? "Escolha seu herói" : "Crie seu herói"}</h1>
         {isUserLogged ? (<FormLogin onSubmit={handleUserLogin}/>) : 
             (<FormSignUp onSubmit={handleUserSignIn} />)}
