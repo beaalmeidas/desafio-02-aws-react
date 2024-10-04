@@ -61,18 +61,8 @@ const CardPurchaseComponent: React.FC = () =>
             console.log(response.data)
             setData(response.data)
 
-            const 
-            { 
-                bairro, cep, complemento,
-                localidade, logradouro,
-                uf, unidade 
-            } = response.data
-            const cepData: CepProps = 
-            {
-                bairro, cep, complemento,
-                localidade, logradouro,
-                uf, unidade 
-            }
+            const { bairro, cep, complemento, localidade, logradouro, uf, unidade } = response.data;
+            setData(response.data);
             
             setAdress(logradouro)
             setUnity(unidade)
@@ -81,7 +71,7 @@ const CardPurchaseComponent: React.FC = () =>
             setUfs(uf)
             setChoice(choice)
             setHood(bairro)            
-            setCepS(cepData.cep)
+            setCepS(cep.cep)
             //setIsValidCep(true)
             console.log(data)
         }
@@ -101,9 +91,10 @@ const CardPurchaseComponent: React.FC = () =>
             { value: unity, label: 'Número do endereço' },
             { value: hood, label: 'Bairro' },
             { value: city, label: 'Cidade' },
+            { value: choice, label: 'Método de pagamento' }
         ].filter(field => field.value === '');
 
-        if(emptyFields.length === 5)
+        if(emptyFields.length === 6)
         {
             return toast.warn(
             <div className='warningForm'>
@@ -123,7 +114,7 @@ const CardPurchaseComponent: React.FC = () =>
                     toast.warn(
                     <div className='warningForm'>
                         <FaExclamationCircle className='warFormIcon'/>
-                        <p>{`ATENÇÃO: o seguinte campo não foi preenchido: ${field.label}`}</p>
+                        <p>{`ATENÇÃO: o seguinte campo não foi preenchido: [${field.label}]`}</p>
                     </div>,
                     {
                         icon: false,
@@ -131,7 +122,7 @@ const CardPurchaseComponent: React.FC = () =>
                     })
                     return
                 }
-                else if(emptyFields.length > 1 && emptyFields.length < 5) 
+                else if(emptyFields.length > 1 && emptyFields.length < 6) 
                 { 
                     noInfoErrorMsg += `\n-${field.label};` 
                 }

@@ -233,6 +233,19 @@ small:hover .iconTip {
     transition: 0.3s;
 }
 
+.theOne:active {
+    transform: translateY(3px);
+    transition: 0.1s;
+    border-bottom: 4px solid rgb(243, 16, 0);
+
+}
+
+.npc:active {
+    transform: translateY(3px);
+    transition:ease-out 0.4s;
+    border-bottom: 4px solid rgb(85, 85, 85);
+}
+
 .totalPrice>p {
     font-size: 2rem;
     font-weight: 800;
