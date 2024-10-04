@@ -21,7 +21,7 @@ const FinishedPurComponent = () => {
           <FaRegClock style={{ color: 'white', backgroundColor: 'orange', borderRadius: '50%', padding: '5px' }}/>
           <div>
             <p>Previsão de entrega</p>
-            <p>{ Math.floor(makeItRandom(2, 10)) } dias</p>
+            <p>{ makeItRandom(2, 10, true) } dias</p>
           </div>
         </div>
         <div className='divInfo'>

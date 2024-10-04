@@ -3,7 +3,9 @@ import './style.css'
 import axios from 'axios'
 import { CepProps } from '../../types/cep'
 import { innerBrazil } from '../../types/uf'
-import { FaExclamationCircle } from 'react-icons/fa'
+import {    FaExclamationCircle, FaCreditCard, FaMoneyBill,
+            FaUniversity, FaDollarSign, FaMapMarkerAlt      } from 'react-icons/fa'
+
 import { toast } from 'react-toastify'
 import { makeItRandom } from '../../types/random'
 import Header from "../header"
@@ -19,7 +21,7 @@ const CardPurchaseComponent: React.FC = () =>
     //const [ceps, setCeps] = useState<string[]>([])
     const [cepS, setCepS] = useState('')
     const [data, setData] = useState<CepProps | null>(null)
-    const [isValidCep, setIsValidCep] = useState(false)
+    //const [isValidCep, setIsValidCep] = useState(false)
     const [adress, setAdress] = useState('')
     const [unity, setUnity] = useState('')
     const [extraInfo, setExtraInfo] = useState('')
@@ -28,7 +30,7 @@ const CardPurchaseComponent: React.FC = () =>
     const [hood, setHood] = useState('')
     const [choice ,setChoice] = useState('')
     
-    const dontChangeRandomNum = useRef(makeItRandom(3, 30)).current
+    const dontChangeRandomNum = useRef(makeItRandom(3, 30, false)).current
     const navigate = useNavigate();
 
     const getCeps = async (cepString: string) =>
@@ -52,7 +54,7 @@ const CardPurchaseComponent: React.FC = () =>
             if(response.status === 404)
             {
                 toast.error('O CEP não foi encontrado, verifique-o e tento novamente.')
-                setIsValidCep(false)
+                //setIsValidCep(false)
                 return
             }
 
@@ -80,7 +82,7 @@ const CardPurchaseComponent: React.FC = () =>
             setChoice(choice)
             setHood(bairro)            
             setCepS(cepData.cep)
-            setIsValidCep(true)
+            //setIsValidCep(true)
             console.log(data)
         }
         catch (error)
@@ -153,103 +155,128 @@ const CardPurchaseComponent: React.FC = () =>
             }
             return
         }
-            
-        if(!isValidCep) { 
-            toast.error("CEP inválido, por favor, digite apenas um "
-                + "número de 8 dígitos. Sem o uso de caracteres especiais como '-' ou '.'")
-            return
-        }
 
         const infoToFinish: InfoToFinish = {
             ...data!,
             getChoice: choice
         }
 
-
         //toast.success('Suas informações foram aceitas com sucesso!')
-        //getCeps(cepS)
+        getCeps(cepS)
         navigate('/finished-pur-page', { state: infoToFinish })
 
     }
 
     return (
-        <div className='main'>
+        <>
             <Header showFilter={true}/>
-            <div><h1>Comprar</h1></div>
-            <div className='formDiv'>
-                <div>
-                    <p>Endereço de entrega</p>
-                    <p>Informe o endereço onde deseja receber seu pedido</p>
+            <div className='main'>
+                <div className='title'><h1>Comprar</h1></div>
+                <div className='formDiv'>
+                    <form onSubmit={handleSubmitCEP}>
+                        <div className='formPart1'>
+                            <div>
+                                <div className='aboutText'>
+                                    <FaMapMarkerAlt className='icon'/>
+                                    <div>
+                                        <p>Endereço de entrega</p>
+                                        <p>Informe o endereço onde deseja receber seu pedido</p>
+                                    </div>
+                                </div>
+                                {/* <div>
+                                    <FaExclamationCircle className='iconTip'/>
+                                    <small className='smallAlert'>Para uma experiência mais fluida, preencha o CEP primeiro ;^)</small>
+                                </div> */}
+                                <div className='inputsCep'>
+                                    <input
+                                    className='item inp1'
+                                    id='inp1'
+                                    value={cepS}
+                                    onChange={(e) => setCepS(e.target.value)}
+                                    type="text" 
+                                    placeholder='CEP'/>
+                                    <input
+                                    className='item inp2'
+                                    id='inp2'
+                                    value={adress}
+                                    onChange={(e) => setAdress(e.target.value)}
+                                    type="text" 
+                                    placeholder='Endereço' />
+                                    <input
+                                    className='item inp3'
+                                    id='inp3'
+                                    value={unity}
+                                    type="text" 
+                                    onChange={(e) => setUnity(e.target.value)}
+                                    placeholder='Número do endereço' />
+                                    <input
+                                    className='item inp4' 
+                                    id='inp4'
+                                    value={extraInfo}
+                                    type="text"
+                                    onChange={(e) => setExtraInfo(e.target.value)}
+                                    placeholder='Complemento' />
+                                    <input
+                                    className='item inp5' 
+                                    id='inp5'
+                                    value={hood}
+                                    type="text"
+                                    onChange={(e) => setHood(e.target.value)}
+                                    placeholder='Bairro' />
+                                    <input
+                                    className='item inp6' 
+                                    id='inp6'
+                                    value={city}
+                                    type="text"
+                                    onChange={(e) => setCity(e.target.value)}
+                                    placeholder='Cidade' />
+                                    <select
+                                    className='item inp7'
+                                    id='inp7'
+                                    onChange={(e) => setUfs(e.target.value)}
+                                    value={ufs}>
+                                    {
+                                        innerBrazil.map((uf) => 
+                                        (
+                                            <option key={uf.sigla} value={uf.sigla}>{uf.sigla}</option>
+                                        ))
+                                    }
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div className='formPart2'>
+                            <div className='aboutText'>
+                                <FaDollarSign className='icon'/>
+                                <div>
+                                    <p>Pagamento</p>
+                                    <p>O pagamento é feito na entrega. Escolha a forma que deseja pagar</p>
+                                </div>
+                            </div>
+                            <div className='purchaseBtns'>
+                               <div onClick={() => setChoice('Cartão de Crédito')} 
+                               className={choice === 'Cartão de Crédito' ? 'theOne' : 'npc'}>
+                                    <FaCreditCard className='iconBtn'/>
+                                    <input id='btn1' type='button' value='CARTÃO DE CRÉDITO' />
+                               </div>
+                                <div onClick={() => setChoice('Cartão de Débito')} 
+                                className={choice === 'Cartão de Débito' ? 'theOne' : 'npc'}>
+                                    <FaUniversity className='iconBtn'/>
+                                    <input id='btn2' type='button' value='CARTÃO DE DÉBITO' />
+                                </div>
+                                <div onClick={() => setChoice('Dinheiro')} 
+                                className={choice === 'Dinheiro' ? 'theOne' : 'npc'}>
+                                    < FaMoneyBill className='iconBtn'/>
+                                    <input id='btn3' type='button' value='DINHEIRO' />
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </form>
                 </div>
-                <form onSubmit={handleSubmitCEP}>
-                    <div className='inputsCep'>
-                        <FaExclamationCircle/>
-                        <p className='smallAlert'>Para uma experiência mais fluida, preencha o CEP primeiro ;^)</p>
-                        <input
-                        onBlur={() => getCeps(cepS)}
-                        value={cepS}
-                        onChange={(e) => setCepS(e.target.value)} 
-                        type="text"
-                        placeholder='CEP (apenas números)'/>
-                        {/* <button type='submit'>enviar</button> */}
-                        <input
-                        value={adress}
-                        onChange={(e) => setAdress(e.target.value)}
-                        type="text" 
-                        placeholder='Endereço' />
-                        <input
-                        value={unity}
-                        type="text" 
-                        onChange={(e) => setUnity(e.target.value)}
-                        placeholder='Número do endereço' />
-                        <input 
-                        value={extraInfo}
-                        type="text"
-                        onChange={(e) => setExtraInfo(e.target.value)}
-                        placeholder='Complemento' />
-                        <input 
-                        value={hood}
-                        type="text"
-                        onChange={(e) => setHood(e.target.value)}
-                        placeholder='Bairro' />
-                        <input 
-                        value={city}
-                        type="text"
-                        onChange={(e) => setCity(e.target.value)}
-                        placeholder='Cidade' />
-                        <select
-                        onChange={(e) => setUfs(e.target.value)}
-                        value={ufs}>
-                        {
-                            innerBrazil.map((uf) => 
-                            (
-                                <option key={uf.sigla} value={uf.sigla}>{uf.sigla}</option>
-                            ))
-                        }
-                        </select>
-                    </div>
-                    
-                    <div className='purchaseChoice'>
-                        <div>
-                            <p>Pagamento</p>
-                            <p>O pagamento é feito na entrega. Escolha a forma que deseja pagar</p>
-                        </div>
-                        <div>
-                            <input id='btn1' type='button' value='CARTÃO DE CRÉDITO' 
-                            onClick={() => setChoice('Cartão de Crédito')}
-                            className={choice === 'Cartão de Crédito' ? 'theOne' : 'npc'}/>
-                            
-                            <input id='btn2' type='button' value='CARTÃO DE DÉBITO' 
-                            onClick={() => setChoice('Cartão de Débito')} 
-                            className={choice === 'Cartão de Débito' ? 'theOne' : 'npc'}/>
-                            
-                            <input id='btn3' type='button' value='DINHEIRO' 
-                            onClick={() => setChoice('Dinheiro')}
-                            className={choice === 'Dinheiro' ? 'theOne' : 'npc'}/>
-                        </div>
-                    </div>
-                    
-                    <div className='finishPurchase'>
+                <div className='formPart3'>
+                    <div>
                         <div>
                             <p>Total de itens</p>
                             <p>R$00,00</p>
@@ -258,17 +285,18 @@ const CardPurchaseComponent: React.FC = () =>
                             <p>Entrega</p>
                             <p>R${dontChangeRandomNum}</p>
                         </div>
-                        <div>
+                        <div className='totalPrice'>
                             <p>Total</p>
                             <p>R$00,00</p>
                         </div>
-                        <div>
-                            <button type='submit' >Finalizar compra</button>
-                        </div>
                     </div>
-                </form>
+                </div>
+                <div className='divBtnF'>
+                    <button className='btnF' type='submit' onClick={handleSubmitCEP}>Finalizar compra</button>
+                </div>
             </div>
-        </div>
+        </>
+        
     )
 }
 
