@@ -1,5 +1,6 @@
 import { useForms } from "../../../hooks/useSignUp"
 import { SignUpSchema } from "../../../schemas/SignUpSchema"
+import "./styles.css"
 interface SignUpProps{
     onSubmit: (data: SignUpSchema) => void
 }
