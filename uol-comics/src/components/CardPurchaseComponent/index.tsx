@@ -14,6 +14,12 @@ import { useNavigate } from 'react-router-dom'
 
 export interface InfoToFinish extends CepProps {
     getChoice : string
+    getAdress: string
+    getUnity: string
+    getCity: string
+    getUfs: string
+    getExtraInfo: string
+    getHood: string
 }
 
 const CardPurchaseComponent: React.FC = () => 
@@ -149,10 +155,16 @@ const CardPurchaseComponent: React.FC = () =>
 
         const infoToFinish: InfoToFinish = {
             ...data!,
+            getAdress: adress,
+            getUnity: unity,
+            getCity: city,
+            getUfs: ufs,
+            getExtraInfo: extraInfo,
+            getHood: hood,
             getChoice: choice
         }
 
-        //toast.success('Suas informações foram aceitas com sucesso!')
+        toast.success('Suas informações foram aceitas com sucesso!')
         getCeps(cepS)
         navigate('/finished-pur-page', { state: infoToFinish })
 

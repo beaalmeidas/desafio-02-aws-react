@@ -1,38 +1,61 @@
 import { makeItRandom } from '../../types/random'
 import { FaMapMarkerAlt, FaRegClock, FaDollarSign } from 'react-icons/fa'
 import './style.css'
+import { useNavigate, useLocation } from 'react-router-dom'
+import { InfoToFinish } from '../CardPurchaseComponent'
+import Header from '../header'
 
 const FinishedPurComponent = () => {
+  const location = useLocation()
+  const infoToFinish = location.state as InfoToFinish
+  const navigate = useNavigate()
+
+  console.log(infoToFinish)
+
+  const backHome = () => {
+    navigate('/')
+  }
+
   return (
     <div>
-      <div>
-        <h1>Compra realizada!</h1>
-        <p>Agora é só aguardar que logo as suas comics chegam aí!</p>
-      </div>
-      <div className='mainPurInfo'>
-        <div className='divInfo'>
-          <FaMapMarkerAlt style={{ color: 'white', backgroundColor: 'orange', borderRadius: '50%', padding: '5px' }}/>
-          <div>
-            <p>Entrega em adress, extraInfo</p>
-            <p>hood - city, uf</p>
+      <Header showFilter={false}/>
+      {infoToFinish ? 
+      (
+        <div className='main'>
+          <div className='title'>
+            <h2>Compra realizada!</h2>
+            <p>Agora é só aguardar que logo as suas comics chegam aí!</p>
           </div>
+          <div className='mainPurInfo'>
+              <div className='divInfo'>
+                <FaMapMarkerAlt className='icon' />
+                <div>
+                  <p>Entrega em <b>{infoToFinish.getAdress}, {infoToFinish.getUnity}</b></p>
+                  <p>{infoToFinish.getHood} - {infoToFinish.getCity}, {infoToFinish.getUfs}</p>
+                </div>
+              </div>
+              <div className='divInfo'>
+                <FaRegClock className='icon' />
+                <div>
+                  <p>Previsão de entrega</p>
+                  <p><b>{ makeItRandom(2, 10, true) } dias</b></p>
+                </div>
+              </div>
+              <div className='divInfo'>
+                <FaDollarSign className='icon' />
+                <div>
+                  <p>Pagamento na entrega</p>
+                  <p><b>{infoToFinish.getChoice}</b></p>
+                </div>
+              </div>
+            </div>
+          <button className='goToStart' onClick={backHome}><p>Voltar para o início</p></button>
         </div>
-        <div className='divInfo'>
-          <FaRegClock style={{ color: 'white', backgroundColor: 'orange', borderRadius: '50%', padding: '5px' }}/>
-          <div>
-            <p>Previsão de entrega</p>
-            <p>{ makeItRandom(2, 10, true) } dias</p>
-          </div>
-        </div>
-        <div className='divInfo'>
-          <FaDollarSign style={{ color: 'white', backgroundColor: 'orange', borderRadius: '50%', padding: '5px' }}/>
-          <div>
-            <p>Pagamento na entrega</p>
-            <p>cartao</p>
-          </div>
-        </div>
-        <button className='goToStart'><p>Voltar para o início</p></button>
-      </div>
+      ):
+      (
+        <div className='misteryDiv'><h1>Você não devia estar aqui...</h1></div>
+      )}
+      
     </div>
   )
 }
