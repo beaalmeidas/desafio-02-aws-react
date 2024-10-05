@@ -1,21 +1,18 @@
 import { useEffect, useRef, useState } from 'react';
 import './style.css'
+import { useLocation } from 'react-router-dom';
 
 type Props = {
-    showFilter: boolean
     sendFilter: (filterValue: string) => void
 }
 
 const Header = (props: Props) => {
-    const {showFilter,sendFilter} = props
+    const {sendFilter} = props
+    const location = useLocation()
 
     // Modify States
     const [filterState, setFilterState] = useState(true)
     const [hasCartItem, setHasCartItem] = useState(false)
-
-    useEffect(()=>{
-        setFilterState(showFilter)
-    },[props])
 
     // Defaul functions
     const [cartImage,setCartImage] = useState('./assets/svg/cart.svg');
@@ -28,6 +25,18 @@ const Header = (props: Props) => {
             sendFilter(filterInputRef.current.value)
         }
     }
+
+    // Should not display filter
+    const shouldNotDisplayHeader = ['/cart','/purchase-page','/finished-pur-page','/comic-details']
+
+    useEffect(() => {
+        if (shouldNotDisplayHeader.includes(location.pathname)){
+            setFilterState(false)
+        }
+        else{
+            setFilterState(true)
+        }
+    },[])
 
     return (
         <header>
