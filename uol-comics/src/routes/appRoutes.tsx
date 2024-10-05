@@ -12,7 +12,8 @@ export const AppRoutes = () => {
     <Routes>
       <Route path="/" element={<DefaultLayout />}>
         <Route path="/" element={<HomePage />} />
-        <Route path="/comics-page" element={<ComicsPage />} />
+        <Route path="/comics-list" element={<ComicsPage />} />
+        <Route path="/comic-details/" element={<ComicsPage />} />
         <Route path="/character-page" element={<CharacterPage />} />
         <Route path="/purchase-page" element={<PurchasePage/>} />
         <Route path="/finished-pur-page" element={<FinishedPurPage/>}/>

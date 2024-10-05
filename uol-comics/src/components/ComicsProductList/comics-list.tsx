@@ -3,7 +3,6 @@ import ComicCard from '../ComicCard/comic-card';
 // import md5 from 'crypto-js/md5';
 import '../ComicsProductList/comics-list-style.css'
 
-
 interface Comic {
     id: number;
     title: string;
@@ -19,26 +18,43 @@ const ComicList: React.FC = () => {
     const [error, setError] = useState<string | null>(null);
 
     const baseUrl = 'https://gateway.marvel.com/v1/public/comics';
-    const publicKey = 'fd064c98af10874bffcee4cde18cee89';
-    const privateKey = 'cb058f5d04b18af9663408f816f4a6be743a1b6a';
+    const publicKey = '17ce5551a82bf2502ac676b91fd1a7ab';
+    const privateKey = '99014e1f8df770dc8e3f585343a54989349a7e78';
 
     const ts = new Date().getTime().toString();
 
     const hash = md5(ts + privateKey + publicKey).toString();
 
+    const CACHE_TIME_LIMIT = 24 * 60 * 60 * 1000;
+
     useEffect(() => {
         const fetchComics = async () => {
-            try {
-                const response = await fetch(`${baseUrl}?ts=${ts}&apikey=${publicKey}&hash=${hash}`);
-                if (!response.ok) {
-                    throw new Error(`Network response was not ok, status: ${response.status}`);
-                }
-                const data = await response.json();
-                setComics(data.data.results);
-            } catch (error) {
-                setError((error as Error).message);
-            } finally {
+            const cachedData = localStorage.getItem('comics');
+            const cachedTimestamp = localStorage.getItem('comicsTimestamp');
+            const currentTime = new Date().getTime();
+
+            if (cachedData && cachedTimestamp && (currentTime - parseInt(cachedTimestamp)) < CACHE_TIME_LIMIT) {
+                setComics(JSON.parse(cachedData));
                 setLoading(false);
+            } else {
+                try {
+                    const response = await fetch(`${baseUrl}?ts=${ts}&apikey=${publicKey}&hash=${hash}&limit=20`);
+                    if (response.status === 429) {
+                        throw new Error('Too many requests. Please wait and try again.');
+                    }
+                    if (!response.ok) {
+                        throw new Error(`Network response was not ok, status: ${response.status}`);
+                    }
+                    const data = await response.json();
+                    setComics(data.data.results);
+
+                    localStorage.setItem('comics', JSON.stringify(data.data.results));
+                    localStorage.setItem('comicsTimestamp', currentTime.toString());
+                } catch (error) {
+                    setError((error as Error).message);
+                } finally {
+                    setLoading(false);
+                }
             }
         };
 
