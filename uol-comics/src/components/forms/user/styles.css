@@ -14,8 +14,10 @@ body{
 .main-container {
     display: flex;
     align-items: center;
+    background-color: var(--bg-primary);
 }
 .spider-man-image{
+    width: 550px;
     height: 100vh;
 }
 .uol-comics-logo{
@@ -44,6 +46,7 @@ body{
     font-family: 'Sofia Sans';
     font-size: 32px;
     font-weight: 600;
+    line-height: 38.4px;
 }
 .card-text{
     margin-bottom: 32px ;
