@@ -7,7 +7,7 @@ const ComicsPage = () => {
     return (
         <div className="comics-page">
             <div className="comic-cards-container">
-                <Header />
+                <Header showFilter />
                 <br /> <br />
                 <ComicsList />
                 <br /> <br />
