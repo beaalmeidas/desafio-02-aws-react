@@ -19,6 +19,19 @@ input, select {
     padding-left: 1em;
 }
 
+.main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.title>h1 {
+    font-size: 4.5rem;
+    font-weight: 800;
+    margin: 2rem;
+}
+
 .iconEnd, .iconEnd1 {
     display: flex;
     align-self: flex-start;
@@ -35,29 +48,82 @@ input, select {
     color: rgb(114, 127, 158);
 }
 
-small:hover .iconTip {
+.inputsCep {
+    display: grid;
+    gap: 15px;
+    grid-template-columns: max-content;
+}
+
+.inp1 {
+    grid-column-start: 1;
+    grid-column-end: 2;
+}
+
+.inp2 {
+    grid-column-start: 1;
+    grid-column-end: 6;
+} 
+
+.inp3 {
+    grid-column-start: 1;
+    grid-column-end: 2;
+}
+
+.inp4 {
+    grid-column-start: 2;
+    grid-column-end: 6;
+}
+
+.inp5 {
+    grid-column-start: 1;
+    grid-column-end: 2;
+}
+
+.inp6 {
+    grid-column-start: 2;
+    grid-column-end: 5;
+}
+.inp7 {
+    grid-column-start: 5;
+    grid-column-end: 6;
+}
+
+.formPart1, .formPart2 {
+    background-color: #f3f3f3;
+    padding: 4rem;
+    margin-bottom: 2rem;
+    margin-left: 0;
+    border-radius: .5rem;
+}
+
+.formPart1 {
+    border: 2px solid;
+}
+
+.formPart2 {
+    border: 2px solid;
+}
+
+/* small:hover .iconTip {
     color: blue;
     transition: 0.2s ease;
-}
+} */
 
 #btn1, #btn2, #btn3 {
     all: unset;
 }
 
-.main {
+.formDiv {
+    width: 80%;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
     align-items: center;
-}
-
-.divForm {
-    width: 75%;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
 .npc, .theOne {
     cursor: pointer;
-    width: 200px;
+    width: 10rem;
 }
 
 .npc {
@@ -101,6 +167,34 @@ small:hover .iconTip {
     color: rgb(255, 247, 222);
 }
 
+.theOne:active {
+    transform: translateY(3px);
+    transition: 0.1s;
+    border-bottom: 4px solid rgb(243, 16, 0);
+
+}
+
+.npc:active {
+    transform: translateY(3px);
+    transition:ease-out 0.4s;
+    border-bottom: 4px solid rgb(85, 85, 85);
+}
+
+.purchaseBtns {
+    display: flex;
+    justify-content: space-around;
+}
+
+.purchaseBtns>div {
+    padding-left: 0.6rem;
+    display: flex;
+    align-items: center;
+    width: 10rem;
+    border-radius: 0.5rem;
+    height: 4rem;
+    font-size: .9rem;
+}
+
 .iconBtn {
     margin-right: 0.5em;
 }
@@ -121,67 +215,6 @@ small:hover .iconTip {
     margin-bottom: 2rem;
 }
 
-.inputsCep {
-    display: grid;
-    gap: 15px;
-    grid-template-columns: max-content;
-}
-
-.inp1 {
-    grid-column-start: 1;
-    grid-column-end: 2;
-}
-
-.inp2 {
-    grid-column-start: 1;
-    grid-column-end: 6;
-} 
-
-.inp3 {
-    grid-column-start: 1;
-    grid-column-end: 2;
-}
-
-.inp4 {
-    grid-column-start: 2;
-    grid-column-end: 6;
-}
-
-.inp5 {
-    grid-column-start: 1;
-    grid-column-end: 2;
-}
-
-.inp6 {
-    grid-column-start: 2;
-    grid-column-end: 5;
-}
-.inp7 {
-    grid-column-start: 5;
-    grid-column-end: 6;
-}
-
-.title>h1 {
-    font-size: 4.5rem;
-    font-weight: 800;
-    margin: 2rem;
-}
-
-.formPart1, .formPart2 {
-    background-color: #f3f3f3;
-    padding: 4rem;
-    margin-bottom: 2rem;
-    margin-left: 0;
-    border-radius: .5rem;
-}
-
-.formPart1 {
-    border: 2px solid;
-}
-
-.formPart2 {
-    border: 2px solid;
-}
 
 .formPart3 {
     border-top: 4px solid #d9d9d9;
@@ -204,22 +237,6 @@ small:hover .iconTip {
     height: 3.5rem;
 }
 
-.purchaseBtns {
-    display: flex;
-    justify-content: space-around;
-}
-
-
-.purchaseBtns>div {
-    padding-left: 1rem;
-    display: flex;
-    align-items: center;
-    width: 13rem;
-    border-radius: 0.5rem;
-    height: 4rem;
-    font-size: 1.2rem;
-}
-
 .btnF {
     background-color: #ff8100;
     color: #f3f3f3;
@@ -236,25 +253,12 @@ small:hover .iconTip {
     transition: 0.3s;
 }
 
-.theOne:active {
-    transform: translateY(3px);
-    transition: 0.1s;
-    border-bottom: 4px solid rgb(243, 16, 0);
-
-}
-
-.npc:active {
-    transform: translateY(3px);
-    transition:ease-out 0.4s;
-    border-bottom: 4px solid rgb(85, 85, 85);
-}
-
 .totalPrice>p {
     font-size: 2rem;
     font-weight: 800;
 }
 
-@media (max-width: 400px) {
+@media (max-width: 375px) {
 
     p {
         font-size: x-small;
