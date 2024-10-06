@@ -20,11 +20,14 @@ body{
     align-items: center;
 }
 .spider-man-image{
+    max-width: 720px;
     height: 100vh;
     display: block;
     object-fit: cover;
 }
 .uol-comics-logo{
+    width: 399px;
+    height: 77px;
     margin-top: 40px;
     margin-left: 160px;
     margin-bottom: 32px;
