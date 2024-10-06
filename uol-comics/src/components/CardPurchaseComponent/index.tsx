@@ -8,18 +8,19 @@ import {    FaExclamationCircle, FaCreditCard, FaMoneyBill,
 
 import { toast } from 'react-toastify'
 import { makeItRandom } from '../../types/random'
-import Header from "../header"
+// import Header from "../header"
 import "react-toastify/dist/ReactToastify.minimal.css"
 import { useNavigate } from 'react-router-dom'
 
 export interface InfoToFinish extends CepProps {
+    getExtraInfo: string
     getChoice : string
     getAdress: string
     getUnity: string
     getCity: string
-    getUfs: string
-    getExtraInfo: string
     getHood: string
+    getUfs: string
+
 }
 
 const CardPurchaseComponent: React.FC = () => 
@@ -77,12 +78,22 @@ const CardPurchaseComponent: React.FC = () =>
             setUfs(uf)
             setChoice(choice)
             setHood(bairro)            
-            setCepS(cep.cep)
+            setCepS(cep)
             //setIsValidCep(true)
             console.log(data)
         }
         catch (error)
         { toast.error('Não foi possível buscar as informações do seu CEP.\nMOTIVO: ' + error)}
+    }
+
+    const handleAutoFill = () => {
+        if (cepS.length === 8) 
+            { 
+                getCeps(cepS) 
+                return
+            }
+        toast.warn('Por favor, insira um CEP válido de 8 dígitos.')
+        
     }
 
     const handleSubmitCEP = (e: React.FormEvent) => {
@@ -149,6 +160,7 @@ const CardPurchaseComponent: React.FC = () =>
                         pauseOnHover: true
                     } 
                 )
+
             }
             return
         }
@@ -172,7 +184,7 @@ const CardPurchaseComponent: React.FC = () =>
 
     return (
         <>
-            <Header showFilter={true}/>
+            {/* <Header showFilter={true}/> */}
             <div className='main'>
                 <div className='title'><h1>Comprar</h1></div>
                 <div className='formDiv'>
@@ -180,7 +192,7 @@ const CardPurchaseComponent: React.FC = () =>
                         <div className='formPart1'>
                             <div>
                                 <div className='aboutText'>
-                                    <FaMapMarkerAlt className='icon'/>
+                                    <FaMapMarkerAlt className='iconEnd1'/>
                                     <div>
                                         <p>Endereço de entrega</p>
                                         <p>Informe o endereço onde deseja receber seu pedido</p>
@@ -195,6 +207,7 @@ const CardPurchaseComponent: React.FC = () =>
                                     className='item inp1'
                                     id='inp1'
                                     value={cepS}
+                                    onBlur={handleAutoFill}
                                     onChange={(e) => setCepS(e.target.value)}
                                     type="text" 
                                     placeholder='CEP'/>
@@ -251,7 +264,7 @@ const CardPurchaseComponent: React.FC = () =>
                         
                         <div className='formPart2'>
                             <div className='aboutText'>
-                                <FaDollarSign className='icon'/>
+                                <FaDollarSign className='iconEnd'/>
                                 <div>
                                     <p>Pagamento</p>
                                     <p>O pagamento é feito na entrega. Escolha a forma que deseja pagar</p>
