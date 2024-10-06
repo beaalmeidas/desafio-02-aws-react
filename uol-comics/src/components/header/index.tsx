@@ -1,31 +1,33 @@
 import { useEffect, useRef, useState } from 'react';
 import './style.css'
+import { Link, useLocation } from 'react-router-dom';
 
 type Props = {
+    sendFilter: (filterValue: string) => void
     showFilter: boolean
 }
 
 const Header = (props: Props) => {
-    const {showFilter} = props
+    const {sendFilter, showFilter} = props
+    const location = useLocation()
+
+    useEffect(() => {
+        setFilterState(showFilter)
+    },[props])
 
     // Modify States
     const [filterState, setFilterState] = useState(true)
     const [hasCartItem, setHasCartItem] = useState(false)
 
-    useEffect(()=>{
-        setFilterState(showFilter)
-    },[props])
-
     // Defaul functions
-    const [inputLabelVisible,setInputLabelVisible] = useState(true);
     const [cartImage,setCartImage] = useState('./assets/svg/cart.svg');
     const [logoutImage,setLogoutImage] = useState('./assets/images/logout.png');
 
     const filterInputRef = useRef<HTMLInputElement>(null);
 
-    const setFocus = () => {
+    const handleFilter = () => {
         if (filterInputRef.current !== null){
-            filterInputRef.current.focus()
+            sendFilter(filterInputRef.current.value)
         }
     }
 
@@ -37,18 +39,13 @@ const Header = (props: Props) => {
             </section>
 
             <section className="name-filter">
-            {filterState && (
+            {filterState &&(
                 <>
-                    {inputLabelVisible && (
-                        <label onClick={setFocus}>
-                            <img src="./assets/images/symbols-search.png" alt="pesquisa"/>
-                            <p className="font-regular">Pesquisar por nome...</p>
-                        </label>
-                    )}
-
+                    <button className='search-button' onClick={handleFilter}>
+                        <img src='./assets/images/symbols-search.png' alt='pesquisar'/>
+                    </button>
                     <input name="filter"
-                    onFocus={() => {setInputLabelVisible(false)}}
-                    onBlur={() => {setInputLabelVisible(true)}}
+                    placeholder='Pesquisar por nome...'
                     ref={filterInputRef}
                     />
                 </>
@@ -58,10 +55,10 @@ const Header = (props: Props) => {
             <section className="right-side-header">
                 <div className="links">
                     {/* 'a' vai mudar pra 'Link' */}
-                    <a href="#"><p className="font-regular">Quadrinhos</p></a>
-                    <a href="#"><p className="font-regular selected">Personagens</p></a>
+                    <Link to='/comics-list'><p className={`font-regular ${location.pathname === '/comics-list' ? 'selected':''}`}>Quadrinhos</p></Link>
+                    <Link to='/character-page'><p className={`font-regular ${location.pathname === '/character-page' ? 'selected':''}`}>Personagens</p></Link>
                 </div>
-                <a href="#">
+                <Link to='/cart'>
                     <div className="go-to-cart">
                         <img
                         onMouseEnter={()=>{setCartImage('./assets/images/cart-hover.png')}}
@@ -72,7 +69,7 @@ const Header = (props: Props) => {
                             <div className="pointer"/>
                         )}
                     </div>
-                </a>
+                </Link>
 
                 <button className="logout-button normal-button button-square"
                 onMouseEnter={()=>{setLogoutImage('./assets/images/logout-hover.png')}}

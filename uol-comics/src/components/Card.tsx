@@ -1,18 +1,20 @@
 import styles from "./Card.module.css";
 
 interface CardProps {
-  name: string;
+  title: string;
+  description: string;
   imageUrl: string;
 }
 
-export const Card = ({ name, imageUrl }: CardProps) => {
+export const Card = ({ title, description, imageUrl }: CardProps) => {
   return (
     <div className={styles.container}>
       <div className={styles.card}>
-        <img src={imageUrl} alt={name} className={styles.image} />
-        <div className={styles.name}>{name}</div>
+        <img src={imageUrl} alt={title} className={styles.image} />
+        <div className={styles.name}>{title}</div>
+        <div className={styles.description}>{description}</div>
       </div>
-      <button>Carregar mais</button>
+      
     </div>
   );
 };

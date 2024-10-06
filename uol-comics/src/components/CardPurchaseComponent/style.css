@@ -1,0 +1,239 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    font-size: 100px;
+}
+
+input, select {
+    height: 3rem;
+    border-radius: 0.5rem;
+    border: 1px solid rgb(159, 159, 159);
+    font-size: 1.2rem;
+    padding-left: 1em;
+}
+
+.icon {
+    display: flex;
+    align-self: flex-start;
+    height: auto;
+    width: 1.8rem;
+    margin-right: 0.6rem;
+}
+
+.icon, .iconBtn {
+    color: #ff8100;
+}
+
+.iconTip, small {
+    color: rgb(114, 127, 158);
+}
+
+small:hover .iconTip {
+    color: blue;
+    transition: 0.2s ease;
+}
+
+#btn1, #btn2, #btn3 {
+    all: unset;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.divForm {
+    width: 75%;
+}
+
+.npc, .theOne {
+    cursor: pointer;
+    width: 200px;
+}
+
+.npc {
+    background-color: #bababa;
+    border: 2px solid rgb(85, 85, 85);
+    border-bottom: 7px solid rgb(85, 85, 85);
+}
+
+.theOne {
+    background-color: #ff8100;
+    border: 2px solid rgb(243, 97, 0);
+    border-bottom: 7px solid rgb(243, 97, 0);
+    color: rgb(255, 247, 222);
+}
+
+.theOne .iconBtn {
+    color: rgb(255, 247, 222);
+}
+
+.theOne:hover {
+    background-color: rgb(255, 171, 54);
+    transition: transform 0.2s ease;
+    border-bottom: 7px solid rgb(243, 16, 0);
+}
+
+.npc:hover {
+    background-color: rgb(136, 136, 136);
+}
+
+.npc:hover {
+    border-color: rgb(35, 35, 35);
+    transition: 0.2s ease;
+}
+
+.npc:hover .iconBtn {
+    color: rgb(230, 0, 0);
+    transition: 0.4s;
+}
+
+.theOne:hover .iconBtn{
+    color: rgb(255, 247, 222);
+}
+
+.iconBtn {
+    margin-right: 0.5em;
+}
+
+.warningForm {
+    display: flex;
+}
+
+.warFormIcon {
+    color: orange;
+    width: 50px;
+    padding: 0%;
+}
+
+.aboutText {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.inputsCep {
+    display: grid;
+    gap: 15px;
+    grid-template-columns: max-content;
+}
+
+.inp1 {
+    /* grid-row-start: 1; */
+    grid-column-start: 1;
+    grid-column-end: 2;
+}
+
+.inp2 {
+    grid-column-start: 1;
+    grid-column-end: 6;
+}
+
+.inp3 {
+    grid-column-start: 1;
+    grid-column-end: 2;
+}
+
+.inp4 {
+    grid-column-start: 2;
+    grid-column-end: 6;
+}
+
+.inp5 {
+    grid-column-start: 1;
+    grid-column-end: 2;
+}
+
+.inp6 {
+    grid-column-start: 2;
+    grid-column-end: 5;
+}
+.inp7 {
+    grid-column-start: 5;
+    grid-column-end: 6;
+}
+
+.title>h1 {
+    font-size: 4.5rem;
+    font-weight: 800;
+    margin: 2rem;
+}
+
+.formPart1, .formPart2 {
+    background-color: #f3f3f3;
+    padding: 4rem;
+    margin-bottom: 2rem;
+    margin-left: 0;
+    border-radius: .5rem;
+}
+
+.formPart1 {
+    border: 2px solid;
+}
+
+.formPart2 {
+    border: 2px solid;
+}
+
+.formPart3 {
+    border-top: 4px solid #d9d9d9;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.formPart3>div {
+    width: 60%;
+    margin-top: 1rem;
+}
+
+
+
+.formPart3>div>div {
+    display: flex;
+    justify-content: space-between;
+    height: 3.5rem;
+}
+
+.purchaseBtns {
+    display: flex;
+    justify-content: space-around;
+}
+
+
+.purchaseBtns>div {
+    padding-left: 1rem;
+    display: flex;
+    align-items: center;
+    width: 13rem;
+    border-radius: 0.5rem;
+    height: 4rem;
+    font-size: 1.2rem;
+}
+
+.btnF {
+    background-color: #ff8100;
+    color: #f3f3f3;
+    width: 20rem;
+    font-size: 1.7rem;
+    border: 3px solid transparent;
+    border-radius: 1rem;
+}
+
+.btnF:hover {
+    background-color: #fafffd;
+    color: #ff8100;
+    border: 3px solid #ff8100;
+    transition: 0.3s;
+}
+
+.totalPrice>p {
+    font-size: 2rem;
+    font-weight: 800;
+}

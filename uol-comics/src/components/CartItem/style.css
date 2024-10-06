@@ -1,0 +1,80 @@
+.cart-items{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 32px;
+    position: relative;
+    flex-direction: column;
+    left: 50%;
+    transform: translate(-50%);
+    margin-top: 32px;
+}
+.item-on-cart{
+    width: 830px;
+    height: 234px;
+    border-radius: 8px;
+    background-color: var(--gray-secondary);
+}
+
+.item-information{
+    position: absolute;
+    display: flex;
+}
+.item-information img{
+    width: 122px;
+    height: 170px;
+    margin: 32px 16px;
+}
+.item-information .text-information{
+    margin: 32px 16px;
+    height: 140.64px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.item-information .text-information h3{
+    font-size: 32px;
+    line-height: 38.4px;
+}
+.item-information .text-information .counter{
+    display: flex;
+    width: 117px;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--bg-primary);
+    border-radius: 24px;
+}
+.counter .counter-button{
+    border-radius: 100px;
+    width: 38.64px;
+    height: 38.64px;
+    font-size: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.counter .count{
+    font-size: 16px;
+    line-height: 20px;
+}
+
+.delete-icon{
+    position: relative;
+    width: 48px;
+    height: 46px;
+    background-color: var(--color-brand);
+    left: calc(100% - 48px);
+    border: none;
+    border-radius: 0 8px 0 8px;
+    cursor: pointer;
+}
+.delete-icon img{
+    width: 24px;
+}
+.item-on-cart .price{
+    position: relative;
+    left: 85%;
+    font-size: 32px;
+    line-height: 38.4px;
+    top: 118px;
+}

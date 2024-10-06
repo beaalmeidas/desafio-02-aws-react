@@ -32,7 +32,7 @@
   text-transform: uppercase;
 }
 
-button {
+button.more-items {
   padding: 20px 30px;
   background-color: black;
   color: white;
@@ -41,6 +41,6 @@ button {
   cursor: pointer;
 }
 
-button:hover {
+button.more-items:hover {
   background-color: orange;
 }
