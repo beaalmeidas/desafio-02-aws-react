@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import './style.css'
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 type Props = {
     sendFilter: (filterValue: string) => void
@@ -9,6 +9,7 @@ type Props = {
 
 const Header = (props: Props) => {
     const {sendFilter, showFilter} = props
+    const location = useLocation()
 
     useEffect(() => {
         setFilterState(showFilter)
@@ -54,10 +55,10 @@ const Header = (props: Props) => {
             <section className="right-side-header">
                 <div className="links">
                     {/* 'a' vai mudar pra 'Link' */}
-                    <a href="#"><p className="font-regular">Quadrinhos</p></a>
-                    <a href="#"><p className="font-regular selected">Personagens</p></a>
+                    <Link to='/comics-list'><p className={`font-regular ${location.pathname === '/comics-list' ? 'selected':''}`}>Quadrinhos</p></Link>
+                    <Link to='/character-page'><p className={`font-regular ${location.pathname === '/character-page' ? 'selected':''}`}>Personagens</p></Link>
                 </div>
-                <a href="#">
+                <Link to='/cart'>
                     <div className="go-to-cart">
                         <img
                         onMouseEnter={()=>{setCartImage('./assets/images/cart-hover.png')}}
@@ -68,7 +69,7 @@ const Header = (props: Props) => {
                             <div className="pointer"/>
                         )}
                     </div>
-                </a>
+                </Link>
 
                 <button className="logout-button normal-button button-square"
                 onMouseEnter={()=>{setLogoutImage('./assets/images/logout-hover.png')}}
