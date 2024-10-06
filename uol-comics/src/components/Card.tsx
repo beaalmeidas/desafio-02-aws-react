@@ -14,8 +14,6 @@ export const Card = ({ title, description, imageUrl }: CardProps) => {
         <div className={styles.name}>{title}</div>
         <div className={styles.description}>{description}</div>
       </div>
-
-      <button className="more-items">Carregar mais</button>
       
     </div>
   );

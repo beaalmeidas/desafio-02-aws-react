@@ -6,6 +6,7 @@ import { CharacterPage } from "../pages/CharacterPage";
 import { HomePage } from "../pages/HomePage";
 import PurchasePage from "../pages/PurchasePage";
 import FinishedPurPage from "../pages/FinishedPurPage";
+import CartPage from "../pages/CartPage";
 
 export const AppRoutes = () => {
   return (
