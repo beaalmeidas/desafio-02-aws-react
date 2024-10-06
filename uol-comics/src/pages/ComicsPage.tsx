@@ -4,13 +4,16 @@ import Header from "../components/header/index"
 import ComicsList from "../components/ComicsProductList/comics-list";
 
 const ComicsPage = () => {
+    const filterReturn = (filterValue: string) => {
+        console.log(filterValue)
+    }
+
     return (
         <div className="comics-page">
+            <Header sendFilter={filterReturn} showFilter={true}/>
+            
             <div className="comic-cards-container">
-                <Header />
-                <br /> <br />
                 <ComicsList />
-                <br /> <br />
             </div>
         </div>
     );

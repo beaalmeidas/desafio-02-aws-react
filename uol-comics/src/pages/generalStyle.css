@@ -27,6 +27,21 @@ h2.cart-page-title{
     font-size: 24px;
     line-height: 28.8px;
 }
-
-
 /*end Cart Page*/
+
+/*Comic Page*/
+.comics-page{
+    width: 1440px;
+
+}
+.comic-cards-container{
+    width: 100%;
+    position: absolute;
+    top: 128px;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/*end Comic Page*/

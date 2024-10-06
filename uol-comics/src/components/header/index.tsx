@@ -4,11 +4,15 @@ import { useLocation } from 'react-router-dom';
 
 type Props = {
     sendFilter: (filterValue: string) => void
+    showFilter: boolean
 }
 
 const Header = (props: Props) => {
-    const {sendFilter} = props
-    const location = useLocation()
+    const {sendFilter, showFilter} = props
+
+    useEffect(() => {
+        setFilterState(showFilter)
+    },[props])
 
     // Modify States
     const [filterState, setFilterState] = useState(true)
@@ -25,18 +29,6 @@ const Header = (props: Props) => {
             sendFilter(filterInputRef.current.value)
         }
     }
-
-    // Should not display filter
-    const shouldNotDisplayHeader = ['/cart','/purchase-page','/finished-pur-page','/comic-details']
-
-    useEffect(() => {
-        if (shouldNotDisplayHeader.includes(location.pathname)){
-            setFilterState(false)
-        }
-        else{
-            setFilterState(true)
-        }
-    },[])
 
     return (
         <header>
