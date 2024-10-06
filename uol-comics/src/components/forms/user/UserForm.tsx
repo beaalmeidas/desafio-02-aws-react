@@ -16,7 +16,7 @@ const UserForm = () => {
             await new Promise((res) => setTimeout(res,4000))
             localStorage.setItem("UserLogInInfo", JSON.stringify(data))
             alert("Login finalizado com sucesso!")
-            pageNavegation("/")
+            pageNavegation("/comics-list")
         }finally{
             setLoadingPage(false)
     }
@@ -27,7 +27,7 @@ const UserForm = () => {
             await new Promise((res) => setTimeout(res,4000))
             localStorage.setItem("userSignInInfo", JSON.stringify(data))
             alert("Cadastro finalizado com sucesso!")
-            pageNavegation("/")
+            pageNavegation("/comics-list")
         }finally{
             setLoadingPage(false)
         }
