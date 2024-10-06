@@ -36,10 +36,9 @@ section.name-filter{
     align-items: center;
 }
 section.name-filter input{
-    position: absolute;
-    border-radius: 40px;
+    border-radius: 0 40px 40px 0;
     background-color: var(--gray-secondary);
-    width: 448px;
+    width: 400px;
     height: 64px;
     border: none;
     padding: 8px 16px;
@@ -56,11 +55,27 @@ section.name-filter label{
     align-items: center;
     gap: 10px;
 }
-section.name-filter label, section.name-filter input{
+section.name-filter input,section.name-filter input::placeholder{
     font-family: "Sofia Sans", system-ui;
     color: var(--gray-primary);
     font-size: 24px;
     line-height: 28.8px;
+}
+.name-filter img{
+    z-index: 2;
+    margin-left: 8px;
+    
+}
+.search-button{
+    width: 48px;
+    height: 80px;
+    border: none;
+    background-color: var(--gray-secondary);
+    border-radius: 40px 0 0 40px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /*Right Side Header*/

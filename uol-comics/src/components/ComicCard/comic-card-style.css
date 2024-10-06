@@ -1,0 +1,61 @@
+@import "../../index.css";
+
+/* CARD COM AS INFORMAÇÕES DO QUADRINHO ----------------- */
+.comic-card {
+    width: 298px;
+    padding: 8px;
+    gap: 8px;
+    transition: background-color 0.2s ease;
+}
+
+.comic-card:hover {
+    background-color: #FF8100;
+    border: none;
+    border-radius: 4px;
+}
+
+
+/* CAPA DO QUADRINHO ------------------------------------ */
+.comic-cover-image {
+    max-width: 324px;
+    height: 450px;
+}
+
+
+/* TÍTULO DO QUADRINHO ---------------------------------- */
+.comic-title {
+    font-size: 24px;
+}
+
+.comic-card:hover .comic-title {
+    color: #fff;
+}
+
+
+/* PREÇO ------------------------------------------------ */
+.comic-price {
+    font-size: 16px;
+    font-weight: 700;
+    color: #FF8100;
+}
+
+.comic-card:hover .comic-price {
+    color: #000;
+}
+
+
+/* AUTOR E ANO DE LANÇAMENTO ---------------------------- */
+#author-year-container {
+    display: flex;                 
+    justify-content: space-between;
+    align-items: center;           
+    margin-top: 4px;
+}
+
+.comic-card:hover .comic-author {
+    color: #fff;
+}
+
+.comic-card:hover .comic-year {
+    color: #fff;
+}
