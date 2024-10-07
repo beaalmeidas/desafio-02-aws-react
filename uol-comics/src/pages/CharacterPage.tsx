@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Card } from "../components/CardCharacter/Card";
+import { Card } from "../components/CharacterCard/character-card";
 import styles from "./CharacterPage.module.css";
 
 interface Character {
