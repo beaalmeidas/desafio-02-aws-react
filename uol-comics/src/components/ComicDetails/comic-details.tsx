@@ -40,12 +40,27 @@ const ComicDetails: React.FC = () => {
     const [extraComic, setExtraComic] = useState<Array<any>>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
+    const [cartItems, setCartItems] = useState<Array<string>>(() => {
+        const savedCartItems = localStorage.getItem('cartItems');
+        return savedCartItems ? JSON.parse(savedCartItems) : [];
+    });
 
     const baseUrl = `https://gateway.marvel.com/v1/public/comics/${id}`;
-    const publicKey = '4d97b9eee2fc85aa6f3f94d06e12db0d';
-    const privateKey = '89151ea6e57f21d615f33faa61b08cc778aa809b';
+    const publicKey = '4d4058eb91382b11fe2dffc672e56af9';
+    const privateKey = 'b2a097e93442bff9976716f199ecdeea9fe07f15';
     const ts = new Date().getTime().toString();
     const hash = md5(ts + privateKey + publicKey).toString();
+
+    const addToCart = () => {
+        if (id) {
+            setCartItems(prevItems => [...prevItems, id]);
+        } else {
+            console.error('ID não encontrado. Não é possível adicionar ao carrinho.');
+        }
+    }
+    useEffect(() => {
+        localStorage.setItem('cartItems', JSON.stringify(cartItems))
+    },[cartItems])
 
     // Fetch comic details
     useEffect(() => {
@@ -105,10 +120,6 @@ const ComicDetails: React.FC = () => {
             console.error('Error fetching comic:', error);
         }
     }
-    
-    useEffect(() => {
-        console.log(extraComic)
-    },[extraComic])
 
     if (loading) {
         return <div>Loading...</div>;
@@ -148,7 +159,7 @@ const ComicDetails: React.FC = () => {
                         </div>
                     </div>
                     <div className="comic-buttons">
-                        <button className="add-to-cart">Adicionar ao carrinho</button>
+                        <button className="add-to-cart" onClick={addToCart}>Adicionar ao carrinho</button>
                         <button className="buy-now">Comprar agora</button>
                     </div>
                 </div>
@@ -157,12 +168,9 @@ const ComicDetails: React.FC = () => {
                 <h2>Mais obras</h2>
                 <div className="related-comics-grid">
                     {extraComic.map((relatedComic: any) => {
-                        
+                        console.log(relatedComic)
                         return (
-                            <div key={relatedComic.id} className="related-comic-item">
-                                <img src={`${relatedComic.thumbnail.path}.${relatedComic.thumbnail.extension}`} alt={relatedComic.title} />
-                                <p>{relatedComic.title}</p>
-                            </div>
+                            <></>
                         )
                     })}
                 </div>
