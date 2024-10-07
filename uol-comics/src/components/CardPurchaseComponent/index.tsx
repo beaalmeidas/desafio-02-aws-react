@@ -13,7 +13,14 @@ import "react-toastify/dist/ReactToastify.minimal.css"
 import { useNavigate } from 'react-router-dom'
 
 export interface InfoToFinish extends CepProps {
+    getExtraInfo: string
     getChoice : string
+    getAdress: string
+    getUnity: string
+    getCity: string
+    getHood: string
+    getUfs: string
+
 }
 
 const CardPurchaseComponent: React.FC = () => 
@@ -61,18 +68,8 @@ const CardPurchaseComponent: React.FC = () =>
             console.log(response.data)
             setData(response.data)
 
-            const 
-            { 
-                bairro, cep, complemento,
-                localidade, logradouro,
-                uf, unidade 
-            } = response.data
-            const cepData: CepProps = 
-            {
-                bairro, cep, complemento,
-                localidade, logradouro,
-                uf, unidade 
-            }
+            const { bairro, cep, complemento, localidade, logradouro, uf, unidade } = response.data;
+            setData(response.data);
             
             setAdress(logradouro)
             setUnity(unidade)
@@ -81,12 +78,22 @@ const CardPurchaseComponent: React.FC = () =>
             setUfs(uf)
             setChoice(choice)
             setHood(bairro)            
-            setCepS(cepData.cep)
+            setCepS(cep)
             //setIsValidCep(true)
             console.log(data)
         }
         catch (error)
         { toast.error('Não foi possível buscar as informações do seu CEP.\nMOTIVO: ' + error)}
+    }
+
+    const handleAutoFill = () => {
+        if (cepS.length === 8) 
+            { 
+                getCeps(cepS) 
+                return
+            }
+        toast.warn('Por favor, insira um CEP válido de 8 dígitos.')
+        
     }
 
     const handleSubmitCEP = (e: React.FormEvent) => {
@@ -101,9 +108,10 @@ const CardPurchaseComponent: React.FC = () =>
             { value: unity, label: 'Número do endereço' },
             { value: hood, label: 'Bairro' },
             { value: city, label: 'Cidade' },
+            { value: choice, label: 'Método de pagamento' }
         ].filter(field => field.value === '');
 
-        if(emptyFields.length === 5)
+        if(emptyFields.length === 6)
         {
             return toast.warn(
             <div className='warningForm'>
@@ -123,7 +131,7 @@ const CardPurchaseComponent: React.FC = () =>
                     toast.warn(
                     <div className='warningForm'>
                         <FaExclamationCircle className='warFormIcon'/>
-                        <p>{`ATENÇÃO: o seguinte campo não foi preenchido: ${field.label}`}</p>
+                        <p>{`ATENÇÃO: o seguinte campo não foi preenchido: [${field.label}]`}</p>
                     </div>,
                     {
                         icon: false,
@@ -131,7 +139,7 @@ const CardPurchaseComponent: React.FC = () =>
                     })
                     return
                 }
-                else if(emptyFields.length > 1 && emptyFields.length < 5) 
+                else if(emptyFields.length > 1 && emptyFields.length < 6) 
                 { 
                     noInfoErrorMsg += `\n-${field.label};` 
                 }
@@ -152,16 +160,23 @@ const CardPurchaseComponent: React.FC = () =>
                         pauseOnHover: true
                     } 
                 )
+
             }
             return
         }
 
         const infoToFinish: InfoToFinish = {
             ...data!,
+            getAdress: adress,
+            getUnity: unity,
+            getCity: city,
+            getUfs: ufs,
+            getExtraInfo: extraInfo,
+            getHood: hood,
             getChoice: choice
         }
 
-        //toast.success('Suas informações foram aceitas com sucesso!')
+        toast.success('Suas informações foram aceitas com sucesso!')
         getCeps(cepS)
         navigate('/finished-pur-page', { state: infoToFinish })
 
@@ -169,6 +184,7 @@ const CardPurchaseComponent: React.FC = () =>
 
     return (
         <>
+
             <Header sendFilter={()=>{}} showFilter={false}/>
             <div className='main' style={{marginTop: '128px'}}>
                 <div className='title'><h1>Comprar</h1></div>
@@ -177,7 +193,7 @@ const CardPurchaseComponent: React.FC = () =>
                         <div className='formPart1'>
                             <div>
                                 <div className='aboutText'>
-                                    <FaMapMarkerAlt className='icon'/>
+                                    <FaMapMarkerAlt className='iconEnd1'/>
                                     <div>
                                         <p>Endereço de entrega</p>
                                         <p>Informe o endereço onde deseja receber seu pedido</p>
@@ -192,6 +208,7 @@ const CardPurchaseComponent: React.FC = () =>
                                     className='item inp1'
                                     id='inp1'
                                     value={cepS}
+                                    onBlur={handleAutoFill}
                                     onChange={(e) => setCepS(e.target.value)}
                                     type="text" 
                                     placeholder='CEP'/>
@@ -248,7 +265,7 @@ const CardPurchaseComponent: React.FC = () =>
                         
                         <div className='formPart2'>
                             <div className='aboutText'>
-                                <FaDollarSign className='icon'/>
+                                <FaDollarSign className='iconEnd'/>
                                 <div>
                                     <p>Pagamento</p>
                                     <p>O pagamento é feito na entrega. Escolha a forma que deseja pagar</p>
