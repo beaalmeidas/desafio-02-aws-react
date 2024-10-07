@@ -9,7 +9,7 @@ const FormLogin = ({onSubmit}: LoginProps) => {
 
 return ( //form com validação do zod
     <form onSubmit={handleSubmit(onSubmit)}>
-    <div className="FormFiels">
+    <div className="form-fiels">
         <input type="email" id="email" placeholder="Email" className="e-mail-input" {...register("email")}/>
         {errors.email && <p className="error">{errors.email.message}</p>}
         <input type="password" id="password" placeholder="Senha" className="password-input" {...register("password")}/>
