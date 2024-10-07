@@ -39,7 +39,7 @@ body{
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-left: 180px;
+    margin-left: 190px;
 }
 .login-card{
     min-height: 307px;
