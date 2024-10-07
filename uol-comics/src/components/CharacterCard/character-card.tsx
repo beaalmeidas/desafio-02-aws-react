@@ -1,4 +1,5 @@
-import styles from "./Card.module.css";
+import styles from "./character-card.module.css";
+
 
 interface CardProps {
   title: string;
