@@ -20,6 +20,7 @@
     height: 35px;
     padding-left: 35px;
     border-radius: 31px;
+    font-size: 16px;
     background-color: var(--gray-secondary);
     border: none;
     position: relative;
