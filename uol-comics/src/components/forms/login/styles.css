@@ -5,7 +5,7 @@
     --gray-secondary: #F3F3F3;
     --color-brand: #FF8100;
 }
-.FormFiels{
+.form-fiels{
     display: flex;
     flex-direction: column;
     width: 292px;
@@ -20,6 +20,7 @@
     height: 35px;
     padding-left: 35px;
     border-radius: 31px;
+    font-size: 16px;
     background-color: var(--gray-secondary);
     border: none;
     position: relative;
@@ -50,7 +51,7 @@
 } 
 .error{
     color: var(--color-brand);
-    font-size: 14px;
+    font-size: 16px;
     font-family: 'Sofia Sans';
     font-weight: 400;
 
