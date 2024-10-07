@@ -51,6 +51,7 @@ const ComicDetails: React.FC = () => {
         const fetchComic = async () => {
             try {
                 const response = await fetch(`${baseUrl}?ts=${ts}&apikey=${publicKey}&hash=${hash}`);
+                console.log(response)
                 if (response.status === 429) {
                     throw new Error('Too many requests. Please wait and try again.');
                 }
@@ -102,6 +103,7 @@ const ComicDetails: React.FC = () => {
                         <div className="characters-list">
                             {comic.characters.items.map((character) => (
                                 <div key={character.id} className="character">
+
                                     <img src={`${character.thumbnail.path}.${character.thumbnail.extension}`} alt={character.name} />
                                     <p>{character.name}</p>
                                 </div>
