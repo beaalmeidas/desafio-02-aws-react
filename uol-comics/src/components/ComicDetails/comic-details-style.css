@@ -1,0 +1,80 @@
+.comic-details {
+    padding: 20px;
+  }
+  
+  .back-button {
+    font-size: 18px;
+    color: #FF6064;
+    text-decoration: none;
+    margin-bottom: 20px;
+  }
+  
+  .comic-info {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .comic-cover img {
+    width: 300px;
+  }
+  
+  .comic-details-text {
+    flex: 1;
+  }
+  
+  .comic-price {
+    color: #FF6064;
+    font-size: 24px;
+  }
+  
+  .comic-meta p {
+    margin: 5px 0;
+  }
+  
+  .comic-characters .characters-list {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .character img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+  }
+  
+  .comic-buttons {
+    margin-top: 20px;
+  }
+  
+  .add-to-cart,
+  .buy-now {
+    padding: 10px 20px;
+    margin-right: 10px;
+    border: none;
+    color: white;
+    background-color: #FF6064;
+    cursor: pointer;
+  }
+  
+  .buy-now {
+    background-color: orange;
+  }
+  
+  .related-comics {
+    margin-top: 40px;
+  }
+  
+  .related-comics-grid {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .related-comic-item img {
+    width: 100px;
+  }
+  
+  .related-comic-item p {
+    text-align: center;
+    font-size: 14px;
+  }
+  
