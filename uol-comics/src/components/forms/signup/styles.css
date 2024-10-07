@@ -1,8 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Sofia+Sans:ital,wght@0,1..1000;1,1..1000&display=swap');
-*{
-    margin: 0;
-    padding: 0;
-}
 :root{
     --bg-primary: #FAFFFD;
     --gray-primary: #BABABA;
@@ -20,18 +16,7 @@
     background-image: url("../../../../assets/images/symbols-user.png");
     background-repeat: no-repeat;
     background-position: 12px center;
-    padding: 10px 15px;
-    padding-left: 35px;
-    border-radius: 31px;
-    background-color: var(--gray-secondary);
-    border: none;
-    position: relative;
-}
-.e-mail-input{
-    background-image: url("../../../../assets/images/symbols-email.png");
-    background-repeat: no-repeat;
-    background-position: 12px center;
-    padding: 10px 15px;
+    height: 35px;
     padding-left: 35px;
     border-radius: 31px;
     background-color: var(--gray-secondary);
@@ -39,51 +24,29 @@
     position: relative;
 }
 
-.password-input{
-    background-image: url("../../../../assets/images/symbols-password.png");
-    background-repeat: no-repeat;
-    background-position: 12px center;
-    padding: 10px 15px;
-    padding-left: 35px;
-    border-radius: 31px;
-    background-color: var(--gray-secondary);
-    border: none;
-    position: relative;
-}
 .confirm-input{
     background-image: url("../../../../assets/images/symbols-password-confirm.png");
     background-repeat: no-repeat;
     background-position: 12px center;
-    padding: 10px 15px;
+    height: 35px;
     padding-left: 35px;
     border-radius: 31px;
     background-color: var(--gray-secondary);
     border: none;
     position: relative;
 }
-.password-input::placeholder{
-    color: var(--gray-primary);
-    font-family: 'Sofia Sans';
-    font-weight: 500;
-    font-size: 16;
-}
 
-.e-mail-input::placeholder{
-    color: var(--gray-primary);
-    font-family: 'Sofia Sans';
-    font-weight: 500;
-}
 .confirm-input::placeholder{
     color: var(--gray-primary);
     font-family: 'Sofia Sans';
     font-weight: 500;
-    font-size: 16;
+    font-size: 16px;
 }
 .name-input::placeholder{
     color: var(--gray-primary);
     font-family: 'Sofia Sans';
     font-weight: 500;
-    font-size: 16;
+    font-size: 16px;
 }
 .error{
     color: var(--color-brand);
