@@ -42,8 +42,8 @@ const ComicDetails: React.FC = () => {
     const [error, setError] = useState<string | null>(null);
 
     const baseUrl = `https://gateway.marvel.com/v1/public/comics/${id}`;
-    const publicKey = '4d97b9eee2fc85aa6f3f94d06e12db0d';
-    const privateKey = '89151ea6e57f21d615f33faa61b08cc778aa809b';
+    const publicKey = '4d4058eb91382b11fe2dffc672e56af9';
+    const privateKey = 'b2a097e93442bff9976716f199ecdeea9fe07f15';
     const ts = new Date().getTime().toString();
     const hash = md5(ts + privateKey + publicKey).toString();
 
@@ -157,11 +157,14 @@ const ComicDetails: React.FC = () => {
                 <h2>Mais obras</h2>
                 <div className="related-comics-grid">
                     {extraComic.map((relatedComic: any) => {
+                        console.log(relatedComic)
                         
                         return (
                             <div key={relatedComic.id} className="related-comic-item">
                                 <img src={`${relatedComic.thumbnail.path}.${relatedComic.thumbnail.extension}`} alt={relatedComic.title} />
                                 <p>{relatedComic.title}</p>
+                                <p>{relatedComic.prices[0].price}</p>
+                                
                             </div>
                         )
                     })}
