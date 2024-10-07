@@ -112,10 +112,10 @@ http://localhost:5173
 ---
 
 ### Autores / Authors
-Átila França do Nascimento
-Beatriz Almeida de Souza Silva 
-Débora Silva Oliveira
-Rafael Gaudêncio Cabral Soares
+Átila França do Nascimento <br>
+Beatriz Almeida de Souza Silva <br>
+Débora Silva Oliveira <br>
+Rafael Gaudêncio Cabral Soares <br>
 Wanchristersenn Victtor da Silva Ideao
 <br>
 October 2024
