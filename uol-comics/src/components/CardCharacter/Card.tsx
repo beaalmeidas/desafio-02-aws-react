@@ -14,6 +14,7 @@ export const Card = ({ title, imageUrl }: CardProps) => {
         <h3 className={styles.title}>{title}</h3>
 
       </div>
+      
     </div>
   );
 };

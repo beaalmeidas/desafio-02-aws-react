@@ -1,15 +1,15 @@
 import { BrowserRouter } from "react-router-dom";
 import { AppRoutes } from "./routes/appRoutes";
-// import CardPurchaseComponent from './components/CardPurchaseComponent';
-// import { ToastContainer } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
         <AppRoutes />
-        { /* <CardPurchaseComponent />}
-        {/* <ToastContainer /> */}
+        {/* <CardPurchaseComponent /> */}
+        <ToastContainer />
       </BrowserRouter>
     </div>
   );

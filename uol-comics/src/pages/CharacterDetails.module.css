@@ -1,86 +1,56 @@
 .container {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  padding: 20px;
-  background-color: white;
-  max-width: 1200px;
-  margin: 0 auto;
+  gap: 2rem;
+  padding: 1rem;
+}
+
+.backButton {
+  background-color: #ff5c00;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
 }
 
 .detailsSection {
   display: grid;
   grid-template-columns: 1fr 2fr;
-  gap: 20px;
-  width: 100%;
-  background-color: white;
-  padding: 20px;
-  margin-bottom: 40px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
+  gap: 2rem;
+  align-items: start;
 }
 
 .imageContainer img {
   width: 100%;
-  border-radius: 10px;
+  border-radius: 8px;
 }
 
 .infoContainer h2 {
-  font-size: 28px;
-  margin-bottom: 10px;
-}
-
-.infoContainer p {
-  font-size: 18px;
-  margin-bottom: 10px;
+  margin: 0;
+  font-size: 2rem;
+  color: #ff5c00;
 }
 
 .description {
-  margin-top: 10px;
-  font-size: 16px;
-  color: #333;
-}
-
-.backButton {
-  margin-bottom: 20px;
-  padding: 10px 20px;
-  background-color: #ff6600;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.backButton:hover {
-  background-color: #e65c00;
-}
-
-.moreWorksSection {
-  margin-top: 40px;
-  width: 100%;
+  margin-top: 1rem;
 }
 
 .moreWorksSection h3 {
-  font-size: 24px;
-  margin-bottom: 20px;
+  margin-bottom: 1rem;
 }
 
 .worksGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
 }
 
-.loadMoreButton {
-  margin-top: 20px;
-  padding: 10px 20px;
-  background-color: #ff6600;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+.workItem img {
+  width: 100%;
+  border-radius: 8px;
 }
 
-.loadMoreButton:hover {
-  background-color: #e65c00;
+.workItem p {
+  text-align: center;
+  margin-top: 0.5rem;
 }

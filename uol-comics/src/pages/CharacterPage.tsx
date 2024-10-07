@@ -1,77 +1,88 @@
-import { useEffect, useState } from "react";
-import { Card } from "../components/Card";
-import md5 from "crypto-js/md5";
+import { useEffect, useState, useMemo } from "react";
+import { Card } from "../components/CardCharacter/Card";
 import styles from "./CharacterPage.module.css";
+import md5 from 'crypto-js/md5';
 
 interface Character {
-  id: number;
-  name: string;
-  thumbnail: {
-    path: string;
-    extension: string;
-  };
+    id: number;
+    title: string;
+    description: string;
+    imageUrl: string;
 }
 
-const publicKey = "941f0252f2d8c04755324cca31adfef6";
-const privateKey = "8eaa824a6e397b62631be51dadacc5678dd2ceb6";
-const baseUrl = "https://gateway.marvel.com/v1/public/characters";
+export const CharacterPage = () => {
+    const [characters, setCharacters] = useState<Character[]>([]);
+    const [loading, setLoading] = useState<boolean>(true);
+    const [error, setError] = useState<string | null>(null);
 
-export const CharacterPage: React.FC = () => {
-  const [data, setData] = useState<Character[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
-  const [offset, setOffset] = useState<number>(0);
-  const limit = 20;
+    const baseUrl = `https://gateway.marvel.com/v1/public/characters`;
+    const publicKey = 'd6433e882e9629bd2ddae2d898ccb310';
+    const privateKey = '427b52c4015694083dc047ddc7076888ce132ffc';
 
-  const ts = new Date().getTime().toString();
-  const hash = md5(ts + privateKey + publicKey);
+    const ts = useMemo(() => new Date().getTime().toString(), []); 
+    const hash = useMemo(() => md5(ts + privateKey + publicKey).toString(), [ts]);
+    const CACHE_TIME_LIMIT = 24 * 60 * 60 * 1000;
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      try {
-        const response = await fetch(
-          `${baseUrl}?ts=${ts}&apikey=${publicKey}&hash=${hash}&limit=${limit}&offset=${offset}`
-        );
-        if (!response.ok) {
-          throw new Error(
-            `Erro na resposta da rede, status: ${response.status}`
-          );
-        }
-        const result = await response.json();
-        setData((prevData) => [...prevData, ...result.data.results]);
-      } catch (error) {
-        setError((error as Error).message);
-      } finally {
-        setLoading(false);
-      }
-    };
+    useEffect(() => {
+        const fetchCharacters = async () => {
+            const cachedData = localStorage.getItem('characters');
+            const cachedTimestamp = localStorage.getItem('charactersTimestamp');
+            const currentTime = new Date().getTime();
 
-    fetchData();
-  }, [offset]);
+            
+                try {
+                    const response = await fetch(`${baseUrl}?ts=${ts}&apikey=${publicKey}&hash=${hash}&limit=20`);
+                    if (response.status === 429) {
+                        throw new Error('Too many requests. Please wait and try again.');
+                    }
+                    if (!response.ok) {
+                        throw new Error(`Network response was not ok, status: ${response.status}`);
+                    }
+                    const data = await response.json();
+                    const mappedCharacters = data.data.results.map((char) => 
+                        ({
+                            id: char.id,
+                            title: char.name,
+                            description: char.description,
+                            imageUrl: `${char.thumbnail.path}.${char.thumbnail.extension}`
+                        }));
+                    
+                    setCharacters(mappedCharacters);
+                    localStorage.setItem('characters', JSON.stringify(mappedCharacters));
+                    localStorage.setItem('charactersTimestamp', currentTime.toString());
+                } catch (error) {
+                    setError((error as Error).message);
+                } finally {
+                    setLoading(false);
+                }
+            }
+        
 
-  const handleLoadMore = () => {
-    setOffset((prevOffset) => prevOffset + limit);
-  };
+        fetchCharacters();
+    }, [ts, hash, baseUrl]);
 
-  return (
-    <div className={styles.container}>
-      {loading && <p>Carregando...</p>}
-      {error && <p>Erro: {error}</p>}
-      <div className={styles.cardList}>
-        {data.length > 0
-          ? data.map((item) => (
-              <Card
-                key={item.id}
-                title={item.name}
-                imageUrl={`${item.thumbnail.path}.${item.thumbnail.extension}`}
-              />
-            ))
-          : !loading && <p>Nenhum resultado encontrado</p>}
-      </div>
-      <button onClick={handleLoadMore} className={styles.loadMoreButton}>
-        Carregar Mais
-      </button>
-    </div>
-  );
+    if (loading) {
+        return <div>Loading...</div>;
+    }
+
+    if (error) {
+        return <div>Error: {error}</div>;
+    }
+
+    return (
+        <div className={styles.cardList}>
+            {characters.length > 0 ? (
+                characters.map((item) => (
+                    <Card
+                        key={item.id}
+                        title={item.title}
+                        description={item.description}
+                        imageUrl={item.imageUrl}
+                    />
+                ))
+            ) : (
+                <p>Nenhum resultado encontrado</p>
+            )}
+        </div>
+    );
 };

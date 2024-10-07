@@ -1,129 +1,88 @@
-import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import { Card } from "../components/Card";
-import md5 from "crypto-js/md5";
-import styles from "./CharacterDetails.module.css";
+import { useEffect, useState, useMemo } from "react";
+import { Card } from "../components/CardCharacter/Card";
+import styles from "./CharacterPage.module.css";
+import md5 from 'crypto-js/md5';
 
-interface Character {
-  id: number;
-  name: string;
-  description: string;
-  thumbnail: {
-    path: string;
-    extension: string;
-  };
-  modified: string;
-  stories: { available: number };
-  series: { available: number };
+interface CharacterDetails {
+    id: number;
+    title: string;
+    description: string;
+    imageUrl: string;
 }
 
-const publicKey = "fd064c98af10874bffcee4cde18cee89";
-const privateKey = "cb058f5d04b18af9663408f816f4a6be743a1b6a";
-const baseUrl = "https://gateway.marvel.com/v1/public/characters";
+export const CharacterDetailsPage = () => {
+    const [characters, setCharacters] = useState<Character[]>([]);
+    const [loading, setLoading] = useState<boolean>(true);
+    const [error, setError] = useState<string | null>(null);
 
-export const CharacterDetails = () => {
-  const { id } = useParams<{ id: string }>();
-  const navigate = useNavigate();
-  const [character, setCharacter] = useState<Character | null>(null);
-  const [relatedWorks, setRelatedWorks] = useState<Character[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
-  const [visibleCount, setVisibleCount] = useState<number>(20);
+    const baseUrl = `https://gateway.marvel.com/v1/public/characters`;
+    const publicKey = 'd6433e882e9629bd2ddae2d898ccb310';
+    const privateKey = '427b52c4015694083dc047ddc7076888ce132ffc';
 
-  const ts = new Date().getTime().toString();
-  const hash = md5(ts + privateKey + publicKey);
+    const ts = useMemo(() => new Date().getTime().toString(), []); 
+    const hash = useMemo(() => md5(ts + privateKey + publicKey).toString(), [ts]);
+    const CACHE_TIME_LIMIT = 24 * 60 * 60 * 1000;
 
-  useEffect(() => {
-    const fetchCharacter = async () => {
-      try {
-        const response = await fetch(
-          `${baseUrl}/${id}?ts=${ts}&apikey=${publicKey}&hash=${hash}`
-        );
-        const result = await response.json();
-        setCharacter(result.data.results[0]);
+    useEffect(() => {
+        const fetchCharacters = async () => {
+            const cachedData = localStorage.getItem('characters');
+            const cachedTimestamp = localStorage.getItem('charactersTimestamp');
+            const currentTime = new Date().getTime();
 
-        const relatedResponse = await fetch(
-          `${baseUrl}?ts=${ts}&apikey=${publicKey}&hash=${hash}`
-        );
-        const relatedResult = await relatedResponse.json();
-        setRelatedWorks(relatedResult.data.results);
-      } catch (error) {
-        setError((error as Error).message);
-      } finally {
-        setLoading(false);
-      }
-    };
+            
+                try {
+                    const response = await fetch(`${baseUrl}?ts=${ts}&apikey=${publicKey}&hash=${hash}&limit=20`);
+                    if (response.status === 429) {
+                        throw new Error('Too many requests. Please wait and try again.');
+                    }
+                    if (!response.ok) {
+                        throw new Error(`Network response was not ok, status: ${response.status}`);
+                    }
+                    const data = await response.json();
+                    const mappedCharacters = data.data.results.map((char) => 
+                        ({
+                            id: char.id,
+                            title: char.name,
+                            description: char.description,
+                            imageUrl: `${char.thumbnail.path}.${char.thumbnail.extension}`
+                        }));
+                    
+                    setCharacters(mappedCharacters);
+                    localStorage.setItem('characters', JSON.stringify(mappedCharacters));
+                    localStorage.setItem('charactersTimestamp', currentTime.toString());
+                } catch (error) {
+                    setError((error as Error).message);
+                } finally {
+                    setLoading(false);
+                }
+            }
+        
 
-    fetchCharacter();
-  }, [id, ts, hash]);
+        fetchCharacters();
+    }, [ts, hash, baseUrl]);
 
-  const handleLoadMore = () => {
-    setVisibleCount((prevCount) => prevCount + 20);
-  };
+    if (loading) {
+        return <div>Loading...</div>;
+    }
 
-  return (
-    <div className={styles.container}>
-      <button className={styles.backButton} onClick={() => navigate(-1)}>
-        Voltar
-      </button>
-      {loading && <p>Carregando...</p>}
-      {error && <p>Erro: {error}</p>}
-      {character && (
-        <>
-          <div className={styles.detailsSection}>
-            <div className={styles.imageContainer}>
-              <img
-                src={`${character.thumbnail.path}.${character.thumbnail.extension}`}
-                alt={character.name}
-              />
-            </div>
-            <div className={styles.infoContainer}>
-              <h2>{character.name}</h2>
-              <p>
-                <strong>Criado em:</strong>{" "}
-                {new Date(character.modified).getFullYear()}
-              </p>
-              <p>
-                <strong>Histórias:</strong> {character.stories.available}
-              </p>
-              <p>
-                <strong>Séries:</strong> {character.series.available}
-              </p>
-              <p className={styles.description}>
-                {character.description || "Descrição não disponível."}
-              </p>
-            </div>
-          </div>
+    if (error) {
+        return <div>Error: {error}</div>;
+    }
 
-          <div className={styles.moreWorksSection}>
-            <h3>Mais obras</h3>
-            <div className={styles.worksGrid}>
-              {relatedWorks.length > 0
-                ? relatedWorks
-                    .slice(0, visibleCount)
-                    .map((work) => (
-                      <Card
-                        key={work.id}
-                        title={work.name}
-                        description={
-                          work.description || "Descrição não disponível"
-                        }
-                        imageUrl={`${work.thumbnail.path}.${work.thumbnail.extension}`}
-                      />
-                    ))
-                : !loading && <p>Nenhum resultado encontrado</p>}
-            </div>
-            {visibleCount < relatedWorks.length && (
-              <button
-                onClick={handleLoadMore}
-                className={styles.loadMoreButton}
-              >
-                Carregar Mais
-              </button>
+    return (
+        <div className={styles.cardList}>
+            {characters.length > 0 ? (
+                characters.map((item) => (
+                    <Card
+                        key={item.id}
+                        title={item.title}
+                        description={item.description}
+                        imageUrl={item.imageUrl}
+                    />
+                ))
+            ) : (
+                <p>Nenhum resultado encontrado</p>
             )}
-          </div>
-        </>
-      )}
-    </div>
-  );
+        </div>
+    );
 };
