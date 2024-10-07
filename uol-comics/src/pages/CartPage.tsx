@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './generalStyle.css'
 import CartItem from '../components/CartItem';
 import Header from '../components/header';
@@ -17,6 +17,10 @@ const CartPage = () => {
     const filterReturn = (filterValue: string) => {
         console.log(filterValue)
     }
+
+    useEffect(() => {
+        
+    },[])
 
     return (
         <> 
