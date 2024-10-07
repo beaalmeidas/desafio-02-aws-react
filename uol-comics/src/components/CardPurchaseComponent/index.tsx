@@ -169,8 +169,8 @@ const CardPurchaseComponent: React.FC = () =>
 
     return (
         <>
-            <Header showFilter={true}/>
-            <div className='main'>
+            <Header sendFilter={()=>{}} showFilter={false}/>
+            <div className='main' style={{marginTop: '128px'}}>
                 <div className='title'><h1>Comprar</h1></div>
                 <div className='formDiv'>
                     <form onSubmit={handleSubmitCEP}>
