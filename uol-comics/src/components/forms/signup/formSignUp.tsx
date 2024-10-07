@@ -9,7 +9,7 @@ const FormSignUp = ({onSubmit}: SignUpProps) => {
     
 return (//criação do form de sinup com validação do zod
     <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="FormFiels">
+        <div className="form-fiels">
         <input type="text" id="name" placeholder="Nome completo" {...register("username")} className="name-input"/>
             {errors.username && <p className="error">{errors.username.message}</p>} 
             <input type="email"  id="email" placeholder="Email" {...register("email")} className="e-mail-input"/>

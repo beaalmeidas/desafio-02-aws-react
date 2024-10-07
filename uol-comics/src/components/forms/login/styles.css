@@ -5,7 +5,7 @@
     --gray-secondary: #F3F3F3;
     --color-brand: #FF8100;
 }
-.FormFiels{
+.form-fiels{
     display: flex;
     flex-direction: column;
     width: 292px;
