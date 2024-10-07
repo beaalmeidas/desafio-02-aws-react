@@ -17,6 +17,8 @@ const UserForm = () => {
             localStorage.setItem("UserLogInInfo", JSON.stringify(data)) 
             alert("Login finalizado com sucesso!") //resposta visual para usuário
             pageNavegation("/comics-list") 
+        } catch{
+            alert("ops, algo deu errado..tente novamente")
         }finally{
             setLoadingPage(false)
     }
@@ -28,7 +30,10 @@ const UserForm = () => {
             localStorage.setItem("userSignInInfo", JSON.stringify(data))
             alert("Cadastro finalizado com sucesso!")
             pageNavegation("/comics-list")
-        }finally{
+        } catch{
+            alert("ops, algo deu errado.. tente novamente!")
+        }
+        finally{
             setLoadingPage(false)
         }
     }
