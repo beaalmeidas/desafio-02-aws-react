@@ -3,10 +3,6 @@
     padding: 0;
 }
 
-body {
-    min-height: 100vh;
-}
-
 h1 {
     font-size: 100px;
 }
@@ -16,7 +12,18 @@ input, select {
     border-radius: 0.5rem;
     border: 1px solid rgb(159, 159, 159);
     font-size: 1.2rem;
-    padding-left: 1em;
+}
+
+input {
+    padding-left: 1rem;
+}
+
+option {
+    font-size: 1.2rem;
+}
+
+.warnText {
+    font-size: 2rem;
 }
 
 .main {
@@ -24,6 +31,10 @@ input, select {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.title {
+    margin-top: 20rem;
 }
 
 .title>h1 {
@@ -36,12 +47,17 @@ input, select {
     display: flex;
     align-self: flex-start;
     height: auto;
-    width: 1.8rem;
     margin-right: 0.6rem;
 }
 
-.iconEnd1, .iconEnd, .iconBtn {
+.iconEnd, .iconBtn {
+    width: 2rem;
     color: #ff8100;
+}
+
+.iconEnd1 {
+    color: #ff8100;
+    width: 1.5rem;
 }
 
 .iconTip, small {
@@ -50,7 +66,7 @@ input, select {
 
 .inputsCep {
     display: grid;
-    gap: 15px;
+    gap: 7px;
     grid-template-columns: max-content;
 }
 
@@ -129,13 +145,13 @@ input, select {
 .npc {
     background-color: #bababa;
     border: 2px solid rgb(85, 85, 85);
-    border-bottom: 7px solid rgb(85, 85, 85);
+    border-bottom: 5px solid rgb(85, 85, 85);
 }
 
 .theOne {
     background-color: #ff8100;
     border: 2px solid rgb(243, 97, 0);
-    border-bottom: 7px solid rgb(243, 97, 0);
+    border-bottom: 5px solid rgb(243, 97, 0);
     color: rgb(255, 247, 222);
 }
 
@@ -146,16 +162,13 @@ input, select {
 .theOne:hover {
     background-color: rgb(255, 171, 54);
     transition: transform 0.2s ease;
-    border-bottom: 7px solid rgb(243, 16, 0);
+    border-bottom: 5px solid rgb(243, 16, 0);
 }
 
 .npc:hover {
     background-color: rgb(136, 136, 136);
-}
-
-.npc:hover {
     border-color: rgb(35, 35, 35);
-    transition: 0.2s ease;
+    transition: transform 0.2s ease;
 }
 
 .npc:hover .iconBtn {
@@ -169,15 +182,15 @@ input, select {
 
 .theOne:active {
     transform: translateY(3px);
-    transition: 0.1s;
-    border-bottom: 4px solid rgb(243, 16, 0);
+    transition:ease-out 0.4s;
+    border-bottom: 3px solid rgb(243, 16, 0);
 
 }
 
 .npc:active {
     transform: translateY(3px);
     transition:ease-out 0.4s;
-    border-bottom: 4px solid rgb(85, 85, 85);
+    border-bottom: 3px solid rgb(85, 85, 85);
 }
 
 .purchaseBtns {
@@ -189,14 +202,15 @@ input, select {
     padding-left: 0.6rem;
     display: flex;
     align-items: center;
-    width: 10rem;
+    width: 10.3rem;
     border-radius: 0.5rem;
-    height: 4rem;
+    height: 3.5rem;
     font-size: .9rem;
 }
 
 .iconBtn {
-    margin-right: 0.5em;
+    font-size: larger;
+    margin-right: 0.2em;
 }
 
 .warningForm {
@@ -204,8 +218,9 @@ input, select {
 }
 
 .warFormIcon {
+    margin-right: .5rem;
+    font-size: 3rem;
     color: orange;
-    width: 50px;
     padding: 0%;
 }
 
@@ -217,7 +232,7 @@ input, select {
 
 
 .formPart3 {
-    border-top: 4px solid #d9d9d9;
+    border-top: 3px solid #d9d9d9;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -258,10 +273,38 @@ input, select {
     font-weight: 800;
 }
 
+.divBtnF {
+    margin-bottom: 2rem;
+}
+
+@media (max-width: 890px) {
+    .title {
+        margin-top: 2rem;
+    }
+}
+
 @media (max-width: 375px) {
 
-    p {
-        font-size: x-small;
+    input, select {
+        height: 3rem;
+        border-radius: 0.5rem;
+        border: 1px solid rgb(159, 159, 159);
+        font-size: 1.2rem;
+    }
+    
+    input {
+        padding-left: 1em;
+    }
+
+    .title>h1 {
+        margin-top: 0;
+    }
+
+    .title {
+        margin-top: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     #btn1, #btn2, #btn3 {
@@ -285,25 +328,29 @@ input, select {
         margin-top: 2rem;
     }
 
-   .main {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-   }
+    .purchaseBtns>div {
+        width: 100%;
+    }
+
+    .main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-evenly;
+    }
 
    .formPart1, .formPart2 {
-    background-color: #f3f3f3;
-    padding: 4rem;
-    margin-bottom: 2rem;
-    margin-left: 0;
-    border-radius: .5rem;
+        background-color: #f3f3f3;
+        padding: 4rem;
+        margin-bottom: 2rem;
+        margin-left: 0;
+        border-radius: .5rem;
     }
 
     .npc, .theOne {
         margin-bottom: 0.5rem;
         cursor: pointer;
-        width: 100%;
+        width: fit-content;
         height: 2.5rem;
     }
     
@@ -314,13 +361,13 @@ input, select {
     .npc {
         background-color: #bababa;
         border: 2px solid rgb(85, 85, 85);
-        border-bottom: 7px solid rgb(85, 85, 85);
+        border-bottom: 5px solid rgb(85, 85, 85);
     }
     
     .theOne {
         background-color: #ff8100;
         border: 2px solid rgb(243, 97, 0);
-        border-bottom: 7px solid rgb(243, 97, 0);
+        border-bottom: 5px solid rgb(243, 97, 0);
         color: rgb(255, 247, 222);
     }
     
@@ -331,18 +378,15 @@ input, select {
     .theOne:hover {
         background-color: rgb(255, 171, 54);
         transition: transform 0.2s ease;
-        border-bottom: 7px solid rgb(243, 16, 0);
-    }
-    
-    .npc:hover {
-        background-color: rgb(136, 136, 136);
+        border-bottom: 5px solid rgb(243, 16, 0);
     }
     
     .npc:hover {
         border-color: rgb(35, 35, 35);
-        transition: 0.2s ease;
+        transition: transform 0.2s ease;
+        border-bottom: 5px solid rgb(82, 82, 82);
     }
-    
+
     .npc:hover .iconBtn {
         color: rgb(230, 0, 0);
         transition: 0.4s;
@@ -351,6 +395,17 @@ input, select {
     .theOne:hover .iconBtn{
         color: rgb(255, 247, 222);
     }
+
+    .theOne:active {
+        transition:ease-out 0.4s;
+        border-bottom: 2px solid rgb(243, 16, 0);
+    
+    }
+    
+    .npc:active {
+        transition:ease-out 0.4s;
+        border-bottom: 2px solid rgb(85, 85, 85);
+    }   
 
    .formPart3 {
         display: none;
@@ -397,14 +452,6 @@ input, select {
         grid-column-end: 6;
     }
 
-    input, select {
-        height: 3rem;
-        border-radius: 0.5rem;
-        border: 1px solid rgb(159, 159, 159);
-        font-size: 1.2rem;
-        padding-left: 1em;
-    }
-
     .divBtnF {
         display: flex;
         align-items: center;
@@ -428,7 +475,6 @@ input, select {
         color: #ff8100;
         border: 3px solid #ff8100;
         transition: 0.3s;
-    }
-    
+    } 
     
 }
