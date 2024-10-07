@@ -9,6 +9,7 @@ import PurchasePage from "../pages/PurchasePage";
 import FinishedPurPage from "../pages/FinishedPurPage";
 import CartPage from "../pages/CartPage";
 import LoginPage from "../pages/LoginPage";
+
 import { CharacterDetails } from "../pages/CharacterDetails";
 
 
@@ -20,6 +21,7 @@ export const AppRoutes = () => {
         <Route path="/comics-list" element={<ComicsPage />} />
         <Route path="/comic-details/:id" element={<ComicDetailsPage />} />
         <Route path="/character-page" element={<CharacterPage />} />
+
         <Route path="/cart" element={<CartPage />} />
         <Route path="/purchase-page" element={<PurchasePage/>} />
         <Route path="/finished-pur-page" element={<FinishedPurPage/>}/>

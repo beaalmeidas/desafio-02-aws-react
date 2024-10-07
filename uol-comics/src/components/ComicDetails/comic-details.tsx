@@ -4,7 +4,6 @@ import md5 from 'crypto-js/md5';
 import './comic-details-style.css';
 import '../ComicCard/comic-card-style.css';
 
-
 interface ComicCharacter {
     id: number;
     name: string;
@@ -32,21 +31,23 @@ interface Comic {
     relatedComics: RelatedComic[];
     pageCount: number;
     series: Series;
+    thumbnail: { path: string; extension: string };
 }
 
 const ComicDetails: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     const [comic, setComic] = useState<Comic | null>(null);
+    const [extraComic, setExtraComic] = useState<Array<any>>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
 
     const baseUrl = `https://gateway.marvel.com/v1/public/comics/${id}`;
-    const publicKey = '17ce5551a82bf2502ac676b91fd1a7ab';
-    const privateKey = '99014e1f8df770dc8e3f585343a54989349a7e78';
-    
+    const publicKey = '4d97b9eee2fc85aa6f3f94d06e12db0d';
+    const privateKey = '89151ea6e57f21d615f33faa61b08cc778aa809b';
     const ts = new Date().getTime().toString();
     const hash = md5(ts + privateKey + publicKey).toString();
 
+    // Fetch comic details
     useEffect(() => {
         const fetchComic = async () => {
             try {
@@ -67,7 +68,47 @@ const ComicDetails: React.FC = () => {
         };
 
         fetchComic();
-    }, [id, baseUrl, ts, hash]);
+    }, []);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                let intId = id !== null ? parseInt(id ?? '0') : 0;
+    
+                for (let i = intId + 1; i <= intId + 7; i++) {
+                    await fetchExtra(i);
+                }
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+    
+        fetchData();
+    }, [id]);
+    
+    async function fetchExtra(i: number) {
+        const baseUrl = `https://gateway.marvel.com/v1/public/comics/${i}`;
+        try {
+            const response = await fetch(`${baseUrl}?ts=${ts}&apikey=${publicKey}&hash=${hash}`);
+            
+            if (response.status === 429) {
+                throw new Error('Too many requests. Please wait and try again.');
+            }
+    
+            if (!response.ok) {
+                throw new Error(`Network response was not ok, status: ${response.status}`);
+            }
+    
+            const data = await response.json();
+            setExtraComic(prevComics => [...prevComics, data.data.results[0]]);
+        } catch (error) {
+            console.error('Error fetching comic:', error);
+        }
+    }
+    
+    useEffect(() => {
+        console.log(extraComic)
+    },[extraComic])
 
     if (loading) {
         return <div>Loading...</div>;
@@ -100,12 +141,10 @@ const ComicDetails: React.FC = () => {
                     <div className="comic-characters">
                         <h3>Personagens da obra</h3>
                         <div className="characters-list">
-                            {comic.characters.items.map((character) => (
-                                <div key={character.id} className="character">
-                                    <img src={`${character.thumbnail.path}.${character.thumbnail.extension}`} alt={character.name} />
-                                    <p>{character.name}</p>
-                                </div>
-                            ))}
+                            <div key={comic.id} className="character">
+                                <img src={`${comic.thumbnail.path}.${comic.thumbnail.extension}`} alt={comic.title} />
+                                <p>{comic.title}</p>
+                            </div>
                         </div>
                     </div>
                     <div className="comic-buttons">
@@ -117,12 +156,15 @@ const ComicDetails: React.FC = () => {
             <div className="related-comics">
                 <h2>Mais obras</h2>
                 <div className="related-comics-grid">
-                    {comic.relatedComics.map((relatedComic) => (
-                        <div key={relatedComic.id} className="related-comic-item">
-                            <img src={`${relatedComic.thumbnail.path}.${relatedComic.thumbnail.extension}`} alt={relatedComic.title} />
-                            <p>{relatedComic.title}</p>
-                        </div>
-                    ))}
+                    {extraComic.map((relatedComic: any) => {
+                        
+                        return (
+                            <div key={relatedComic.id} className="related-comic-item">
+                                <img src={`${relatedComic.thumbnail.path}.${relatedComic.thumbnail.extension}`} alt={relatedComic.title} />
+                                <p>{relatedComic.title}</p>
+                            </div>
+                        )
+                    })}
                 </div>
             </div>
         </div>
