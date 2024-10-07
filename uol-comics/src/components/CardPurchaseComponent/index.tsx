@@ -8,7 +8,7 @@ import {    FaExclamationCircle, FaCreditCard, FaMoneyBill,
 
 import { toast } from 'react-toastify'
 import { makeItRandom } from '../../types/random'
-// import Header from "../header"
+import Header from "../header"
 import "react-toastify/dist/ReactToastify.minimal.css"
 import { useNavigate } from 'react-router-dom'
 
@@ -185,8 +185,9 @@ const CardPurchaseComponent: React.FC = () =>
 
     return (
         <>
-            {/* <Header showFilter={true}/> */}
-            <div className='main'>
+
+            <Header sendFilter={()=>{}} showFilter={false}/>
+            <div className='main' style={{marginTop: '128px'}}>
                 <div className='title'><h1>Comprar</h1></div>
                 <div className='formDiv'>
                     <form onSubmit={handleSubmitCEP}>
