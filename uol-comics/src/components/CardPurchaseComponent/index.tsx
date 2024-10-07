@@ -48,8 +48,8 @@ const CardPurchaseComponent: React.FC = () =>
             
             if(response.status === 500)
             {
-                toast.error('Alguém tropeçou em um dos cabos do nosso servidor, '
-                    +'por favor tente realizar essa compra novamente mais tarde...')
+                toast.error(<p className='warnText'>Alguém tropeçou em um dos cabos do nosso servidor,
+                    +'por favor tente realizar essa compra novamente mais tarde...</p>)
             }
             // if(cepString.length !== 8)
             // {
@@ -60,7 +60,7 @@ const CardPurchaseComponent: React.FC = () =>
             // }
             if(response.status === 404)
             {
-                toast.error('O CEP não foi encontrado, verifique-o e tento novamente.')
+                toast.error(<p className='warnText'>O CEP não foi encontrado, verifique-o e tento novamente.</p>)
                 //setIsValidCep(false)
                 return
             }
@@ -82,8 +82,9 @@ const CardPurchaseComponent: React.FC = () =>
             //setIsValidCep(true)
             console.log(data)
         }
-        catch (error)
-        { toast.error('Não foi possível buscar as informações do seu CEP.\nMOTIVO: ' + error)}
+        catch 
+        { toast.error(<p className='warnText'>'Não foi possível buscar 
+          as informações do seu CEP.</p>)}
     }
 
     const handleAutoFill = () => {
@@ -92,7 +93,7 @@ const CardPurchaseComponent: React.FC = () =>
                 getCeps(cepS) 
                 return
             }
-        toast.warn('Por favor, insira um CEP válido de 8 dígitos.')
+        toast.warn(<p className='warnText'>Por favor, insira um CEP válido de 8 dígitos.</p>)
         
     }
 
@@ -116,7 +117,7 @@ const CardPurchaseComponent: React.FC = () =>
             return toast.warn(
             <div className='warningForm'>
                 <FaExclamationCircle className='warFormIcon'/>
-                <p>Preencha os campos do formulário!</p>
+                <p className='warnText'>Preencha os campos do formulário!</p>
             </div>,
             {
                 icon: false,
@@ -131,7 +132,7 @@ const CardPurchaseComponent: React.FC = () =>
                     toast.warn(
                     <div className='warningForm'>
                         <FaExclamationCircle className='warFormIcon'/>
-                        <p>{`ATENÇÃO: o seguinte campo não foi preenchido: [${field.label}]`}</p>
+                        <p className='warnText'>{`ATENÇÃO: o seguinte campo não foi preenchido: [${field.label}]`}</p>
                     </div>,
                     {
                         icon: false,
@@ -152,7 +153,7 @@ const CardPurchaseComponent: React.FC = () =>
                         <FaExclamationCircle className='warFormIcon'/>
                         <div>
                             {noInfoErrorMsg.split('\n').map((line) => 
-                            (<p>{line}</p>))}
+                            (<p className='warnText'>{line}</p>))}
                         </div>
                     </div>,
                     {
@@ -176,7 +177,7 @@ const CardPurchaseComponent: React.FC = () =>
             getChoice: choice
         }
 
-        toast.success('Suas informações foram aceitas com sucesso!')
+        toast.success(<p className='warnText'>Suas informações foram aceitas com sucesso!</p>)
         getCeps(cepS)
         navigate('/finished-pur-page', { state: infoToFinish })
 

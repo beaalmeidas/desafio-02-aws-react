@@ -13,7 +13,7 @@ const FinishedPurComponent = () => {
   console.log(infoToFinish)
 
   const backHome = () => {
-    navigate('/')
+    navigate('/comics-list')
   }
 
   return (
@@ -21,14 +21,14 @@ const FinishedPurComponent = () => {
       {/* <Header showFilter={false}/> */}
       {infoToFinish ? 
       (
-        <div className='main'>
-          <div className='title'>
+        <div className='mainFin'>
+          <div className='titleFin'>
             <h2>Compra realizada!</h2>
             <p>Agora é só aguardar que logo as suas comics chegam aí!</p>
           </div>
           <div className='mainPurInfo'>
               <div className='divInfo'>
-                <FaMapMarkerAlt className='iconFF1' />
+                <FaMapMarkerAlt className='iconFF' />
                 <div>
                   <p>Entrega em <b>{infoToFinish.getAdress}, {infoToFinish.getUnity}</b></p>
                   <p>{infoToFinish.getHood} - {infoToFinish.getCity}, {infoToFinish.getUfs}</p>

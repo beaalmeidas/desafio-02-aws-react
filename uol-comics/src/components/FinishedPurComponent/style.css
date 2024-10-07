@@ -1,6 +1,7 @@
 * {
     padding: 0;
     margin: 0;
+    font-size: 0.7rem;
 }
 
 body {
@@ -17,20 +18,24 @@ h2 {
     font-weight: 800;
 }
 
-p {
+p, b {
     font-size: 1.5rem;
 }
 
-.main {
+.mainFin {
     display: flex;
     flex-direction: column;
     align-items: center;
     flex-wrap: nowrap;
 }
 
-.title {
+.titleFin {
+    display: flex;
+    flex-direction: column;
     margin-bottom: 3rem;
     margin-top: 2rem;
+    align-items: baseline;
+    width: 90%;
 }
 
 .mainPurInfo {
@@ -54,18 +59,7 @@ p {
     border-radius: 50%;
     margin-right: 10px;
     padding: 0.3rem;
-}
-
-.iconFF1
-{
-    align-items: center;
-    color: #f3f3f3; 
-    background-color: #ff8100; 
-    border-radius: 50%;
-    margin-right: 10px;
-    padding: 0.3rem;
-    padding-left: 8px;
-    padding-right: 8px;
+    font-size: 1.5rem;
 }
 
 .goToStart {
