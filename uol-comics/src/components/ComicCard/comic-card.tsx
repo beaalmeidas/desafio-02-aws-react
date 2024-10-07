@@ -16,6 +16,7 @@ const ComicCard: React.FC<ComicCardProps> = ({ id, cover_image, title, price, au
     return (
         <Link to={`/comic-details/${id}`} className="comic-card">
             <img className="comic-cover-image" src={cover_image} alt={title} />
+            
             <div className="comic-info">
                 <h2 className="comic-title">{title}</h2>
                 <p className="comic-price">$ {price.toFixed(2)}</p>

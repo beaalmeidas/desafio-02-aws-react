@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import md5 from 'crypto-js/md5';
 import './comic-details-style.css';
+import '../ComicCard/comic-card-style.css';
 
 
 interface ComicCharacter {
