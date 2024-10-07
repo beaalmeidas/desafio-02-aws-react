@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import './generalStyle.css'
+import './cart-page-style.css'
 import CartItem from '../components/CartItem';
 import Header from '../components/header';
 
