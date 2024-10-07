@@ -7,11 +7,8 @@ import PurchasePage from "../pages/PurchasePage";
 import FinishedPurPage from "../pages/FinishedPurPage";
 import CartPage from "../pages/CartPage";
 import LoginPage from "../pages/LoginPage";
-<<<<<<< HEAD
 // import { HomePage } from "../pages/homePage";
-=======
 
->>>>>>> fc7423e0b6052e4e2e1b42c5d0533c0bcebb56a6
 import { CharacterDetails } from "../pages/CharacterDetails";
 
 export const AppRoutes = () => {
@@ -22,10 +19,7 @@ export const AppRoutes = () => {
         <Route path="/comics-list" element={<ComicsPage />} />
         <Route path="/comic-details/" element={<ComicsPage />} />
         <Route path="/character-page" element={<CharacterPage />} />
-<<<<<<< HEAD
-=======
 
->>>>>>> fc7423e0b6052e4e2e1b42c5d0533c0bcebb56a6
         <Route path="/cart" element={<CartPage />} />
         <Route path="/purchase-page" element={<PurchasePage/>} />
         <Route path="/finished-pur-page" element={<FinishedPurPage/>}/>

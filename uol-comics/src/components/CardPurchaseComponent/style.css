@@ -34,7 +34,7 @@ option {
 }
 
 .title {
-    margin-top: 20rem;
+    margin-top: 50%;
 }
 
 .title>h1 {
@@ -279,7 +279,7 @@ option {
 
 @media (max-width: 890px) {
     .title {
-        margin-top: 2rem;
+        margin-top: 0%;
     }
 }
 
