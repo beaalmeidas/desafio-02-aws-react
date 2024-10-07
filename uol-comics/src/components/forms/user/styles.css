@@ -65,7 +65,7 @@ body{
 }
 .loading-text{
     font-family: 'Sofia Sans';
-    font-size: 16px;
+    font-size: 20px;
     font-weight: 400;
     color: var(--color-brand);
 }

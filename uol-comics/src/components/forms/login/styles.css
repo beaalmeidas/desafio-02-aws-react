@@ -51,7 +51,7 @@
 } 
 .error{
     color: var(--color-brand);
-    font-size: 14px;
+    font-size: 16px;
     font-family: 'Sofia Sans';
     font-weight: 400;
 
