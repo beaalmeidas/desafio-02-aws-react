@@ -1,0 +1,110 @@
+@import "../../index.css";
+
+body {
+    overflow-x: hidden;
+}
+
+/* CARD COM AS INFORMAÇÕES DO QUADRINHO ----------------- */
+.comic-card {
+    width: 298px;
+    padding: 30px;
+    gap: 8px;
+    transition: background-color 0.2s ease;
+    text-decoration: none;
+}
+
+.comic-card:hover {
+    background-color: #FF8100;
+    border: none;
+    border-radius: 4px;
+}
+
+.comic-card:visited {
+    color:#000
+}
+
+
+/* CAPA DO QUADRINHO ------------------------------------ */
+.comic-cover-image {
+    max-width: 324px;
+    height: 450px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    margin-bottom: 10px;
+}
+
+
+/* DIV COM TÍTULO, PREÇO, AUTOR E ANO ------------------- */
+.comic-title, .comic-price, .author-year-container {
+    padding: 3px;
+}
+
+
+/* TÍTULO DO QUADRINHO ---------------------------------- */
+.comic-title {
+    font-size: 24px;
+    font-weight: 500;
+    color: #000;
+}
+
+.comic-card:hover .comic-title {
+    color: #fff;
+}
+
+
+/* PREÇO ------------------------------------------------ */
+.comic-price {
+    font-size: 16px !important;
+    font-weight: 700;
+    color: #FF8100;
+}
+
+.comic-card:hover .comic-price {
+    color: #000;
+}
+
+
+/* AUTOR E ANO DE LANÇAMENTO ---------------------------- */
+#author-year-container {
+    display: flex;                 
+    justify-content: space-between;
+    align-items: center;           
+    margin-top: 4px;
+}
+
+.comic-card:hover .comic-author {
+    color: #fff;
+}
+
+.comic-card:hover .comic-year {
+    color: #fff;
+}
+
+.comic-author, .comic-year {
+    color: #000;
+    font-weight: 500;
+    font-size: 16px;
+}
+
+
+/* RESPONSIVIDADE PARA MOBILE (375px) -------------------------- */
+@media (max-width: 1079px) {
+    body {
+        overflow-x: hidden;
+    }
+
+    .comic-card {
+        width: 70%;
+        padding: 20px;
+        margin-bottom: 20px;
+        align-items: center;
+    }
+
+    .comic-cover-image {
+        width: 240px;
+        height: auto;
+    }
+
+    #author-year-container {
+        text-align: center;
+    }
+}

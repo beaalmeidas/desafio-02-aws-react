@@ -1,0 +1,45 @@
+/* GRID DE PRODUTOS ------------------------------------------ */
+.comic-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 20px;
+    padding: 20px; 
+}
+
+.comic-grid-container {
+    max-height: 100vh;
+    overflow-y: auto;
+}
+
+.product-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 16px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+
+/* RESPONSIVIDADE PARA MOBILE (375px) ------------------------ */
+@media (max-width: 1079px) {
+    .comic-grid {
+        grid-template-columns: 1fr;
+        grid-gap: 10px;
+        padding: 10px;
+    }
+
+    .product-list {
+        grid-template-columns: 1fr !important;
+        grid-gap: 10px;
+        padding: 10px;
+    }
+
+    .comic-grid-container {
+        flex-direction: column;
+    }
+
+    .comic-grid > * {
+        margin: 0 auto;
+        max-width: 100%;
+    }
+}

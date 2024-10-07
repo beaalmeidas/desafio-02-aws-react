@@ -1,0 +1,56 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 1rem;
+}
+
+.backButton {
+  background-color: #ff5c00;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+
+.detailsSection {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+.imageContainer img {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.infoContainer h2 {
+  margin: 0;
+  font-size: 2rem;
+  color: #ff5c00;
+}
+
+.description {
+  margin-top: 1rem;
+}
+
+.moreWorksSection h3 {
+  margin-bottom: 1rem;
+}
+
+.worksGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+}
+
+.workItem img {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.workItem p {
+  text-align: center;
+  margin-top: 0.5rem;
+}
