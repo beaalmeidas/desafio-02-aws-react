@@ -1,13 +1,13 @@
 import { useLogin} from "../../../hooks/useLogin"
 import { LoginSchema } from "../../../schemas/LoginSchema"
 import "./styles.css"
-interface LoginProps {
+interface LoginProps { //dados via props
     onSubmit: (data: LoginSchema) => void
 }
 const FormLogin = ({onSubmit}: LoginProps) => {
     const {register, handleSubmit, errors} = useLogin()
 
-return (
+return ( //form com validação do zod
     <form onSubmit={handleSubmit(onSubmit)}>
     <div className="FormFiels">
         <input type="email" id="email" placeholder="Email" className="e-mail-input" {...register("email")}/>
