@@ -37,7 +37,7 @@ interface Comic {
 const ComicDetails: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     const [comic, setComic] = useState<Comic | null>(null);
-    const [extraComic, setExtraComic] = useState<Array<any>>([]);
+    const [extraComic, setExtraComic] = useState<Array<Comic>>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
     const [cartItems, setCartItems] = useState<Array<string>>(() => {
@@ -167,7 +167,7 @@ const ComicDetails: React.FC = () => {
             <div className="related-comics">
                 <h2>Mais obras</h2>
                 <div className="related-comics-grid">
-                    {extraComic.map((relatedComic: any) => {
+                    {extraComic.map((relatedComic: Comic) => {
                         console.log(relatedComic)
                         return (
                             <></>
