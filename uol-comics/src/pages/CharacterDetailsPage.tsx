@@ -13,11 +13,11 @@ interface CharacterDetails {
 }
 
 export const CharacterDetailsPage = () => {
-    const [characters, setCharacters] = useState<CharacterDetails[]>([]);
+    const [character, setCharacter] = useState<CharacterDetails[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
     
-    const { id } = useParams();
+    //const { id } = useParams();
     const baseUrl = `https://gateway.marvel.com/v1/public/characters/${id}`;
     const publicKey = 'd6433e882e9629bd2ddae2d898ccb310';
     const privateKey = '427b52c4015694083dc047ddc7076888ce132ffc';
@@ -42,7 +42,7 @@ export const CharacterDetailsPage = () => {
                         throw new Error(`Network response was not ok, status: ${response.status}`);
                     }
                     const data = await response.json();
-                    const mappedCharacters = data.data.results.map((char: CharacterDetails) => 
+                    const mappedCharacter = data.data.results.map((char: CharacterDetails) => 
                         ({
                             id: char.id,
                             title: char.name,
