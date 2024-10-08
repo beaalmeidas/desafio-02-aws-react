@@ -1,6 +1,6 @@
 import { useLogin} from "../../../hooks/useLogin"
 import { LoginSchema } from "../../../schemas/LoginSchema"
-import "./styles.css"
+import "./login-form-style.css"
 interface LoginProps { //dados via props
     onSubmit: (data: LoginSchema) => void
 }

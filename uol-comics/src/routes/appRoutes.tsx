@@ -4,6 +4,7 @@ import { DefaultLayout } from "../layouts/DefaultLayout";
 // import { HomePage } from "../pages/HomePage";
 import ComicsPage from "../pages/ComicsPage";
 import ComicDetailsPage from "../pages/ComicDetailsPage";
+import ComicDetailsPage from "../pages/ComicDetailsPage";
 import { CharacterPage } from "../pages/CharacterPage";
 import PurchasePage from "../pages/PurchasePage";
 import FinishedPurPage from "../pages/FinishedPurPage";

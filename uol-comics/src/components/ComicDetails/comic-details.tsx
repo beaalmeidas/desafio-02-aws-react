@@ -4,6 +4,10 @@ import md5 from 'crypto-js/md5';
 import './comic-details-style.css';
 import '../ComicCard/comic-card-style.css';
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 6399a12f0c82fecbb8602b29fc06b426cfe7a8a4
 interface ComicCharacter {
     id: number;
     name: string;
@@ -31,12 +35,16 @@ interface Comic {
     relatedComics: RelatedComic[];
     pageCount: number;
     series: Series;
+<<<<<<< HEAD
     thumbnail: { path: string; extension: string };
+=======
+>>>>>>> 6399a12f0c82fecbb8602b29fc06b426cfe7a8a4
 }
 
 const ComicDetails: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     const [comic, setComic] = useState<Comic | null>(null);
+<<<<<<< HEAD
     const [extraComic, setExtraComic] = useState<Array<Comic>>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
@@ -63,10 +71,26 @@ const ComicDetails: React.FC = () => {
     },[cartItems])
 
     // Fetch comic details
+=======
+    const [loading, setLoading] = useState<boolean>(true);
+    const [error, setError] = useState<string | null>(null);
+
+    const baseUrl = `https://gateway.marvel.com/v1/public/comics/${id}`;
+    const publicKey = '17ce5551a82bf2502ac676b91fd1a7ab';
+    const privateKey = '99014e1f8df770dc8e3f585343a54989349a7e78';
+    
+    const ts = new Date().getTime().toString();
+    const hash = md5(ts + privateKey + publicKey).toString();
+
+>>>>>>> 6399a12f0c82fecbb8602b29fc06b426cfe7a8a4
     useEffect(() => {
         const fetchComic = async () => {
             try {
                 const response = await fetch(`${baseUrl}?ts=${ts}&apikey=${publicKey}&hash=${hash}`);
+<<<<<<< HEAD
+=======
+                console.log(response)
+>>>>>>> 6399a12f0c82fecbb8602b29fc06b426cfe7a8a4
                 if (response.status === 429) {
                     throw new Error('Too many requests. Please wait and try again.');
                 }
@@ -83,6 +107,7 @@ const ComicDetails: React.FC = () => {
         };
 
         fetchComic();
+<<<<<<< HEAD
     }, []);
 
     useEffect(() => {
@@ -120,6 +145,9 @@ const ComicDetails: React.FC = () => {
             console.error('Error fetching comic:', error);
         }
     }
+=======
+    }, [id, baseUrl, ts, hash]);
+>>>>>>> 6399a12f0c82fecbb8602b29fc06b426cfe7a8a4
 
     if (loading) {
         return <div>Loading...</div>;
@@ -152,6 +180,7 @@ const ComicDetails: React.FC = () => {
                     <div className="comic-characters">
                         <h3>Personagens da obra</h3>
                         <div className="characters-list">
+<<<<<<< HEAD
                             <div key={comic.id} className="character">
                                 <img src={`${comic.thumbnail.path}.${comic.thumbnail.extension}`} alt={comic.title} />
                                 <p>{comic.title}</p>
@@ -160,6 +189,19 @@ const ComicDetails: React.FC = () => {
                     </div>
                     <div className="comic-buttons">
                         <button className="add-to-cart" onClick={addToCart}>Adicionar ao carrinho</button>
+=======
+                            {comic.characters.items.map((character) => (
+                                <div key={character.id} className="character">
+
+                                    <img src={`${character.thumbnail.path}.${character.thumbnail.extension}`} alt={character.name} />
+                                    <p>{character.name}</p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                    <div className="comic-buttons">
+                        <button className="add-to-cart">Adicionar ao carrinho</button>
+>>>>>>> 6399a12f0c82fecbb8602b29fc06b426cfe7a8a4
                         <button className="buy-now">Comprar agora</button>
                     </div>
                 </div>
@@ -167,16 +209,29 @@ const ComicDetails: React.FC = () => {
             <div className="related-comics">
                 <h2>Mais obras</h2>
                 <div className="related-comics-grid">
+<<<<<<< HEAD
                     {extraComic.map((relatedComic: Comic) => {
                         console.log(relatedComic)
                         return (
                             <></>
                         )
                     })}
+=======
+                    {comic.relatedComics.map((relatedComic) => (
+                        <div key={relatedComic.id} className="related-comic-item">
+                            <img src={`${relatedComic.thumbnail.path}.${relatedComic.thumbnail.extension}`} alt={relatedComic.title} />
+                            <p>{relatedComic.title}</p>
+                        </div>
+                    ))}
+>>>>>>> 6399a12f0c82fecbb8602b29fc06b426cfe7a8a4
                 </div>
             </div>
         </div>
     );
 };
 
+<<<<<<< HEAD
 export default ComicDetails;
+=======
+export default ComicDetails;
+>>>>>>> 6399a12f0c82fecbb8602b29fc06b426cfe7a8a4
