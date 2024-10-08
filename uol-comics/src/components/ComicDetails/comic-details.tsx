@@ -114,21 +114,21 @@ const ComicDetails: React.FC = () => {
         fetchComic();
     }, []);
 
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         try {
-    //             let intId = id !== null ? parseInt(id ?? '0') : 0;
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                let intId = id !== null ? parseInt(id ?? '0') : 0;
     
-    //             for (let i = intId + 1; i <= intId + 7; i++) {
-    //                 await fetchExtra(i);
-    //             }
-    //         } catch (error) {
-    //             console.error('Error fetching data:', error);
-    //         }
-    //     };
+                for (let i = intId + 1; i <= intId + 7; i++) {
+                    await fetchExtra(i);
+                }
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
     
-    //     fetchData();
-    // }, [id]);
+        fetchData();
+    }, [id]);
     
     async function fetchExtra(i: number) {
         const baseUrl = `https://gateway.marvel.com/v1/public/comics/${i}`;
@@ -186,15 +186,15 @@ const ComicDetails: React.FC = () => {
             <div className="comic-characters">
                 <h3>Personagens da obra</h3>
                 <div className="characters-list">
-                {comic.characters.items.map((character) => (
+                {/* {comic.characters.items.map((character) => (
                     <div key={character.id} className="character">
-                    {/* <img
+                    <img
                         src={`${character.thumbnail.path}.${character.thumbnail.extension}`}
                         alt={character.name}
-                    /> */}
+                    />
                     <p>{character.name}</p>
                     </div>
-                ))}
+                ))} */}
                 </div>
             </div>
 
@@ -210,11 +210,11 @@ const ComicDetails: React.FC = () => {
             <div className="related-comics-grid">
             {extraComic.map((relatedComic) => (
                 <div key={relatedComic.id} className="related-comic">
-                {/* <img
+                <img
                     src={`${relatedComic.thumbnail.path}.${relatedComic.thumbnail.extension}`}
                     alt={relatedComic.title}
                 />
-                <p>{relatedComic.title}</p> */}
+                <p>{relatedComic.title}</p>
                 </div>
             ))}
             </div>
