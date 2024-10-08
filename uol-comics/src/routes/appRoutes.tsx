@@ -9,8 +9,10 @@ import PurchasePage from "../pages/PurchasePage";
 import FinishedPurPage from "../pages/FinishedPurPage";
 import CartPage from "../pages/CartPage";
 import LoginPage from "../pages/LoginPage";
+// import { HomePage } from "../pages/homePage";
 
-import { CharacterDetails } from "../pages/CharacterDetails";
+import { CharacterDetailsPage } from "../pages/CharacterDetails";
+
 
 
 export const AppRoutes = () => {
@@ -25,7 +27,7 @@ export const AppRoutes = () => {
         <Route path="/cart" element={<CartPage />} />
         <Route path="/purchase-page" element={<PurchasePage/>} />
         <Route path="/finished-pur-page" element={<FinishedPurPage/>}/>
-        <Route path="/characterDetails-page" element={<CharacterDetails/>} />
+        <Route path="/characterDetails-page" element={<CharacterDetailsPage/>} />
       </Route>
     </Routes>
   );

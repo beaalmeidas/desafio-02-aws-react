@@ -18,8 +18,8 @@ const ComicList: React.FC = () => {
     const [error, setError] = useState<string | null>(null);
 
     const baseUrl = 'https://gateway.marvel.com/v1/public/comics';
-    const publicKey = '17ce5551a82bf2502ac676b91fd1a7ab';
-    const privateKey = '99014e1f8df770dc8e3f585343a54989349a7e78';
+    const publicKey = '4d4058eb91382b11fe2dffc672e56af9';
+    const privateKey = 'b2a097e93442bff9976716f199ecdeea9fe07f15';
 
     const ts = new Date().getTime().toString();
     const hash = md5(ts + privateKey + publicKey).toString();
