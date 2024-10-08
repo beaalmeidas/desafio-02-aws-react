@@ -23,12 +23,9 @@ export const CharacterDetailsPage = () => {
 
     const ts = useMemo(() => new Date().getTime().toString(), []); 
     const hash = useMemo(() => md5(ts + privateKey + publicKey).toString(), [ts]);
-    const CACHE_TIME_LIMIT = 24 * 60 * 60 * 1000;
 
     useEffect(() => {
         const fetchCharacters = async () => {
-            const cachedData = localStorage.getItem('characters');
-            const cachedTimestamp = localStorage.getItem('charactersTimestamp');
             const currentTime = new Date().getTime();
             
                 try {

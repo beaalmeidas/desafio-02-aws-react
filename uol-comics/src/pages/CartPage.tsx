@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import './generalStyle.css'
 import CartItem from '../components/CartItem';
 import Header from '../components/header';
+import { forceIntMakeItRandom } from '../types/random';
 
 type BuyableItems = {
     id: number,
@@ -14,11 +15,12 @@ type BuyableItems = {
 const CartPage = () => {
     const [cartItems, setCartItems] = useState<Array<BuyableItems>>([])
 
-    useEffect(() => {
+    const testItems = () => {
         const cartItemsString = localStorage.getItem('cartItems');
         const cartItemsArray = cartItemsString ? JSON.parse(cartItemsString) : [];
         setCartItems(cartItemsArray)
-    },[])
+    }
+    useEffect(testItems,[])
 
     const modifyQuantLocalStorage = (id: number, quant: number) => {
         const foundedIndex = cartItems.findIndex((item) => {
@@ -29,6 +31,20 @@ const CartPage = () => {
             cartItems[foundedIndex].quant = quant
 
             localStorage.setItem('cartItems', JSON.stringify(cartItems))
+        }
+    }
+    const deleteCartItem = (id: number, divToDelete: HTMLDivElement) => {
+        const foundedIndex = cartItems.findIndex((item) => {
+            return item.id === id;
+        })
+
+        if (foundedIndex > -1){
+            cartItems.splice(foundedIndex, 1)
+
+            localStorage.setItem('cartItems', JSON.stringify(cartItems))
+
+            divToDelete.remove()
+            testItems();
         }
     }
 
@@ -46,9 +62,10 @@ const CartPage = () => {
                             id={item.id}
                             title={item.title}
                             image={item.image}
-                            originalPrice={5}
+                            originalPrice={item.price > 0 ? item.price : forceIntMakeItRandom(5,40)}
                             count={item.quant}
                             setQuant={modifyQuantLocalStorage}
+                            deleteItem={deleteCartItem}
                             />
                         )
                     })}

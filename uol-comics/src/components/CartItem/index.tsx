@@ -8,9 +8,10 @@ type Prop = {
     originalPrice: number,
     count: number,
     setQuant: (id: number,quant:number) => void;
+    deleteItem : (id: number, divToDelete: HTMLDivElement) => void;
 }
 
-const CartItem = ({id, image, title, originalPrice, count, setQuant}: Prop) => {
+const CartItem = ({id, image, title, originalPrice, count, setQuant, deleteItem}: Prop) => {
     const [itemPrice,setItemPrice] = useState<number>(originalPrice)
     const [baseCount, setBaseCount] = useState<number>(count)
 
@@ -41,7 +42,7 @@ const CartItem = ({id, image, title, originalPrice, count, setQuant}: Prop) => {
                 </div>
             </div>
 
-            <button className='delete-icon'>
+            <button className='delete-icon' onClick={(e)=>{deleteItem(id,e.currentTarget.parentNode as HTMLDivElement)}}>
                 <img alt='delete' src='./assets/images/trash-icon.png'/>
             </button>
             <h3 className='price font-extra-bold'>{itemPrice.toFixed(2)}</h3>
