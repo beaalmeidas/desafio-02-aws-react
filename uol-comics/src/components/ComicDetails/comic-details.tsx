@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import md5 from 'crypto-js/md5';
 import './comic-details-style.css';
 import '../ComicCard/comic-card-style.css';
+import Header from '../header';
 
 interface ComicCharacter {
     id: number;
@@ -33,6 +34,13 @@ interface Comic {
     series: Series;
     thumbnail: { path: string; extension: string };
 }
+interface CartItem {
+    id: string,
+    quant: number,
+    image: string,
+    price: string,
+    title: string
+}
 
 const ComicDetails: React.FC = () => {
     const { id } = useParams<{ id: string }>();
@@ -40,7 +48,7 @@ const ComicDetails: React.FC = () => {
     const [extraComic, setExtraComic] = useState<Array<Comic>>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
-    const [cartItems, setCartItems] = useState<Array<string>>(() => {
+    const [cartItems, setCartItems] = useState<Array<CartItem>>(() => {
         const savedCartItems = localStorage.getItem('cartItems');
         return savedCartItems ? JSON.parse(savedCartItems) : [];
     });
@@ -52,16 +60,36 @@ const ComicDetails: React.FC = () => {
     const hash = md5(ts + privateKey + publicKey).toString();
 
     const addToCart = () => {
-        if (id) {
-            setCartItems(prevItems => [...prevItems, id]);
-            console.log(cartItems)
+        if (id && comic) {
+            const foundedIndex = cartItems.findIndex((item) => id === item.id)
+            
+            if (foundedIndex === -1){
+                setCartItems(prevItems => [...prevItems, {
+                    id: id,
+                    quant: 1,
+                    image: `${comic.images[0]?.path}.${comic.images[0]?.extension}`,
+                    price: comic.prices[0]?.price.toFixed(2),
+                    title: comic.title
+                }]);
+            }
+            else {
+                cartItems[foundedIndex] = {
+                    id: id,
+                    quant: cartItems[foundedIndex].quant + 1,
+                    image: `${comic.images[0]?.path}.${comic.images[0]?.extension}`,
+                    price: comic.prices[0]?.price.toFixed(2),
+                    title: comic.title
+                }
+                setInLocalStorage()
+            }
         } else {
             console.error('ID não encontrado. Não é possível adicionar ao carrinho.');
         }
     }
-    useEffect(() => {
+    const setInLocalStorage = () => {
         localStorage.setItem('cartItems', JSON.stringify(cartItems))
-    },[cartItems])
+    }
+    useEffect(setInLocalStorage,[cartItems])
 
     // Fetch comic details
     useEffect(() => {
@@ -136,6 +164,7 @@ const ComicDetails: React.FC = () => {
 
     return (
         <div className="comic-details">
+        <Header showFilter={false} sendFilter={()=>{}}/>
         <Link to="/" className="back-button">← Voltar</Link>
 
         <div className="comic-info">
@@ -157,15 +186,15 @@ const ComicDetails: React.FC = () => {
             <div className="comic-characters">
                 <h3>Personagens da obra</h3>
                 <div className="characters-list">
-                {comic.characters.items.map((character) => (
+                {/* {comic.characters.items.map((character) => (
                     <div key={character.id} className="character">
-                    {/* <img
+                    <img
                         src={`${character.thumbnail.path}.${character.thumbnail.extension}`}
                         alt={character.name}
-                    /> */}
+                    />
                     <p>{character.name}</p>
                     </div>
-                ))}
+                ))} */}
                 </div>
             </div>
 

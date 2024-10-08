@@ -20,8 +20,8 @@ const Header = (props: Props) => {
     const [hasCartItem, setHasCartItem] = useState(false)
 
     // Defaul functions
-    const [cartImage,setCartImage] = useState('./assets/svg/cart.svg');
-    const [logoutImage,setLogoutImage] = useState('./assets/images/logout.png');
+    const [cartImage,setCartImage] = useState('/assets/svg/cart.svg');
+    const [logoutImage,setLogoutImage] = useState('/assets/images/logout.png');
 
     const filterInputRef = useRef<HTMLInputElement>(null);
 
@@ -44,7 +44,7 @@ const Header = (props: Props) => {
     return (
         <header>
             <section className="title-name">
-                <img alt="uol-logo" src="./assets/images/uol-logo.png"/>
+                <img alt="uol-logo" src="/assets/images/uol-logo.png"/>
                 <h1 className="font-extra-bold "><span>UOL</span>Comics</h1>
             </section>
 
@@ -52,7 +52,7 @@ const Header = (props: Props) => {
             {filterState &&(
                 <>
                     <button className='search-button' onClick={handleFilter}>
-                        <img src='./assets/images/symbols-search.png' alt='pesquisar'/>
+                        <img src='assets/images/symbols-search.png' alt='pesquisar'/>
                     </button>
                     <input name="filter"
                     placeholder='Pesquisar por nome...'
@@ -64,15 +64,14 @@ const Header = (props: Props) => {
 
             <section className="right-side-header">
                 <div className="links">
-                    {/* 'a' vai mudar pra 'Link' */}
                     <Link to='/comics-list'><p className={`font-regular ${location.pathname === '/comics-list' ? 'selected':''}`}>Quadrinhos</p></Link>
                     <Link to='/character-page'><p className={`font-regular ${location.pathname === '/character-page' ? 'selected':''}`}>Personagens</p></Link>
                 </div>
                 <Link to='/cart'>
                     <div className="go-to-cart">
                         <img
-                        onMouseEnter={()=>{setCartImage('./assets/images/cart-hover.png')}}
-                        onMouseLeave={()=>{setCartImage('./assets/svg/cart.svg')}}
+                        onMouseEnter={()=>{setCartImage('/assets/images/cart-hover.png')}}
+                        onMouseLeave={()=>{setCartImage('/assets/svg/cart.svg')}}
                         className="cart-icon" src={cartImage} alt="Carrinho"/>
 
                         {hasCartItem && (

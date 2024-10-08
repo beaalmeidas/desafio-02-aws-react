@@ -13,6 +13,7 @@ import LoginPage from "../pages/LoginPage";
 import { CharacterDetailsPage } from "../pages/CharacterDetailsPage";
 
 
+
 export const AppRoutes = () => {
   return (
     <Routes>

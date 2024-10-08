@@ -7,15 +7,17 @@ import styles from "./CharacterPage.module.css";
 import md5 from 'crypto-js/md5';
 //import { useNavigate } from 'react-router-dom';
 
-export interface Character {
+interface CharacterDetails {
     id: number;
     title: string;
     description: string;
     imageUrl: string;
+    name: string;
+    thumbnail: {path: string, extension: string}
 }
 
 export const CharacterPage = () => {
-    const [characters, setCharacters] = useState<Character[]>([]);
+    const [characters, setCharacters] = useState<CharacterDetails[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
     const baseUrl = `https://gateway.marvel.com/v1/characters/`;
@@ -43,7 +45,7 @@ export const CharacterPage = () => {
                         throw new Error(`Network response was not ok, status: ${response.status}`);
                     }
                     const data = await response.json();
-                    const mappedCharacters = data.data.results.map((char) => 
+                    const mappedCharacters = data.data.results.map((char: CharacterDetails) => 
                         ({
                             id: char.id,
                             title: char.name,

@@ -2,42 +2,73 @@ import { useEffect, useState } from 'react';
 import './generalStyle.css'
 import CartItem from '../components/CartItem';
 import Header from '../components/header';
+import { forceIntMakeItRandom } from '../types/random';
 
 type BuyableItems = {
     id: number,
-    name: string,
+    title: string,
     price: number,
-    quantity: number,
-    img: string,
+    quant: number,
+    image: string,
 }
 
 const CartPage = () => {
     const [cartItems, setCartItems] = useState<Array<BuyableItems>>([])
-    
-    const filterReturn = (filterValue: string) => {
-        console.log(filterValue)
-    }
 
-    useEffect(() => {
-        
-    },[])
+    const testItems = () => {
+        const cartItemsString = localStorage.getItem('cartItems');
+        const cartItemsArray = cartItemsString ? JSON.parse(cartItemsString) : [];
+        setCartItems(cartItemsArray)
+    }
+    useEffect(testItems,[])
+
+    const modifyQuantLocalStorage = (id: number, quant: number) => {
+        const foundedIndex = cartItems.findIndex((item) => {
+            return item.id === id;
+        })
+
+        if (foundedIndex > -1) {
+            cartItems[foundedIndex].quant = quant
+
+            localStorage.setItem('cartItems', JSON.stringify(cartItems))
+        }
+    }
+    const deleteCartItem = (id: number, divToDelete: HTMLDivElement) => {
+        const foundedIndex = cartItems.findIndex((item) => {
+            return item.id === id;
+        })
+
+        if (foundedIndex > -1){
+            cartItems.splice(foundedIndex, 1)
+
+            localStorage.setItem('cartItems', JSON.stringify(cartItems))
+
+            divToDelete.remove()
+            testItems();
+        }
+    }
 
     return (
         <> 
-            <Header sendFilter={filterReturn} showFilter={false}/>
+            <Header sendFilter={()=>{}} showFilter={false}/>
             
             {cartItems.length > 0 && (
                 <section className="cart-items">
                     <h2 className="cart-page-title font-extra-bold">Meu Carrinho</h2>
-                    {cartItems.map(item=>(
-                        <CartItem
-                        key={item.id}
-                        title={item.name}
-                        image={item.img}
-                        originalPrice={item.price}
-                        count={item.quantity}
-                        />
-                    ))}
+                    {cartItems.map(item=>{
+                        return(
+                            <CartItem
+                            key={item.id}
+                            id={item.id}
+                            title={item.title}
+                            image={item.image}
+                            originalPrice={item.price > 0 ? item.price : forceIntMakeItRandom(5,40)}
+                            count={item.quant}
+                            setQuant={modifyQuantLocalStorage}
+                            deleteItem={deleteCartItem}
+                            />
+                        )
+                    })}
                 </section>
             )}
             {cartItems.length === 0 && (
