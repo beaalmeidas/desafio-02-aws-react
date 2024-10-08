@@ -204,10 +204,9 @@ button {
 }
 
 .purchaseBtns>div {
-    padding-left: 0.6rem;
     display: flex;
     align-items: center;
-    width: 10.3rem;
+    width: 10.6rem;
     border-radius: 0.5rem;
     height: 3.5rem;
     font-size: .9rem;
