@@ -10,8 +10,7 @@ import FinishedPurPage from "../pages/FinishedPurPage";
 import CartPage from "../pages/CartPage";
 import LoginPage from "../pages/LoginPage";
 // import { HomePage } from "../pages/homePage";
-
-import { CharacterDetailsPage } from "../pages/CharacterDetails";
+import { CharacterDetailsPage } from "../pages/CharacterDetailsPage";
 
 
 

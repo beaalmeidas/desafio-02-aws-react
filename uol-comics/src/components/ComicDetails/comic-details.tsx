@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import md5 from 'crypto-js/md5';
 import './comic-details-style.css';
 import '../ComicCard/comic-card-style.css';
+import Header from '../header';
 
 interface ComicCharacter {
     id: number;
@@ -44,7 +45,7 @@ interface CartItem {
 const ComicDetails: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     const [comic, setComic] = useState<Comic | null>(null);
-    const [extraComic, setExtraComic] = useState<Array<any>>([]);
+    const [extraComic, setExtraComic] = useState<Array<Comic>>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
     const [cartItems, setCartItems] = useState<Array<CartItem>>(() => {
@@ -163,46 +164,63 @@ const ComicDetails: React.FC = () => {
 
     return (
         <div className="comic-details">
-            <Link to="/" className="back-button">← Voltar</Link>
-            <div className="comic-info">
-                <div className="comic-cover">
-                    <img src={`${comic.images[0]?.path}.${comic.images[0]?.extension}`} alt={comic.title} />
-                </div>
-                <div className="comic-details-text">
-                    <h1>{comic.title}</h1>
-                    <p className="comic-price">R$ {comic.prices[0]?.price.toFixed(2)}</p>
-                    <div className="comic-meta">
-                        <p><strong>Publicado em:</strong> {comic.dates[0]?.date ? new Date(comic.dates[0]?.date).getFullYear() : 'Desconhecido'}</p>
-                        <p><strong>Núm. de Páginas:</strong> {comic.pageCount || 'Desconhecido'}</p>
-                        <p><strong>Autor:</strong> {comic.creators.items[0]?.name || 'Desconhecido'}</p>
-                        <p><strong>Série:</strong> {comic.series?.name || 'Desconhecido'}</p>
+        <Header showFilter={false} sendFilter={()=>{}}/>
+        <Link to="/" className="back-button">← Voltar</Link>
+
+        <div className="comic-info">
+            <div className="comic-cover">
+            <img src={`${comic.images[0]?.path}.${comic.images[0]?.extension}`} alt={comic.title} />
+            </div>
+
+            <div className="comic-details-text">
+            <h1>{comic.title}</h1>
+            <p className="comic-price">R$ {comic.prices[0]?.price.toFixed(2)}</p>
+            
+            <div className="comic-meta">
+                <p><strong>Publicado em:</strong> {comic.dates[0]?.date ? new Date(comic.dates[0]?.date).toLocaleDateString('pt-BR') : 'Desconhecido'}</p>
+                <p><strong>Núm. de Páginas:</strong> {comic.pageCount || 'Desconhecido'}</p>
+                <p><strong>Autor:</strong> {comic.creators.items[0]?.name || 'Desconhecido'}</p>
+                <p><strong>Série:</strong> {comic.series?.name || 'Desconhecido'}</p>
+            </div>
+
+            <div className="comic-characters">
+                <h3>Personagens da obra</h3>
+                <div className="characters-list">
+                {comic.characters.items.map((character) => (
+                    <div key={character.id} className="character">
+                    {/* <img
+                        src={`${character.thumbnail.path}.${character.thumbnail.extension}`}
+                        alt={character.name}
+                    /> */}
+                    <p>{character.name}</p>
                     </div>
-                    <div className="comic-characters">
-                        <h3>Personagens da obra</h3>
-                        <div className="characters-list">
-                            <div key={comic.id} className="character">
-                                <img src={`${comic.thumbnail.path}.${comic.thumbnail.extension}`} alt={comic.title} />
-                                <p>{comic.title}</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="comic-buttons">
-                        <button className="add-to-cart" onClick={addToCart}>Adicionar ao carrinho</button>
-                        <button className="buy-now">Comprar agora</button>
-                    </div>
+                ))}
                 </div>
             </div>
-            <div className="related-comics">
-                <h2>Mais obras</h2>
-                <div className="related-comics-grid">
-                    {extraComic.map((relatedComic: any) => {
-                        return (
-                            <></>
-                        )
-                    })}
-                </div>
+
+            <div className="comic-buttons">
+                <button className="add-to-cart" onClick={addToCart}>Adicionar ao carrinho</button>
+                <button className="buy-now">Comprar agora</button>
+            </div>
             </div>
         </div>
+
+        <div className="related-comics">
+            <h2>Mais obras</h2>
+            <div className="related-comics-grid">
+            {extraComic.map((relatedComic) => (
+                <div key={relatedComic.id} className="related-comic">
+                {/* <img
+                    src={`${relatedComic.thumbnail.path}.${relatedComic.thumbnail.extension}`}
+                    alt={relatedComic.title}
+                />
+                <p>{relatedComic.title}</p> */}
+                </div>
+            ))}
+            </div>
+        </div>
+        </div>
+
     );
 };
 

@@ -11,8 +11,13 @@ interface Comic {
     images: { path: string; extension: string }[];
     dates: { date: string }[];
 }
+type Props = {
+    filter: string
+}
 
-const ComicList: React.FC = () => {
+const ComicList = (props: Props) => {
+    const {filter} = props
+
     const [comics, setComics] = useState<Comic[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
@@ -28,37 +33,31 @@ const ComicList: React.FC = () => {
 
     useEffect(() => {
         const fetchComics = async () => {
-            const cachedData = localStorage.getItem('comics');
-            const cachedTimestamp = localStorage.getItem('comicsTimestamp');
             const currentTime = new Date().getTime();
-
-            if (cachedData && cachedTimestamp && (currentTime - parseInt(cachedTimestamp)) < CACHE_TIME_LIMIT) {
-                setComics(JSON.parse(cachedData));
-                setLoading(false);
-            } else {
-                try {
-                    const response = await fetch(`${baseUrl}?ts=${ts}&apikey=${publicKey}&hash=${hash}&limit=20`);
-                    if (response.status === 429) {
-                        throw new Error('Too many requests. Please wait and try again.');
-                    }
-                    if (!response.ok) {
-                        throw new Error(`Network response was not ok, status: ${response.status}`);
-                    }
-                    const data = await response.json();
-                    setComics(data.data.results);
-
-                    localStorage.setItem('comics', JSON.stringify(data.data.results));
-                    localStorage.setItem('comicsTimestamp', currentTime.toString());
-                } catch (error) {
-                    setError((error as Error).message);
-                } finally {
-                    setLoading(false);
+        
+            try {
+                const response = await fetch(`${baseUrl}?ts=${ts}&apikey=${publicKey}&hash=${hash}&limit=20${filter !== '' ? `&titleStartsWith=${filter}` : ''}`);
+                if (response.status === 429) {
+                    throw new Error('Too many requests. Please wait and try again.');
                 }
+                if (!response.ok) {
+                    throw new Error(`Network response was not ok, status: ${response.status}`);
+                }
+                const data = await response.json();
+                setComics(data.data.results);
+
+                localStorage.setItem('comics', JSON.stringify(data.data.results));
+                localStorage.setItem('comicsTimestamp', currentTime.toString());
+            } catch (error) {
+                setError((error as Error).message);
+            } finally {
+                setLoading(false);
             }
-        };
+        }
+        
 
         fetchComics();
-    }, []);
+    }, [props]);
 
     if (loading) {
         return <div>Loading...</div>;

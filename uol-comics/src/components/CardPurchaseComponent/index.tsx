@@ -91,8 +91,9 @@ const CardPurchaseComponent: React.FC = () =>
                 getCeps(cepS) 
                 return
             }
-        toast.warn(<p className='warnText'>Por favor, insira um CEP válido de 8 dígitos.</p>)
         
+        if(cepS.length > 0) { return }
+        else { toast.warn(<p className='warnText'>Por favor, insira um CEP válido de 8 dígitos.</p>) }
     }
 
     const handleSubmitCEP = (e: React.FormEvent) => {
