@@ -16,19 +16,20 @@ export const CharacterDetailsPage = () => {
     const [characters, setCharacters] = useState<CharacterDetails[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
-
-    const baseUrl = `https://gateway.marvel.com/v1/public/characters`;
+    
+    const { id } = useParams();
+    const baseUrl = `https://gateway.marvel.com/v1/public/characters/${id}`;
     const publicKey = 'd6433e882e9629bd2ddae2d898ccb310';
     const privateKey = '427b52c4015694083dc047ddc7076888ce132ffc';
 
     const ts = useMemo(() => new Date().getTime().toString(), []); 
     const hash = useMemo(() => md5(ts + privateKey + publicKey).toString(), [ts]);
-    const CACHE_TIME_LIMIT = 24 * 60 * 60 * 1000;
+    //const CACHE_TIME_LIMIT = 24 * 60 * 60 * 1000;
 
     useEffect(() => {
-        const fetchCharacters = async () => {
-            const cachedData = localStorage.getItem('characters');
-            const cachedTimestamp = localStorage.getItem('charactersTimestamp');
+        const fetchCharacter = async () => {
+            //const cachedData = localStorage.getItem('characters');
+            //const cachedTimestamp = localStorage.getItem('charactersTimestamp');
             const currentTime = new Date().getTime();
 
             
@@ -49,8 +50,8 @@ export const CharacterDetailsPage = () => {
                             imageUrl: `${char.thumbnail.path}.${char.thumbnail.extension}`
                         }));
                     
-                    setCharacters(mappedCharacters);
-                    localStorage.setItem('characters', JSON.stringify(mappedCharacters));
+                    setCharacter(mappedCharacter);
+                    localStorage.setItem('characters', JSON.stringify(mappedCharacter));
                     localStorage.setItem('charactersTimestamp', currentTime.toString());
                 } catch (error) {
                     setError((error as Error).message);
@@ -60,7 +61,7 @@ export const CharacterDetailsPage = () => {
             }
         
 
-        fetchCharacters();
+        fetchCharacter();
     }, [ts, hash, baseUrl]);
 
     if (loading) {
@@ -73,9 +74,10 @@ export const CharacterDetailsPage = () => {
 
     return (
         <div className={styles.cardList}>
-            {characters.length > 0 ? (
-                characters.map((item) => (
+            {character.length > 0 ? (
+                character.map((item) => (
                     <Card
+                        charId={item.id}
                         key={item.id}
                         title={item.title}
                         description={item.description}

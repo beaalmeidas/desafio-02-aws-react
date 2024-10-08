@@ -22,6 +22,11 @@ option {
     font-size: 1.2rem;
 }
 
+button {
+    cursor: pointer;
+}
+
+
 .warnText {
     font-size: 2rem;
 }
@@ -283,7 +288,7 @@ option {
     }
 }
 
-@media (max-width: 375px) {
+@media (max-width: 431px) {
 
     input, select {
         height: 3rem;
@@ -468,6 +473,7 @@ option {
         font-size: 1.7rem;
         border: 3px solid transparent;
         border-radius: 1rem;
+        margin-bottom: 5rem;
     }
     
     .btnF:hover {
