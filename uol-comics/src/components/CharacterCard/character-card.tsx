@@ -1,9 +1,6 @@
-<<<<<<< HEAD:uol-comics/src/components/CardCharacter/Card.tsx
-import styles from "./Card.module.css";
 import { useNavigate } from "react-router-dom";
-=======
 import styles from "./character-card.module.css";
->>>>>>> develop:uol-comics/src/components/CharacterCard/character-card.tsx
+
 
 
 interface CardProps {
