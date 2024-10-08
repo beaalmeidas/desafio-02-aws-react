@@ -33,7 +33,7 @@ const Header = (props: Props) => {
 
     useEffect(() => {
         const cartItemsString = localStorage.getItem('cartItems')
-        if (cartItemsString) {
+        if (cartItemsString !== '[]') {
             setHasCartItem(true)
         }
         else{

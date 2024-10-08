@@ -45,7 +45,7 @@ const CartItem = ({id, image, title, originalPrice, count, setQuant, deleteItem}
             <button className='delete-icon' onClick={(e)=>{deleteItem(id,e.currentTarget.parentNode as HTMLDivElement)}}>
                 <img alt='delete' src='./assets/images/trash-icon.png'/>
             </button>
-            <h3 className='price font-extra-bold'>{itemPrice.toFixed(2)}</h3>
+            <h3 className='price font-extra-bold'>{itemPrice}</h3>
         </div>
     )
 }
