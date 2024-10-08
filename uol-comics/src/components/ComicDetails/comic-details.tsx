@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import md5 from 'crypto-js/md5';
 import './comic-details-style.css';
 import '../ComicCard/comic-card-style.css';
@@ -58,6 +58,8 @@ const ComicDetails: React.FC = () => {
     const privateKey = 'b2a097e93442bff9976716f199ecdeea9fe07f15';
     const ts = new Date().getTime().toString();
     const hash = md5(ts + privateKey + publicKey).toString();
+
+    const navigate = useNavigate()
 
     const addToCart = () => {
         if (id && comic) {
@@ -209,7 +211,7 @@ const ComicDetails: React.FC = () => {
             <h2>Mais obras</h2>
             <div className="related-comics-grid">
             {extraComic.map((relatedComic) => (
-                <div key={relatedComic.id} className="related-comic">
+                <div key={relatedComic.id} className="related-comic" onClick={()=>{navigate(`/comic-details/${relatedComic.id}`); location.reload()}}>
                 <img
                     src={`${relatedComic.thumbnail.path}.${relatedComic.thumbnail.extension}`}
                     alt={relatedComic.title}
