@@ -33,6 +33,10 @@ interface Comic {
     series: Series;
     thumbnail: { path: string; extension: string };
 }
+interface CartItem {
+    id: string,
+    quant: number
+}
 
 const ComicDetails: React.FC = () => {
     const { id } = useParams<{ id: string }>();
@@ -40,7 +44,7 @@ const ComicDetails: React.FC = () => {
     const [extraComic, setExtraComic] = useState<Array<any>>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
-    const [cartItems, setCartItems] = useState<Array<string>>(() => {
+    const [cartItems, setCartItems] = useState<Array<CartItem>>(() => {
         const savedCartItems = localStorage.getItem('cartItems');
         return savedCartItems ? JSON.parse(savedCartItems) : [];
     });
@@ -53,7 +57,7 @@ const ComicDetails: React.FC = () => {
 
     const addToCart = () => {
         if (id) {
-            setCartItems(prevItems => [...prevItems, id]);
+            setCartItems(prevItems => [...prevItems, {id: id, quant: 1}]);
         } else {
             console.error('ID não encontrado. Não é possível adicionar ao carrinho.');
         }
@@ -85,21 +89,21 @@ const ComicDetails: React.FC = () => {
         fetchComic();
     }, []);
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                let intId = id !== null ? parseInt(id ?? '0') : 0;
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //         try {
+    //             let intId = id !== null ? parseInt(id ?? '0') : 0;
     
-                for (let i = intId + 1; i <= intId + 7; i++) {
-                    await fetchExtra(i);
-                }
-            } catch (error) {
-                console.error('Error fetching data:', error);
-            }
-        };
+    //             for (let i = intId + 1; i <= intId + 7; i++) {
+    //                 await fetchExtra(i);
+    //             }
+    //         } catch (error) {
+    //             console.error('Error fetching data:', error);
+    //         }
+    //     };
     
-        fetchData();
-    }, [id]);
+    //     fetchData();
+    // }, [id]);
     
     async function fetchExtra(i: number) {
         const baseUrl = `https://gateway.marvel.com/v1/public/comics/${i}`;

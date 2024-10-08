@@ -19,7 +19,10 @@ const CartPage = () => {
     }
 
     useEffect(() => {
-        
+        const cartItemsString = localStorage.getItem('cartItems');
+        const cartItemsArray = cartItemsString ? JSON.parse(cartItemsString) : [];
+        console.log(cartItemsArray);
+
     },[])
 
     return (
