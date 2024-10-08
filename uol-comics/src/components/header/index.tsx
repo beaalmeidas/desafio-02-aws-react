@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import './style.css'
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 type Props = {
     sendFilter: (filterValue: string) => void
@@ -8,6 +8,7 @@ type Props = {
 }
 
 const Header = (props: Props) => {
+    const navigate = useNavigate()
     const {sendFilter, showFilter} = props
     const location = useLocation()
 
@@ -85,7 +86,7 @@ const Header = (props: Props) => {
                 onMouseLeave={()=>{setLogoutImage('./assets/images/logout.png')}}
                 >
                     <img src={logoutImage} alt="logout"/>
-                    <p>Sair</p>
+                    <p onClick={() => {navigate('/')}}>Sair</p>
                 </button>
             </section>
         </header>
