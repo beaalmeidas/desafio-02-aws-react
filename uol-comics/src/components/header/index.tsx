@@ -84,9 +84,10 @@ const Header = (props: Props) => {
                 <button className="logout-button normal-button button-square"
                 onMouseEnter={()=>{setLogoutImage('./assets/images/logout-hover.png')}}
                 onMouseLeave={()=>{setLogoutImage('./assets/images/logout.png')}}
+                onClick={() => {navigate('/')}}
                 >
                     <img src={logoutImage} alt="logout"/>
-                    <p onClick={() => {navigate('/')}}>Sair</p>
+                    <p>Sair</p>
                 </button>
             </section>
         </header>
