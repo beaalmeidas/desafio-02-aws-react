@@ -31,6 +31,16 @@ const Header = (props: Props) => {
         }
     }
 
+    useEffect(() => {
+        const cartItemsString = localStorage.getItem('cartItems')
+        if (cartItemsString) {
+            setHasCartItem(true)
+        }
+        else{
+            setHasCartItem(false)
+        }
+    },[localStorage])
+
     return (
         <header>
             <section className="title-name">
