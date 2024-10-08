@@ -13,6 +13,10 @@ body {
     width: 100vw;
 }
 
+button {
+    cursor: pointer;
+}
+
 h2 {
     font-size: 3rem;
     font-weight: 800;
@@ -86,7 +90,7 @@ p, b {
     margin: 10rem;
 }
 
-@media (max-width: 375px) {
+@media (max-width: 431px) {
     * {
         padding: 0;
         margin: 0;

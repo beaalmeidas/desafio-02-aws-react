@@ -65,7 +65,6 @@ const CardPurchaseComponent: React.FC = () =>
                 return
             }
 
-            console.log(response.data)
             setData(response.data)
 
             const { bairro, cep, complemento, localidade, logradouro, uf, unidade } = response.data;
@@ -80,7 +79,6 @@ const CardPurchaseComponent: React.FC = () =>
             setHood(bairro)            
             setCepS(cep)
             //setIsValidCep(true)
-            console.log(data)
         }
         catch 
         { toast.error(<p className='warnText'>'Não foi possível buscar 
@@ -93,8 +91,9 @@ const CardPurchaseComponent: React.FC = () =>
                 getCeps(cepS) 
                 return
             }
-        toast.warn(<p className='warnText'>Por favor, insira um CEP válido de 8 dígitos.</p>)
         
+        if(cepS.length > 0) { return }
+        else { toast.warn(<p className='warnText'>Por favor, insira um CEP válido de 8 dígitos.</p>) }
     }
 
     const handleSubmitCEP = (e: React.FormEvent) => {

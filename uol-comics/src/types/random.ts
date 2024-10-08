@@ -5,3 +5,7 @@ export function makeItRandom(a: number, b:number, isInt:boolean): string | numbe
     
     return Math.floor((Math.random() * (b-a) + a))
 }
+
+export function forceIntMakeItRandom (a: number, b:number): number{
+    return Math.floor((Math.random() * (b-a) + a))
+}

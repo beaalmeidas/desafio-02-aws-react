@@ -1,7 +1,9 @@
 import { useEffect, useState, useMemo } from "react";
-import { Card } from "../components/CharacterCard/character-card"; 
+import { Card } from "../components/CharacterCard/character-card";
 import styles from "./CharacterPage.module.css";
 import md5 from 'crypto-js/md5';
+import { useParams } from "react-router-dom";
+import Header from "../components/header";
 
 interface CharacterDetails {
     id: number;
@@ -16,21 +18,18 @@ export const CharacterDetailsPage = () => {
     const [characters, setCharacters] = useState<CharacterDetails[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
-
-    const baseUrl = `https://gateway.marvel.com/v1/public/characters`;
+    
+    const { id } = useParams();
+    const baseUrl = `https://gateway.marvel.com/v1/public/characters/${id}`;
     const publicKey = 'd6433e882e9629bd2ddae2d898ccb310';
     const privateKey = '427b52c4015694083dc047ddc7076888ce132ffc';
 
     const ts = useMemo(() => new Date().getTime().toString(), []); 
     const hash = useMemo(() => md5(ts + privateKey + publicKey).toString(), [ts]);
-    const CACHE_TIME_LIMIT = 24 * 60 * 60 * 1000;
 
     useEffect(() => {
         const fetchCharacters = async () => {
-            const cachedData = localStorage.getItem('characters');
-            const cachedTimestamp = localStorage.getItem('charactersTimestamp');
             const currentTime = new Date().getTime();
-
             
                 try {
                     const response = await fetch(`${baseUrl}?ts=${ts}&apikey=${publicKey}&hash=${hash}&limit=20`);
@@ -72,19 +71,23 @@ export const CharacterDetailsPage = () => {
     }
 
     return (
-        <div className={styles.cardList}>
-            {characters.length > 0 ? (
-                characters.map((item) => (
-                    <Card
-                        key={item.id}
-                        title={item.title}
-                        description={item.description}
-                        imageUrl={item.imageUrl}
-                    />
-                ))
-            ) : (
-                <p>Nenhum resultado encontrado</p>
-            )}
-        </div>
+        <>  
+            <Header showFilter={false} sendFilter={()=>{}}/>
+            <div className={styles.cardList}>
+                {characters.length > 0 ? (
+                    characters.map((item) => (
+                        <Card
+                            charId={item.id}
+                            key={item.id}
+                            title={item.title}
+                            description={item.description}
+                            imageUrl={item.imageUrl}
+                        />
+                    ))
+                ) : (
+                    <p>Nenhum resultado encontrado</p>
+                )}
+            </div>
+        </>
     );
 };

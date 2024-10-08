@@ -1,0 +1,144 @@
+/* Comic Details Page */
+
+.comic-details {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .back-button {
+    color: #FF6F00;
+    text-decoration: none;
+    font-weight: bold;
+    margin-bottom: 20px;
+    display: inline-block;
+  }
+  
+  .comic-info {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 40px;
+  }
+  
+  .comic-cover img {
+    width: 300px;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .comic-details-text {
+    max-width: 600px;
+    flex-grow: 1;
+  }
+  
+  .comic-details-text h1 {
+    font-size: 28px;
+    margin-bottom: 10px;
+  }
+  
+  .comic-price {
+    font-size: 24px;
+    font-weight: bold;
+    color: #FF6F00;
+    margin-bottom: 15px;
+  }
+  
+  .comic-meta {
+    margin-bottom: 20px;
+  }
+  
+  .comic-meta p {
+    margin: 5px 0;
+  }
+  
+  .comic-characters {
+    margin-bottom: 20px;
+  }
+  
+  .characters-list {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .character {
+    text-align: center;
+  }
+  
+  .character img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
+  .comic-buttons {
+    display: flex;
+    gap: 15px;
+  }
+  
+  .add-to-cart,
+  .buy-now {
+    background-color: #FF6F00;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .add-to-cart:hover,
+  .buy-now:hover {
+    background-color: #E65C00;
+  }
+  
+  .related-comics {
+    margin-top: 40px;
+  }
+  
+  .related-comics h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .related-comics-grid {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+  }
+  
+  .related-comics-grid img {
+    width: 120px;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* For responsiveness */
+  @media (max-width: 768px) {
+    .comic-info {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .comic-cover img {
+      width: 100%;
+      max-width: 250px;
+    }
+  
+    .comic-details-text {
+      max-width: 100%;
+      text-align: center;
+    }
+  
+    .comic-buttons {
+      justify-content: center;
+    }
+  
+    .related-comics-grid {
+      justify-content: center;
+    }
+  }
+  
