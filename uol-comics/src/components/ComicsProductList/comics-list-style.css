@@ -1,3 +1,4 @@
+/* GRID DE PRODUTOS ------------------------------------------ */
 .comic-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -5,12 +6,10 @@
     padding: 20px; 
 }
 
-
 .comic-grid-container {
     max-height: 100vh;
     overflow-y: auto;
 }
-
 
 .product-list {
     display: grid;

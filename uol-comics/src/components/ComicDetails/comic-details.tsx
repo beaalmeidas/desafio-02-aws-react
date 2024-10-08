@@ -32,7 +32,9 @@ interface Comic {
     relatedComics: RelatedComic[];
     pageCount: number;
     series: Series;
+
     thumbnail: { path: string; extension: string };
+
 }
 interface CartItem {
     id: string,
@@ -94,6 +96,15 @@ const ComicDetails: React.FC = () => {
     useEffect(setInLocalStorage,[cartItems])
 
     // Fetch comic details
+    const [loading, setLoading] = useState<boolean>(true);
+    const [error, setError] = useState<string | null>(null);
+
+    const baseUrl = `https://gateway.marvel.com/v1/public/comics/${id}`;
+    const publicKey = '17ce5551a82bf2502ac676b91fd1a7ab';
+    const privateKey = '99014e1f8df770dc8e3f585343a54989349a7e78';
+    
+    const ts = new Date().getTime().toString();
+    const hash = md5(ts + privateKey + publicKey).toString();
     useEffect(() => {
         const fetchComic = async () => {
             try {
@@ -195,6 +206,44 @@ const ComicDetails: React.FC = () => {
                         alt={character.name}
                     />
                     <p>{character.name}</p>
+                    */}
+            <Link to="/" className="back-button">← Voltar</Link>
+            <div className="comic-info">
+                <div className="comic-cover">
+                    <img src={`${comic.images[0]?.path}.${comic.images[0]?.extension}`} alt={comic.title} />
+                </div>
+                <div className="comic-details-text">
+                    <h1>{comic.title}</h1>
+                    <p className="comic-price">R$ {comic.prices[0]?.price.toFixed(2)}</p>
+                    <div className="comic-meta">
+                        <p><strong>Publicado em:</strong> {comic.dates[0]?.date ? new Date(comic.dates[0]?.date).getFullYear() : 'Desconhecido'}</p>
+                        <p><strong>Núm. de Páginas:</strong> {comic.pageCount || 'Desconhecido'}</p>
+                        <p><strong>Autor:</strong> {comic.creators.items[0]?.name || 'Desconhecido'}</p>
+                        <p><strong>Série:</strong> {comic.series?.name || 'Desconhecido'}</p>
+                    </div>
+                    <div className="comic-characters">
+                        <h3>Personagens da obra</h3>
+                        <div className="characters-list">
+                            <div key={comic.id} className="character">
+                                <img src={`${comic.thumbnail.path}.${comic.thumbnail.extension}`} alt={comic.title} />
+                                <p>{comic.title}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="comic-buttons">
+                        <button className="add-to-cart" onClick={addToCart}>Adicionar ao carrinho</button>
+                            {comic.characters.items.map((character) => (
+                                <div key={character.id} className="character">
+
+                                    <img src={`${character.thumbnail.path}.${character.thumbnail.extension}`} alt={character.name} />
+                                    <p>{character.name}</p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                    <div className="comic-buttons">
+                        <button className="add-to-cart">Adicionar ao carrinho</button>
+                        <button className="buy-now">Comprar agora</button>
                     </div>
                 ))} */}
                 </div>
@@ -217,6 +266,16 @@ const ComicDetails: React.FC = () => {
                     alt={relatedComic.title}
                 />
                 <p>{relatedComic.title}</p>
+            <div className="related-comics">
+                <h2>Mais obras</h2>
+                <div className="related-comics-grid">
+
+                    {comic.relatedComics.map((relatedComic) => (
+                        <div key={relatedComic.id} className="related-comic-item">
+                            <img src={`${relatedComic.thumbnail.path}.${relatedComic.thumbnail.extension}`} alt={relatedComic.title} />
+                            <p>{relatedComic.title}</p>
+                        </div>
+                    ))}
                 </div>
             ))}
             </div>

@@ -3,6 +3,7 @@ import ComicCard from '../ComicCard/comic-card';
 import md5 from 'crypto-js/md5';
 import '../ComicsProductList/comics-list-style.css'
 
+
 interface Comic {
     id: number;
     title: string;
