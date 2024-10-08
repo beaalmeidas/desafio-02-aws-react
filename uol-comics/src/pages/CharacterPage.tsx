@@ -1,5 +1,8 @@
+
 import { useEffect, useState, useMemo } from "react";
-import { Card } from "../components/CardCharacter/Card";
+import { Card } from "../components/CharacterCard/character-card";
+
+
 import styles from "./CharacterPage.module.css";
 import md5 from 'crypto-js/md5';
 //import { useNavigate } from 'react-router-dom';

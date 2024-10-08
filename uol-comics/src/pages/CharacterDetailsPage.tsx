@@ -1,12 +1,19 @@
 import { useEffect, useState, useMemo } from "react";
-import { Card } from "../components/CardCharacter/Card";
+import { Card } from "../components/CharacterCard/character-card"; 
 import styles from "./CharacterPage.module.css";
 import md5 from 'crypto-js/md5';
-import { Character } from "./CharacterPage";
-import { useParams } from 'react-router-dom';
+
+interface CharacterDetails {
+    id: number;
+    title: string;
+    description: string;
+    imageUrl: string;
+    thumbnail: {path: string, extension: string}
+    name: string
+}
 
 export const CharacterDetailsPage = () => {
-    const [character, setCharacter] = useState<Character[]>([]);
+    const [characters, setCharacters] = useState<CharacterDetails[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
     
@@ -35,7 +42,7 @@ export const CharacterDetailsPage = () => {
                         throw new Error(`Network response was not ok, status: ${response.status}`);
                     }
                     const data = await response.json();
-                    const mappedCharacter = data.data.results.map((char) => 
+                    const mappedCharacters = data.data.results.map((char: CharacterDetails) => 
                         ({
                             id: char.id,
                             title: char.name,

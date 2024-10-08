@@ -22,7 +22,6 @@ const ComicList: React.FC = () => {
     const privateKey = '99014e1f8df770dc8e3f585343a54989349a7e78';
 
     const ts = new Date().getTime().toString();
-
     const hash = md5(ts + privateKey + publicKey).toString();
 
     const CACHE_TIME_LIMIT = 24 * 60 * 60 * 1000;
@@ -59,7 +58,7 @@ const ComicList: React.FC = () => {
         };
 
         fetchComics();
-    }, [ts, hash]);
+    }, []);
 
     if (loading) {
         return <div>Loading...</div>;
@@ -74,21 +73,23 @@ const ComicList: React.FC = () => {
             <div className="product-list">
                 {comics
                     .filter(comic => 
-                        comic.images.length > 0 && 
-                        comic.prices[0]?.price > 0 && 
+                        comic.images?.length > 0 && 
+                        comic.prices?.[0]?.price > 0 && 
                         comic.title !== 'Marvel Previews (2017)' && 
-                        comic.creators.items.length > 0
+                        comic.creators?.items?.length > 0
                     )
                     .map(comic => (
                         <ComicCard 
-                            key={comic.id} 
-                            cover_image={`${comic.images[0]?.path}.${comic.images[0]?.extension}`}
+                            key={comic.id}
+                            id={comic.id} 
+                            cover_image={`${comic.images?.[0]?.path}.${comic.images?.[0]?.extension}`}
                             title={comic.title} 
-                            price={comic.prices[0]?.price || 0}
-                            author={comic.creators.items[0]?.name || 'Desconhecido'}
-                            release_year={comic.dates[0]?.date ? new Date(comic.dates[0]?.date).getFullYear() : 0} 
+                            price={comic.prices?.[0]?.price || 0}
+                            author={comic.creators?.items?.[0]?.name || 'Desconhecido'}
+                            release_year={comic.dates?.[0]?.date ? new Date(comic.dates?.[0]?.date).getFullYear() : 0} 
                         />
-                    ))}
+                    ))
+                }
             </div>
         </div>
     );    

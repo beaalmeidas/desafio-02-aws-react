@@ -11,7 +11,6 @@ const ComicsPage = () => {
     return (
         <div className="comics-page">
             <Header sendFilter={filterReturn} showFilter={true}/>
-            
             <div className="comic-cards-container">
                 <ComicsList />
             </div>
