@@ -8,8 +8,7 @@ import FinishedPurPage from "../pages/FinishedPurPage";
 import CartPage from "../pages/CartPage";
 import LoginPage from "../pages/LoginPage";
 // import { HomePage } from "../pages/homePage";
-
-import { CharacterDetails } from "../pages/CharacterDetails";
+import { CharacterDetailsPage } from "../pages/CharacterDetailsPage";
 
 export const AppRoutes = () => {
   return (
@@ -21,9 +20,10 @@ export const AppRoutes = () => {
         <Route path="/character-page" element={<CharacterPage />} />
 
         <Route path="/cart" element={<CartPage />} />
+        <Route path="/characterDetails-page" element={<CharacterPage />} />
+        <Route path="/characterDetails-page/:id" element={<CharacterDetailsPage />} />
         <Route path="/purchase-page" element={<PurchasePage/>} />
         <Route path="/finished-pur-page" element={<FinishedPurPage/>}/>
-        <Route path="/characterDetails-page" element={<CharacterDetails/>} />
       </Route>
     </Routes>
   );

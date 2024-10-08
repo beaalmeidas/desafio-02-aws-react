@@ -283,7 +283,11 @@ option {
     }
 }
 
-@media (max-width: 375px) {
+button {
+    cursor: pointer;
+}
+
+@media (max-width: 431px) {
 
     input, select {
         height: 3rem;
