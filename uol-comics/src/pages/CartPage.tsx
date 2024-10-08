@@ -5,42 +5,53 @@ import Header from '../components/header';
 
 type BuyableItems = {
     id: number,
-    name: string,
+    title: string,
     price: number,
-    quantity: number,
-    img: string,
+    quant: number,
+    image: string,
 }
 
 const CartPage = () => {
     const [cartItems, setCartItems] = useState<Array<BuyableItems>>([])
-    
-    const filterReturn = (filterValue: string) => {
-        console.log(filterValue)
-    }
 
     useEffect(() => {
         const cartItemsString = localStorage.getItem('cartItems');
         const cartItemsArray = cartItemsString ? JSON.parse(cartItemsString) : [];
-        console.log(cartItemsArray);
-
+        setCartItems(cartItemsArray)
     },[])
+
+    const modifyQuantLocalStorage = (id: number, quant: number) => {
+        const foundedIndex = cartItems.findIndex((item) => {
+            return item.id === id;
+        })
+
+        if (foundedIndex > -1) {
+            cartItems[foundedIndex].quant = quant
+
+            localStorage.setItem('cartItems', JSON.stringify(cartItems))
+        }
+    }
 
     return (
         <> 
-            <Header sendFilter={filterReturn} showFilter={false}/>
+            <Header sendFilter={()=>{}} showFilter={false}/>
             
             {cartItems.length > 0 && (
                 <section className="cart-items">
                     <h2 className="cart-page-title font-extra-bold">Meu Carrinho</h2>
-                    {cartItems.map(item=>(
-                        <CartItem
-                        key={item.id}
-                        title={item.name}
-                        image={item.img}
-                        originalPrice={item.price}
-                        count={item.quantity}
-                        />
-                    ))}
+                    {cartItems.map(item=>{
+                        return(
+                            <CartItem
+                            key={item.id}
+                            id={item.id}
+                            title={item.title}
+                            image={item.image}
+                            originalPrice={5}
+                            count={item.quant}
+                            setQuant={modifyQuantLocalStorage}
+                            />
+                        )
+                    })}
                 </section>
             )}
             {cartItems.length === 0 && (

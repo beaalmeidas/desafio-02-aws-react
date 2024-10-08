@@ -35,7 +35,10 @@ interface Comic {
 }
 interface CartItem {
     id: string,
-    quant: number
+    quant: number,
+    image: string,
+    price: string,
+    title: string
 }
 
 const ComicDetails: React.FC = () => {
@@ -56,15 +59,36 @@ const ComicDetails: React.FC = () => {
     const hash = md5(ts + privateKey + publicKey).toString();
 
     const addToCart = () => {
-        if (id) {
-            setCartItems(prevItems => [...prevItems, {id: id, quant: 1}]);
+        if (id && comic) {
+            const foundedIndex = cartItems.findIndex((item) => id === item.id)
+            
+            if (foundedIndex === -1){
+                setCartItems(prevItems => [...prevItems, {
+                    id: id,
+                    quant: 1,
+                    image: `${comic.images[0]?.path}.${comic.images[0]?.extension}`,
+                    price: comic.prices[0]?.price.toFixed(2),
+                    title: comic.title
+                }]);
+            }
+            else {
+                cartItems[foundedIndex] = {
+                    id: id,
+                    quant: cartItems[foundedIndex].quant + 1,
+                    image: `${comic.images[0]?.path}.${comic.images[0]?.extension}`,
+                    price: comic.prices[0]?.price.toFixed(2),
+                    title: comic.title
+                }
+                setInLocalStorage()
+            }
         } else {
             console.error('ID não encontrado. Não é possível adicionar ao carrinho.');
         }
     }
-    useEffect(() => {
+    const setInLocalStorage = () => {
         localStorage.setItem('cartItems', JSON.stringify(cartItems))
-    },[cartItems])
+    }
+    useEffect(setInLocalStorage,[cartItems])
 
     // Fetch comic details
     useEffect(() => {
@@ -172,7 +196,6 @@ const ComicDetails: React.FC = () => {
                 <h2>Mais obras</h2>
                 <div className="related-comics-grid">
                     {extraComic.map((relatedComic: any) => {
-                        console.log(relatedComic)
                         return (
                             <></>
                         )

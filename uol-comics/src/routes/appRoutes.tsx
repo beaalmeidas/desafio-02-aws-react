@@ -18,17 +18,17 @@ import { CharacterDetailsPage } from "../pages/CharacterDetails";
 export const AppRoutes = () => {
   return (
     <Routes>
-      <Route path="/" element={<DefaultLayout />}>
-        <Route path="/" element={<LoginPage />} />
-        <Route path="/comics-list" element={<ComicsPage />} />
-        <Route path="/comic-details/:id" element={<ComicDetailsPage />} />
-        <Route path="/character-page" element={<CharacterPage />} />
 
-        <Route path="/cart" element={<CartPage />} />
-        <Route path="/purchase-page" element={<PurchasePage/>} />
-        <Route path="/finished-pur-page" element={<FinishedPurPage/>}/>
-        <Route path="/characterDetails-page" element={<CharacterDetailsPage/>} />
-      </Route>
+      <Route path="/" element={<LoginPage />} />
+      <Route path="/comics-list" element={<ComicsPage />} />
+      <Route path="/comic-details/:id" element={<ComicDetailsPage />} />
+      <Route path="/character-page" element={<CharacterPage />} />
+
+      <Route path="/cart" element={<CartPage />} />
+      <Route path="/purchase-page" element={<PurchasePage/>} />
+      <Route path="/finished-pur-page" element={<FinishedPurPage/>}/>
+      <Route path="/characterDetails-page" element={<CharacterDetailsPage/>} />
+
     </Routes>
   );
 };

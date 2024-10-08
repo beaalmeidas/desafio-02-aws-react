@@ -1,23 +1,26 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import './style.css'
 
 type Prop = {
+    id: number,
     image: string,
     title: string,
     originalPrice: number,
-    count: number
+    count: number,
+    setQuant: (id: number,quant:number) => void;
 }
 
-const CartItem = ({image, title, originalPrice, count}: Prop) => {
-    const [itemPrice,setItemPrice] = useState(originalPrice)
-    const [baseCount, setBaseCount] = useState(count)
+const CartItem = ({id, image, title, originalPrice, count, setQuant}: Prop) => {
+    const [itemPrice,setItemPrice] = useState<number>(originalPrice)
+    const [baseCount, setBaseCount] = useState<number>(count)
 
-    useEffect(()=> {
-        setBaseCount(count)
-    },[])
+    const countElemnt = useRef<HTMLParagraphElement>(null)
 
     useEffect(() => {
-        setItemPrice(baseCount * originalPrice)
+        if (countElemnt.current){
+            setItemPrice(parseInt(countElemnt.current.innerHTML) * originalPrice)
+            setQuant(id,parseInt(countElemnt.current.innerHTML))
+        }
     },[originalPrice, baseCount])
 
     return (
@@ -30,7 +33,7 @@ const CartItem = ({image, title, originalPrice, count}: Prop) => {
                         <button className='counter-button normal-button'
                         onClick={() => {setBaseCount(baseCount - 1)}}>-</button>
 
-                        <p className='count font-semi-bold'>{baseCount}</p>
+                        <p className='count font-semi-bold' ref={countElemnt}>{baseCount}</p>
 
                         <button className='counter-button normal-button'
                         onClick={()=>{setBaseCount(baseCount + 1)}}>+</button>
@@ -41,7 +44,7 @@ const CartItem = ({image, title, originalPrice, count}: Prop) => {
             <button className='delete-icon'>
                 <img alt='delete' src='./assets/images/trash-icon.png'/>
             </button>
-            <h3 className='price font-extra-bold'>{itemPrice.toFixed(2)}</h3> 
+            <h3 className='price font-extra-bold'>{itemPrice.toFixed(2)}</h3>
         </div>
     )
 }

@@ -65,7 +65,6 @@ const CardPurchaseComponent: React.FC = () =>
                 return
             }
 
-            console.log(response.data)
             setData(response.data)
 
             const { bairro, cep, complemento, localidade, logradouro, uf, unidade } = response.data;
@@ -80,7 +79,6 @@ const CardPurchaseComponent: React.FC = () =>
             setHood(bairro)            
             setCepS(cep)
             //setIsValidCep(true)
-            console.log(data)
         }
         catch 
         { toast.error(<p className='warnText'>'Não foi possível buscar 

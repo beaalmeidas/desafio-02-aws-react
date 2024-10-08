@@ -5,7 +5,6 @@ import ComicsList from "../components/ComicsProductList/comics-list";
 
 const ComicsPage = () => {
     const filterReturn = (filterValue: string) => {
-        console.log(filterValue)
     }
 
     return (

@@ -8,8 +8,8 @@ interface CharacterDetails {
     title: string;
     description: string;
     imageUrl: string;
-    name: string;
     thumbnail: {path: string, extension: string}
+    name: string
 }
 
 export const CharacterDetailsPage = () => {
